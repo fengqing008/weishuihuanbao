@@ -22,6 +22,35 @@
 | **污水工艺优化** | `skills/qf-wwtp-optimization` | 工艺优化、曝气能耗 | 曝气能耗核算、脱氮除磷优化、加药优化、提标改造 |
 | **技能脱敏发布** | `skills/qf-skill-publish` | 技能脱敏、发布到 GitHub | 敏感信息扫描、通用代称替换、元数据规范化、DNS 污染绕过、Token 授权排障 |
 
+## 通用工具技能
+
+除上述水务环保专业能力外，本仓库另收录 **20 个通用工具类技能**，覆盖文档转换、图像设计、法律检索、写作沟通与效率场景，均为独立可用的工作流包，且已做脱敏复核。
+
+| 技能 | 目录 | 说明 |
+|:---|:---|:---|
+| **文档转 Markdown** | `skills/anydoc` | Word/PPT/Excel/PDF 等 20 种格式秒转 Markdown |
+| **文档转 Markdown 官** | `skills/markitdown-skill` | 多格式转 Markdown，集成 OCR 与音频转写 |
+| **Markdown 排版美化** | `skills/baoyu-format-markdown` | 补标题、摘要、列表、代码块，提升版式 |
+| **精翻翻译** | `skills/baoyu-translate` | 快速／常规／精翻三模式，支持自定义术语表 |
+| **民事与常用法律顾问** | `skills/civil-code-cn` | 民法典 1260 条 + 15 部常用法律 3201 条全文 |
+| **法律咨询研判** | `skills/wangyang-perspective` | 锚定诉求→定性→时间线→分层动作 |
+| **活性污泥计算器** | `skills/activated-sludge-calculator` | 活性污泥工艺动力学计算（ASM2d 简化模型） |
+| **环境治理技术对比** | `skills/环境治理技术对比表格生成器` | 多维度技术比选对比表格生成 |
+| **极简压缩官** | `skills/caveman-distillate` | 把冗长表达蒸馏为高密度核心信息 |
+| **会议洞察分析** | `skills/meeting-insights-analyzer` | 发言比例、打断、提问比、沟通行为模式 |
+| **专业 SVG 图表** | `skills/baoyu-diagram` | 架构／流程／时序／思维导图等深色系图表 |
+| **技术图绘制官** | `skills/fireworks-tech-graph` | 14 类图型 × 7 套视觉风格，输出 SVG/PNG |
+| **手绘图生成官** | `skills/excalidraw-diagram` | 输出可编辑的 `.excalidraw` 手绘风图表 |
+| **手绘线稿插图** | `skills/qf-lineart` | 32 个母题、7 套配色、5 种笔触的线稿引擎 |
+| **画布设计** | `skills/canvas-design` | 把设计哲学落成单页视觉作品 |
+| **图片去背景** | `skills/rembg-bg-remover` | 本地 CPU 抠图，输出透明 PNG |
+| **图像增强** | `skills/image-enhancer` | 超分、锐化、去噪、压缩伪影清理 |
+| **全网调研神器** | `skills/agent-reach` | 15 个平台多后端路由检索 |
+| **摇号抽签** | `skills/lucky-draw` | 密码学安全随机，可验证、可复现、可审计 |
+| **情感参谋** | `skills/junshi-advisor` | 消息研判与回复参谋，先忍住再说对 |
+
+> 本批技能经独立脱敏复核（企业名 / 项目地名 / 人名 / 内部标识 / 密钥凭证 / 本地路径均无残留）；部分技能改编或蒸馏自社区公开项目，版权归各原作者所有。
+
 ## 目录结构
 
 ```

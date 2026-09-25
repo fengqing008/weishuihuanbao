@@ -1,0 +1,149 @@
+{
+  "sepia": {
+    "cn": "暖褐",
+    "ink": "#6B4A2F",
+    "ink2": "#967450",
+    "accent": "#A9764A",
+    "paper": "#FBF6EC",
+    "rgb": {
+      "ink": [
+        107,
+        74,
+        47
+      ],
+      "paper": [
+        251,
+        246,
+        236
+      ]
+    },
+    "contrast_ink_on_paper": 7.37,
+    "contrast_ink_on_white": 7.94
+  },
+  "ochre": {
+    "cn": "赭石",
+    "ink": "#8A5A2B",
+    "ink2": "#B08248",
+    "accent": "#C08A3E",
+    "paper": "#FCF7EE",
+    "rgb": {
+      "ink": [
+        138,
+        90,
+        43
+      ],
+      "paper": [
+        252,
+        247,
+        238
+      ]
+    },
+    "contrast_ink_on_paper": 5.5,
+    "contrast_ink_on_white": 5.87
+  },
+  "amber": {
+    "cn": "暖金",
+    "ink": "#7A5320",
+    "ink2": "#A67C3C",
+    "accent": "#C89B3C",
+    "paper": "#FDF9EE",
+    "rgb": {
+      "ink": [
+        122,
+        83,
+        32
+      ],
+      "paper": [
+        253,
+        249,
+        238
+      ]
+    },
+    "contrast_ink_on_paper": 6.47,
+    "contrast_ink_on_white": 6.81
+  },
+  "terracotta": {
+    "cn": "陶土",
+    "ink": "#8C4A34",
+    "ink2": "#B27056",
+    "accent": "#C2704C",
+    "paper": "#FCF5F0",
+    "rgb": {
+      "ink": [
+        140,
+        74,
+        52
+      ],
+      "paper": [
+        252,
+        245,
+        240
+      ]
+    },
+    "contrast_ink_on_paper": 6.19,
+    "contrast_ink_on_white": 6.68
+  },
+  "rosewood": {
+    "cn": "玫瑰木",
+    "ink": "#7A3B3B",
+    "ink2": "#A0605C",
+    "accent": "#B2685F",
+    "paper": "#FCF5F4",
+    "rgb": {
+      "ink": [
+        122,
+        59,
+        59
+      ],
+      "paper": [
+        252,
+        245,
+        244
+      ]
+    },
+    "contrast_ink_on_paper": 7.75,
+    "contrast_ink_on_white": 8.35
+  },
+  "olive": {
+    "cn": "暖橄榄",
+    "ink": "#5E5A2C",
+    "ink2": "#84804A",
+    "accent": "#968E48",
+    "paper": "#FAF9EE",
+    "rgb": {
+      "ink": [
+        94,
+        90,
+        44
+      ],
+      "paper": [
+        250,
+        249,
+        238
+      ]
+    },
+    "contrast_ink_on_paper": 6.67,
+    "contrast_ink_on_white": 7.06
+  },
+  "ink": {
+    "cn": "墨黑（传统）",
+    "ink": "#2B2B2B",
+    "ink2": "#5A5A5A",
+    "accent": "#787878",
+    "paper": "#FAFAF8",
+    "rgb": {
+      "ink": [
+        43,
+        43,
+        43
+      ],
+      "paper": [
+        250,
+        250,
+        248
+      ]
+    },
+    "contrast_ink_on_paper": 13.55,
+    "contrast_ink_on_white": 14.16
+  }
+}
