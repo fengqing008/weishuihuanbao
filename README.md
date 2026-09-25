@@ -20,6 +20,7 @@
 | **水务工程诉讼** | `skills/qf-water-litigation` | 应诉、答辩状、举证质证 | 程序抗辩、答辩组织、证据准备、工程款纠纷 |
 | **水务政策查询** | `skills/qf-water-policy` | 政策检索、水价政策 | 政策目录、法规体系梳理、价格收费政策、时间线 |
 | **污水工艺优化** | `skills/qf-wwtp-optimization` | 工艺优化、曝气能耗 | 曝气能耗核算、脱氮除磷优化、加药优化、提标改造 |
+| **技能脱敏发布** | `skills/qf-skill-publish` | 技能脱敏、发布到 GitHub | 敏感信息扫描、通用代称替换、元数据规范化、DNS 污染绕过、Token 授权排障 |
 
 ## 目录结构
 
@@ -43,7 +44,8 @@ water-env-skills/
     ├── qf-process-manual/
     ├── qf-water-litigation/
     ├── qf-water-policy/
-    └── qf-wwtp-optimization/
+    ├── qf-wwtp-optimization/
+    └── qf-skill-publish/
 ```
 
 每个技能目录遵循统一结构：
