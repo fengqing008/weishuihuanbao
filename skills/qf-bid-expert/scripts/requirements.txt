@@ -1,0 +1,23 @@
+# eco-bid-expert 运行依赖
+#
+# 一、Python 依赖（标书排版与得分点导出）
+python-docx>=1.1.0
+openpyxl>=3.1.0
+#
+# 二、非 Python 依赖
+# pandoc —— 用于 Markdown → docx 转换（仅 bid_docx_formatter.py 处理 .md 输入时需要）
+#   安装：apt-get install pandoc   /   brew install pandoc   /   choco install pandoc
+#   已安装校验：pandoc --version
+#
+# 三、输入预处理（tender_input_prep.py）可选依赖，缺失时对应格式不可解析
+# pymupdf 或 pypdf —— 解析 PDF 文字层（pip install pymupdf / pypdf）
+# pdftotext（poppler-utils）—— PDF 文字层提取备选路径（apt-get install poppler-utils）
+# soffice（libreoffice）—— 解析 .doc 旧格式（apt-get install libreoffice）
+# 说明：缺依赖时脚本对空输出直接报错退出（退出码 5），不会产出空文件冒充成功；
+#       图片型 PDF（扫描件）属无文字层，须先用 OCR 技能（如 textin-xparse）转文本。
+#
+# 四、安装方法
+#   pip install -r scripts/requirements.txt
+#
+# 说明：bid_red_line_checker.py、scoring_matrix.py、bid_book_builder.py 仅用 Python 标准库，
+#       无需本文件依赖即可运行（scoring_matrix.py 导出 .xlsx 时需 openpyxl）。
