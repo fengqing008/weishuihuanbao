@@ -1,0 +1,42 @@
+{
+  "book": {
+    "title": "灯下集",
+    "subtitle": "排印样张",
+    "editor": "读者排印坊",
+    "issue": "2026·秋",
+    "publisher": "自编样本",
+    "blurb": "一卷在手，灯火可亲。愿这些短章，陪你在灯下多坐一会儿。"
+  },
+  "column_pages": true,
+  "columns_intro": {
+    "卷首语": "开卷有益，与你共读",
+    "文苑": "文学的原野，偶遇光影",
+    "点滴": "短章里的微光"
+  },
+  "articles": [
+    {
+      "order": 1,
+      "column": "卷首语",
+      "title": "慢下来，才看得见",
+      "author": "林 一",
+      "body": "samples/01-juan-shou-yu.md",
+      "layout": "two-column-nobreak"
+    },
+    {
+      "order": 2,
+      "column": "文苑",
+      "title": "巷子里的光",
+      "author": "林 一",
+      "body": "samples/02-wen-yuan.md",
+      "layout": "two-column"
+    },
+    {
+      "order": 3,
+      "column": "点滴",
+      "title": "三则短章",
+      "author": "林 一",
+      "body": "samples/03-dian-di.md",
+      "layout": "one-column"
+    }
+  ]
+}

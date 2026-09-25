@@ -1,0 +1,61 @@
+/* =========================================================
+   读者排印坊 · 网页版样式表（web_theme.css）
+   用途：与 PDF 并行的一套排版。PDF 走双栏精排（@page margin + 固定 mm），
+        网页走单栏顺读（流式 + 百分比宽 + 屏幕留白）。
+   注入方式：build_selfcontained.py 把本表追加到网页版 HTML 的样式表末尾，
+        并全部使用 !important——避开与 print 规则的特异性冲突。
+   ⚠ 本文件内不得出现样式表结束标签的字样（HTML 解析器会在注释里就把它当结束标签，
+     导致其后所有 CSS 变成页面文字）。
+   注意：改动本表后须重跑一次网页版合成（build_book.py 会一并做）。
+   ========================================================= */
+
+/* 屏幕留白与阅读行宽（PDF 由 @page margin 控制，屏幕需自给） */
+html, body{ margin: 0; padding: 0; }
+body{
+  padding: 0 20px;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 内容容器：居中、限宽，避免宽屏行过长；窄屏自动占满 */
+.body-matter, .front-matter{ max-width: 800px; margin: 0 auto; }
+
+/* 正文单栏（覆盖 print 的双栏） */
+.col-2 .col-body, .col-3 .col-body, .col-nobreak .col-body{
+  column-count: 1 !important; column-rule: none !important;
+}
+
+/* 图片：百分比宽，跨栏/栏内均占满容器 */
+.article .figure-wide{ width: 100% !important; margin: 7mm 0 9mm !important; }
+.article .figure-wide img{ width: 94% !important; }
+.article .figure-inline{ width: 100% !important; margin: 7mm 0 8mm !important; }
+.article .figure-inline img{ width: 92% !important; }
+.article .col-1 .figure-inline{ width: 100% !important; }
+.article .col-1 .figure-inline img{ width: 92% !important; }
+/* 圆形取景在窄屏收窄，避免过大 */
+.article .figure-wide.img-round img, .article .figure-inline.img-round img{ width: 66% !important; }
+
+/* 文章块留白 */
+.article{ padding: 4px 0 28px; }
+.article-title{ line-height: 1.34 !important; }
+.column-title-page{ padding-top: 26vh !important; }
+
+/* 目次：单列 + 篇名锚点跳转，页码隐藏（网页无分页） */
+.toc-page{ width: auto !important; max-width: 800px !important; margin: 0 auto; }
+.toc-td{ display: block !important; width: auto !important; }
+.toc-td + .toc-td{ margin-left: 0 !important; }
+.toc-pg{ display: none !important; }
+.toc-name{ width: 100% !important; white-space: normal !important; font-size: 11pt !important; }
+a.toc-line{
+  display: block; padding: 1.6mm 0;
+  border-bottom: 1px dotted rgba(0,0,0,.13);
+  text-decoration: none; color: var(--ink);
+}
+a.toc-line:hover{ color: var(--column); }
+.toc-col-title{ font-size: 12pt !important; margin-top: 5mm !important; }
+
+/* 封面/版权：屏幕下不加固定高度 */
+.cover{ height: auto !important; min-height: 60vh; }
+
+/* 表格横向滚动，避免小屏撑破版面 */
+.article table{ display: block; overflow-x: auto; max-width: 100%; }

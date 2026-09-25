@@ -1,0 +1,212 @@
+/* =========================================================
+   读者排印坊 · 默认版式主题（读者经典）v1.2
+   16开双栏杂志体例 · CSS Paged Media 驱动页眉页脚页码
+   v1.1：跨栏大图 / 栏内浮图 / 图题、首字下沉、引文提花、封面元素
+   v1.2：标题张力强化、栏目题花、目次层次、页眉细线、栏目扉页
+   说明：参数与配色由 style_builder.py 派生（--theme 可换肤），请勿手改本文件。
+   ========================================================= */
+
+:root{
+  --font-song: "Noto Serif CJK SC","Songti SC","STSong","SimSun",serif;
+  --font-hei:  "Noto Sans CJK SC","Heiti SC","STHeiti","SimHei",sans-serif;
+  --font-kai:  "Kaiti SC","STKaiti","KaiTi","Noto Serif CJK SC",serif;
+
+  --paper:  #FBF8F0;   /* 内页底色（换肤槽位） */
+  --ink:    #1A1A1A;   /* 正文墨色（换肤槽位） */
+  --column: #8C2F2F;   /* 栏目/主色（换肤槽位） */
+  --rule:   #D9CFBE;   /* 分隔线（换肤槽位） */
+  --accent: #2F5D62;   /* 强调色（换肤槽位） */
+  --muted:  #7A7166;   /* 次级文字 */
+
+  --size-body: 10.5pt;   /* 五号 */
+  --lh-body: 1.55;
+}
+
+/* ---------- 页面基础：16开 ---------- */
+@page{
+  size: 185mm 260mm;
+  margin: 22mm 15mm 18mm 18mm;   /* 天头 切口 地脚 订口（天头大于地脚） */
+  background: var(--paper);
+}
+
+/* ---------- 封面页：无页眉页脚 ---------- */
+@page cover{
+  margin: 0;
+  @top-left{content:none} @top-center{content:none} @top-right{content:none}
+  @bottom-left{content:none} @bottom-center{content:none} @bottom-right{content:none}
+}
+
+/* ---------- 前置页：扉页/版权页/目次页，无页眉页脚 ---------- */
+@page front{
+  @top-left{content:none} @top-center{content:none} @top-right{content:none}
+  @bottom-left{content:none} @bottom-center{content:none} @bottom-right{content:none}
+}
+
+/* ---------- 栏目扉页：仅大栏目名，无页眉页脚 ---------- */
+@page columnpage:right{
+  @top-left{content:none} @top-center{content:none} @top-right{content:none}
+  @bottom-left{content:none} @bottom-center{content:none}
+  @bottom-right{ content: counter(page); font-family:var(--font-song); font-size:9pt; color:var(--ink); }
+}
+@page columnpage:left{
+  @top-left{content:none} @top-center{content:none} @top-right{content:none}
+  @bottom-center{content:none} @bottom-right{content:none}
+  @bottom-left{ content: counter(page); font-family:var(--font-song); font-size:9pt; color:var(--ink); }
+}
+
+/* ---------- 正文页：页眉奇偶镜像 + 页眉细线 + 页脚作者 + 页码底端外侧 ---------- */
+@page article:right{
+  @top-left{ content: string(article-title); font-family:var(--font-kai); font-size:9pt; color:var(--muted); border-bottom:0.5pt solid var(--rule); }
+  @top-right{ content: string(column-name); font-family:var(--font-hei); font-size:9pt; color:var(--muted); border-bottom:0.5pt solid var(--rule); }
+  @bottom-center{ content: string(article-author); font-family:var(--font-kai); font-size:9pt; color:var(--muted); }
+  @bottom-right{ content: counter(page); font-family:var(--font-song); font-size:9pt; color:var(--ink); }
+}
+@page article:left{
+  @top-right{ content: string(article-title); font-family:var(--font-kai); font-size:9pt; color:var(--muted); border-bottom:0.5pt solid var(--rule); }
+  @top-left{ content: string(column-name); font-family:var(--font-hei); font-size:9pt; color:var(--column); border-bottom:0.5pt solid var(--rule); }
+  @bottom-center{ content: string(article-author); font-family:var(--font-kai); font-size:9pt; color:var(--muted); }
+  @bottom-left{ content: counter(page); font-family:var(--font-song); font-size:9pt; color:var(--ink); }
+}
+
+/* =========================================================
+   元素样式
+   ========================================================= */
+html,body{ margin:0; padding:0; }
+body{
+  font-family: var(--font-song);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--paper);
+  text-align: justify;
+  orphans: 2; widows: 2;
+}
+
+/* ---------- 封面 ---------- */
+.cover{ page: cover; height: 260mm; box-sizing: border-box; padding: 0; position: relative; background: var(--paper); break-after: page; }
+.cover .cover-topline{ position:absolute; top:24mm; left:22mm; right:22mm; height:5mm; border-top:2px solid var(--column); border-bottom:0.5px solid var(--rule); }
+.cover .cover-deco{ position:absolute; top:38mm; right:22mm; width:28mm; height:28mm; border:1px solid var(--rule); border-radius:50%; }
+.cover .cover-deco::after{ content:""; position:absolute; top:4mm; left:4mm; right:4mm; bottom:4mm; border:1px solid var(--rule); border-radius:50%; }
+.cover .book-title{ position:absolute; top:66mm; left:22mm; font-family: var(--font-hei); font-size: 42pt; font-weight: 700; letter-spacing: .14em; color: var(--column); line-height: 1.22; }
+.cover .book-subtitle{ position:absolute; top:104mm; left:22mm; font-family: var(--font-kai); font-size: 14pt; color: var(--muted); letter-spacing:.28em; }
+.cover .issue-box{ position:absolute; top:120mm; left:22mm; display:inline-block; border:1.5px solid var(--column); color:var(--column); font-family:var(--font-hei); font-size:12pt; letter-spacing:.28em; padding:2.2mm 6mm; }
+.cover .cover-blurb{ position:absolute; top:142mm; left:22mm; max-width:104mm; font-family: var(--font-kai); font-size: 11pt; color: var(--muted); line-height: 1.9; }
+.cover .book-editor{ position:absolute; bottom: 34mm; left: 22mm; font-family: var(--font-kai); font-size: 11pt; color: var(--ink); letter-spacing:.1em; }
+.cover .publish-line{ position:absolute; bottom: 22mm; left:22mm; right:22mm; border-top:0.5px solid var(--rule); padding-top:2.5mm; font-family: var(--font-kai); font-size: 9pt; color: var(--muted); letter-spacing:.12em; }
+
+/* ---------- 前置页通用 ---------- */
+.matter{ page: front; }
+.flyleaf{ height: 200mm; break-after: page; }
+.copyright{ font-family: var(--font-song); font-size: 9.5pt; line-height: 2; color: var(--ink); padding-top: 30mm; max-width: 120mm; break-after: page; }
+.copyright h2{ font-family: var(--font-hei); font-size: 13pt; margin: 0 0 6mm; color: var(--column); }
+.copyright .rec-row{ display: block; border-bottom: 1px dotted var(--rule); padding: 1mm 0; }
+.copyright .rec-row b{ font-family: var(--font-hei); font-weight: 600; }
+
+/* ---------- 目次页 ---------- */
+.toc-page{ page: front; break-after: page; width: 152mm; }
+/* 目次两栏：宽度锁定版心（16开 185mm − 左右边距 15+18mm = 152mm），避免 auto 宽度塌陷 */
+.toc-title{ font-family: var(--font-hei); font-size: 18pt; letter-spacing: .4em; text-align: center; color: var(--column); margin: 1mm 0 4mm; padding-bottom: 2.5mm; border-bottom: 2px solid var(--rule); }
+.toc-two{ display: block; }
+.toc-td{ display: inline-block; width: 47%; vertical-align: top; }
+.toc-td + .toc-td{ margin-left: 2%; }
+/* 网页版规则已移至 assets/web_theme.css（由 build_selfcontained.py 注入，避免与 print 规则冲突） */
+
+  /* 网页版：纸张留白与阅读行宽（PDF 由 @page margin 控制，屏幕需自己给） */
+  body{ padding: 0 18px; }
+  .body-matter, .front-matter{ max-width: 760px; margin: 0 auto; }
+  .article, .toc-page, .copyright, .cover, .column-title-page, .flyleaf{ padding-left: 6px; padding-right: 6px; }
+  .article{ padding-top: 10px; padding-bottom: 26px; }
+  .article-title{ line-height: 1.32; }
+}
+.toc-col-title{ font-family: var(--font-hei); font-size: 11pt; letter-spacing: .14em; color: var(--column); margin: 2mm 0 0.6mm; padding-bottom: 0.5mm; border-bottom: 1.2px solid var(--column); break-after: avoid; }
+.toc-line{ display: block; padding: 0.45mm 0; break-inside: avoid; }
+.toc-name{ display: inline-block; width: 84%; vertical-align: bottom; overflow: hidden; white-space: nowrap; font-family: var(--font-song); font-size: 9.5pt; }
+.toc-author{ display: inline-block; width: 12%; vertical-align: bottom; white-space: nowrap; font-family: var(--font-kai); font-size: 8.5pt; color: var(--muted); }
+.toc-pg{ display: inline-block; width: 14%; text-align: right; vertical-align: bottom; font-family: var(--font-song); font-size: 9.5pt; color: var(--ink); }
+.toc-line{ text-decoration: none; color: inherit; }
+.toc-dots{ display: none; }
+.toc-version{ margin-top: 8mm; padding-top: 4mm; border-top: 1px solid var(--rule); font-family: var(--font-kai); font-size: 9pt; color: var(--muted); line-height: 1.9; }
+.toc-version{ margin-top: 8mm; padding-top: 4mm; border-top: 1px solid var(--rule); font-family: var(--font-kai); font-size: 9pt; color: var(--muted); line-height: 1.9; }
+
+
+/* ---------- 文章主题色（v1.8.0）：少量文章取 theme-factory 配色 ----------
+   选色三条口径：①与默认赭红同调（低饱和、明度接近），避免"彩虹条"；
+   ②色相仍可辨（赭红／墨绿／藏青／赭橙）；③小字可读（对纸色对比 ≥4.5:1）。 */
+article.article[data-theme="forest"] { --column: #416B4E; }   /* Forest Canopy · 墨绿 */
+article.article[data-theme="ocean"]  { --column: #33608A; }   /* Ocean Depths · 藏青 */
+article.article[data-theme="sunset"] { --column: #A0703C; }   /* Sunset Boulevard · 赭橙 */
+
+/* ---------- 栏目扉页 ---------- */
+.column-title-page{ page: columnpage; break-before: page; padding-top: 92mm; text-align: center; }
+.column-title-page .ctp-name{ font-family: var(--font-hei); font-size: 34pt; font-weight: 700; color: var(--column); letter-spacing: .34em; }
+.column-title-page .ctp-rule{ width: 38mm; height: 2px; background: var(--column); margin: 7mm auto; }
+.column-title-page .ctp-intro{ font-family: var(--font-kai); font-size: 10.5pt; color: var(--muted); letter-spacing:.1em; }
+
+/* ---------- 正文文章 ---------- */
+.body-matter{ page: article; }
+article.article{ page: article; break-before: page; }
+.article-title{ font-family: var(--font-hei); font-size: 18pt; font-weight: 700; line-height: 1.38; letter-spacing: .04em; margin: 0 0 2mm; color: var(--ink); string-set: article-title content(); }
+.article-author{ font-family: var(--font-kai); font-size: 10pt; color: var(--muted); margin: 0 0 4mm; string-set: article-author content(); }
+.column-name{ font-family: var(--font-hei); font-size: 11.5pt; color: var(--column); margin: 0 0 3mm; padding: 0 0 1.5mm 3mm; border-bottom: 1.5px solid var(--column); border-left: 3px solid var(--column); letter-spacing: .18em; string-set: column-name content(); }
+
+/* 双栏正文 */
+.col-2 .col-body{ column-count: 2; column-gap: 8mm; column-rule: 0.5px solid var(--rule); }
+.col-1 .col-body{ column-count: 1; }
+.col-3 .col-body{ column-count: 3; column-gap: 5mm; }
+
+/* 标题/作者跨栏 */
+.article .col-head{ column-span: all; }
+.source{ column-span: all; font-family: var(--font-kai); font-size: 9pt; color: var(--muted); text-align: right; margin-top: 3mm; }
+
+/* 卷首语：正文段落等宽两栏，标题/作者/出处跨栏 */
+.col-nobreak .col-body{ column-count: 2; column-gap: 8mm; }
+.col-nobreak .lede{ font-family: var(--font-kai); font-size: 10.5pt; color: var(--accent); column-span: all; margin: 0 0 4mm; }
+
+/* 正文段落 */
+.article p{ margin: 0 0 0; text-indent: 2em; }
+
+/* 首字下沉 */
+.dropcap{ float: left; font-family: var(--font-song); font-weight: 700; font-size: 2.95em; line-height: 1.0; color: var(--column); margin: 0.24em 3.8mm 0 0; }
+
+/* 引文提花 */
+.article blockquote{ font-family: var(--font-kai); font-size: 10pt; color: #333; margin: 5.5mm 1mm; padding: 4mm 4mm 4mm 8mm; border-left: 3px solid var(--column); background: rgba(0,0,0,0.035); position: relative; break-inside: avoid; }
+.article blockquote::before{ content: "\201C"; font-family: var(--font-song); font-size: 26pt; color: var(--column); position:absolute; left:1.5mm; top:-1mm; line-height:1; }
+
+/* ---------- 图片 ---------- */
+.article ul{ list-style: none; padding-left: 0; margin: 1.6mm 0 2.6mm; }
+.article ul li{ position: relative; padding-left: 4.4mm; margin: 0.7mm 0; }
+.article ul li::before{ content: "·"; position: absolute; left: 1.2mm; color: var(--accent); font-weight: 700; }
+.article ol{ padding-left: 5.6mm; margin: 1.6mm 0 2.6mm; }
+.article ol li{ margin: 0.7mm 0; }
+.article li{ line-height: 1.7; text-align: justify; }
+.article table.md-table{ width: 100%; border-collapse: collapse; margin: 2.6mm 0 3mm; font-size: 8.4pt; }
+.article table.md-table th, .article table.md-table td{ border: 0.5pt solid #d9cebd; padding: 1mm 1.6mm; line-height: 1.5; vertical-align: top; }
+.article table.md-table th{ background: #f3ece0; font-family: "Noto Sans CJK SC", sans-serif; font-weight: 600; }
+.article table.md-table tr{ break-inside: avoid; }
+
+.article figure{ margin: 4mm 0; break-inside: avoid; }
+.article figure img{ width: 100%; height: auto; display: block; }
+.article figcaption{ font-family: var(--font-hei); font-size: 9pt; color: #4A4238; text-align: center; margin-top: 2.6mm; letter-spacing: .06em; }
+.article .figure-wide{ column-span: all; width: 152mm; margin: 3.5mm 0 6mm; text-align: center; }
+.article .figure-wide img, .article .figure-inline img{ margin: 0 auto; height: auto; }
+/* 三型尺寸表（v1.7.0）：退底 img-cut / 圆形 img-round / 矩形渐隐 img-fade */
+.article .figure-wide.img-fade  img{ width: 128mm; }
+.article .figure-wide.img-cut   img{ width: 114mm; }
+.article .figure-wide.img-round img{ width: 98mm; }
+/* 双栏版式栏宽约 72mm，半栏浮动会把正文挤到 4–5 字/行；故栏内图取「占满一栏、居中」，
+   让文字始终保持完整栏宽，图以边缘融入纸面（图片已做纸色渐融）自然出现在文字流中 */
+.article .figure-inline{ float: none; width: 72mm; margin: 4mm 0 5mm; text-align: center; }
+.article .figure-inline.img-fade  img{ width: 66mm; }
+.article .figure-inline.img-cut   img{ width: 62mm; }
+.article .figure-inline.img-round img{ width: 54mm; }
+.article .col-1 .figure-inline{ width: 152mm; }
+.article .col-1 .figure-inline.img-fade  img{ width: 96mm; }
+.article .col-1 .figure-inline.img-cut   img{ width: 88mm; }
+.article .col-1 .figure-inline.img-round img{ width: 76mm; }
+
+/* 篇末花饰 */
+.endmark{ text-align:center; color: var(--column); font-size: 9pt; letter-spacing:.6em; margin: 4mm 0 0; }
+
+/* PDF 书签：仅保留文章标题 */
+h1,h2,h3,h4{ bookmark-level: none; }
+.article-title{ bookmark-level: 1; }

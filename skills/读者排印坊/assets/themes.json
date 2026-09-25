@@ -1,0 +1,138 @@
+{
+ "ocean-depths": {
+  "title": "Ocean Depths 深海之境",
+  "paper": "#f1faee",
+  "ink": "#1a2332",
+  "column": "#2d8b8b",
+  "rule": "#a8dadc",
+  "accent": "#2d8b8b",
+  "ratio_ink_paper": 14.77,
+  "ratio_column_paper": 3.8,
+  "derived": [],
+  "source": "theme-factory/themes/ocean-depths.md"
+ },
+ "sunset-boulevard": {
+  "title": "Sunset Boulevard 落日大道",
+  "paper": "#e9c46a",
+  "ink": "#264653",
+  "column": "#a24e39",
+  "rule": "#f4a261",
+  "accent": "#e76f51",
+  "ratio_ink_paper": 6.03,
+  "ratio_column_paper": 3.41,
+  "derived": [
+   "column:加深(达标3.0)"
+  ],
+  "source": "theme-factory/themes/sunset-boulevard.md"
+ },
+ "forest-canopy": {
+  "title": "Forest Canopy 森林之冠",
+  "paper": "#faf9f6",
+  "ink": "#2d4a2b",
+  "column": "#2d4a2b",
+  "rule": "#a4ac86",
+  "accent": "#7d8471",
+  "ratio_ink_paper": 9.38,
+  "ratio_column_paper": 9.38,
+  "derived": [],
+  "source": "theme-factory/themes/forest-canopy.md"
+ },
+ "modern-minimalist": {
+  "title": "Modern Minimalist 现代极简",
+  "paper": "#ffffff",
+  "ink": "#36454f",
+  "column": "#708090",
+  "rule": "#d3d3d3",
+  "accent": "#36454f",
+  "ratio_ink_paper": 9.9,
+  "ratio_column_paper": 4.05,
+  "derived": [],
+  "source": "theme-factory/themes/modern-minimalist.md"
+ },
+ "golden-hour": {
+  "title": "Golden Hour 金色时刻",
+  "paper": "#d4b896",
+  "ink": "#4a403a",
+  "column": "#87474b",
+  "rule": "#d4b896",
+  "accent": "#f4a900",
+  "ratio_ink_paper": 5.32,
+  "ratio_column_paper": 3.66,
+  "derived": [
+   "column:加深(达标3.0)"
+  ],
+  "source": "theme-factory/themes/golden-hour.md"
+ },
+ "arctic-frost": {
+  "title": "Arctic Frost 极地霜华",
+  "paper": "#fafafa",
+  "ink": "#4a6fa5",
+  "column": "#4a6fa5",
+  "rule": "#c0c0c0",
+  "accent": "#d4e4f7",
+  "ratio_ink_paper": 4.9,
+  "ratio_column_paper": 4.9,
+  "derived": [],
+  "source": "theme-factory/themes/arctic-frost.md"
+ },
+ "desert-rose": {
+  "title": "Desert Rose 沙漠玫瑰",
+  "paper": "#e8d5c4",
+  "ink": "#5d2e46",
+  "column": "#936457",
+  "rule": "#d4a5a5",
+  "accent": "#b87d6d",
+  "ratio_ink_paper": 7.58,
+  "ratio_column_paper": 3.51,
+  "derived": [
+   "column:加深(达标3.0)"
+  ],
+  "source": "theme-factory/themes/desert-rose.md"
+ },
+ "tech-innovation": {
+  "title": "Tech Innovation 科技创新",
+  "paper": "#ffffff",
+  "ink": "#1e1e1e",
+  "column": "#0066ff",
+  "rule": "#d3d3d3",
+  "accent": "#0066ff",
+  "ratio_ink_paper": 16.67,
+  "ratio_column_paper": 4.83,
+  "derived": [
+   "rule:#d3d3d3"
+  ],
+  "source": "theme-factory/themes/tech-innovation.md"
+ },
+ "botanical-garden": {
+  "title": "Botanical Garden 植物园",
+  "paper": "#f8f7f2",
+  "ink": "#4a7c59",
+  "column": "#b7472a",
+  "rule": "#f9a620",
+  "accent": "#4a7c59",
+  "ratio_ink_paper": 4.53,
+  "ratio_column_paper": 4.96,
+  "derived": [
+   "paper:提亮(达标4.5)"
+  ],
+  "source": "theme-factory/themes/botanical-garden.md"
+ },
+ "midnight-galaxy": {
+  "title": "Midnight Galaxy 午夜星河",
+  "paper": "#e6e6fa",
+  "ink": "#2b1e3e",
+  "column": "#4a4e8f",
+  "rule": "#a490c2",
+  "accent": "#a490c2",
+  "ratio_ink_paper": 12.57,
+  "ratio_column_paper": 6.14,
+  "derived": [],
+  "source": "theme-factory/themes/midnight-galaxy.md"
+ },
+ "_meta": {
+  "source": "theme-factory 10 套主题",
+  "slots": "paper/ink/column/rule/accent",
+  "rule_ink_paper": ">=4.5",
+  "rule_column_paper": ">=3.0"
+ }
+}
