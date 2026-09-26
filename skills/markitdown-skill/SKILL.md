@@ -1,13 +1,20 @@
 ---
 name: markitdown-skill
-version: "0.3.0"
-author: 清风明月
 display_name: 文档转Markdown官
+version: 0.3.0
+description: 把 PDF、Word（DOCX）、PowerPoint（PPTX）、Excel（XLSX/XLS）、图片（OCR）、音频（转写）、HTML、CSV、JSON、XML、ZIP、YouTube 链接、EPUB 等 15 种以上文件格式批量转成结构化 Markdown，保留标题层级、表格、列表与超链接，输出天然适配大模型文本分析管道。提供 markitdown 命令行、Python API 与本技能附带的零依赖调度脚本三种调用方式，支持插件扩展与 OCR、语音转写集成。当用户需要转成 Markdown、文档转换、Word 转 Markdown、PDF 转 Markdown、提取文档内容、读取 Word/PDF 内容、文档解析、批量转换、文件转文本、OCR 提取、音频转文字时触发；English triggers：convert to markdown, document conversion, extract docx/pdf content, batch convert, file to text, OCR extraction, audio transcription。不适用边界：PDF 创建与编辑改用 ima-pdf，Word 创建与编辑改用 ima-doc，纯图片美化与处理改用 image-tools-suite，视频剪辑改用 ffmpeg-skill，纯在线网页抓取改用 web-scraper。
+author: 清风明月
 slug: qf-markitdown-skill
 category: 科技
-tags: [文档转换, Markdown, PDF转Markdown, Word转Markdown, OCR, 批量转换, 文本抽取]
-license: "MIT"
-description: 把 PDF、Word（DOCX）、PowerPoint（PPTX）、Excel（XLSX/XLS）、图片（OCR）、音频（转写）、HTML、CSV、JSON、XML、ZIP、YouTube 链接、EPUB 等 15 种以上文件格式批量转成结构化 Markdown，保留标题层级、表格、列表与超链接，输出天然适配大模型文本分析管道。提供 markitdown 命令行、Python API 与本技能附带的零依赖调度脚本三种调用方式，支持插件扩展与 OCR、语音转写集成。当用户需要转成 Markdown、文档转换、Word 转 Markdown、PDF 转 Markdown、提取文档内容、读取 Word/PDF 内容、文档解析、批量转换、文件转文本、OCR 提取、音频转文字时触发；English triggers：convert to markdown, document conversion, extract docx/pdf content, batch convert, file to text, OCR extraction, audio transcription。不适用边界：PDF 创建与编辑改用 ima-pdf，Word 创建与编辑改用 ima-doc，纯图片美化与处理改用 image-tools-suite，视频剪辑改用 ffmpeg-skill，纯在线网页抓取改用 web-scraper。
+tags:
+- 文档转换
+- Markdown
+- PDF转Markdown
+- Word转Markdown
+- OCR
+- 批量转换
+- 文本抽取
+license: MIT
 ---
 
 # MarkItDown 技能：把任何文档转成 Markdown

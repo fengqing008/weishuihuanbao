@@ -1,18 +1,18 @@
 ---
 name: caveman-distillate
 display_name: 极简压缩官
-slug: qf-caveman-distillate
-version: "2.1.0"
+version: 2.1.0
+description: 超压缩通信模式（caveman/terse），把 AI 输出蒸馏到核心信息，用最少 token 保留完整技术准确度，字符量通常降到正常模式的 60% 以内。何时用：用户要求少啰嗦、别客套、只要结论、篇幅压到最短，或显式说出 caveman、terse、kurz、less tokens 等词时启用。触发词：caveman、terse、极简、压缩、省token、少啰嗦、别废话、只要结论、kurz、less tokens。不适用于：代写代码/提交信息/SQL/PR 描述、安全警告与不可逆操作说明、法律与合规文本、须完整论证或须安抚情绪的场景，这些一律走正常模式。
 author: 清风明月
+slug: qf-caveman-distillate
 category: 科技
 tags:
-  - 超压缩通信
-  - 省token
-  - 极简输出
-  - caveman
-  - terse
-  - 提示词模式
-description: 超压缩通信模式（caveman/terse），把 AI 输出蒸馏到核心信息，用最少 token 保留完整技术准确度，字符量通常降到正常模式的 60% 以内。何时用：用户要求少啰嗦、别客套、只要结论、篇幅压到最短，或显式说出 caveman、terse、kurz、less tokens 等词时启用。触发词：caveman、terse、极简、压缩、省token、少啰嗦、别废话、只要结论、kurz、less tokens。不适用于：代写代码/提交信息/SQL/PR 描述、安全警告与不可逆操作说明、法律与合规文本、须完整论证或须安抚情绪的场景，这些一律走正常模式。
+- 超压缩通信
+- 省token
+- 极简输出
+- caveman
+- terse
+- 提示词模式
 ---
 
 # Caveman Distillate（极简压缩官）

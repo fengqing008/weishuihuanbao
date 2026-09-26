@@ -1,10 +1,20 @@
 ---
-name: "qf-wwtp-optimization"
-description: "污水处理工艺优化与能效提升专家，覆盖曝气能耗、脱氮除磷优化、加药优化与提标改造方案。 触发场景：工艺优化、曝气能耗、曝气量核算、脱氮优化、除磷优化、加药优化、提标改造、能耗审计。"
-version: "1.0.0"
-license: "MIT"
-category: "environmental-engineering"
-author: "清风明月"
+name: qf-wwtp-optimization
+display_name: 污水工艺优化
+version: 1.0.0
+description: 污水处理工艺设计与优化专家。覆盖污水处理工艺设计、活性污泥模型计算、SRT 与 F/M 优化、曝气效率分析、营养物去除、二沉池固体通量分析、化学加药优化、能耗审计、工艺故障排查与提标改造方案。触发场景：工艺优化、曝气能耗、SOTE、AOTE、提标改造、加药优化、产能分析、process optimization、energy audit。不适用于：活性污泥调试培菌与生物相镜检（用活性污泥运行类技能）、运营数据达标率分析、膜系统设计与膜面积校核、现场设备操作。
+author: 清风明月
+slug: qf-wwtp-optimization
+category: 科技
+tags:
+- 污水工艺优化
+- 曝气能耗
+- SOTE
+- AOTE
+- 提标改造
+- 加药优化
+- 产能分析
+license: MIT
 ---
 
 # 污水工艺优化

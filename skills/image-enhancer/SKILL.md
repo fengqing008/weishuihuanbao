@@ -1,8 +1,18 @@
 ---
 name: image-enhancer
+display_name: 图像增强
 version: 1.0.0
-author: 清风明月
 description: 图像与截图综合增强流水线技能。在真实像素上做一趟流水线处理：分辨率提升（LANCZOS 重采样）、锐化（UnsharpMask 边缘增强）、去噪与 JPEG 压缩伪影清理、对比度与饱和度校正、透明通道与色彩模式保真，并按用途（汇报PPT、文档扫描、网页、印刷、社交平台）套用固化预设，支持整目录批量增强、失败清单对账与断点续跑。适用场景：汇报或PPT里的截图放大后发虚、文档与合同扫描件清晰度不足、聊天与网页截图文字糊、老照片轻微模糊需要提清、整批截图统一规格后入档。中英触发词：图像增强、图片变清晰、截图增强、截图变清晰、锐化、去噪、压缩伪影清理、升清、批量增强图片、image enhancer、enhance image、sharpen screenshot、denoise image、image quality improvement。
+author: 清风明月
+slug: qf-image-enhancer
+category: 科技
+tags:
+- 图像增强
+- 图片变清晰
+- 截图增强
+- 锐化
+- 去噪
+- 批量增强
 ---
 
 ## 〇、专家级路由（v1.0.0）

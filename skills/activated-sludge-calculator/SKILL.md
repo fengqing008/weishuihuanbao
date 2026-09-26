@@ -1,12 +1,18 @@
 ---
 name: activated-sludge-calculator
-description: 活性污泥工艺动力学计算器（ASM2d 简化模型）。当用户需要计算活性污泥工艺设计参数、污泥产量、SRT污泥龄、硝化菌临界SRT、反硝化SDNR、MBR膜面积、需氧量AOR、工艺选型（MLE/A2O/后置缺氧）、物料平衡、COD氮磷平衡、AO+MBR工艺校核、污泥脱水干泥量、曝气量核算时触发。中英触发词：活性污泥计算、污泥产量、泥龄、临界泥龄、SDNR、需氧量、膜面积、物料平衡、工艺选型、sludge production、SRT calculation、nitrification、SDNR、MBR membrane area、AOR、ASM2d、process selection。基于ASM2d简化动力学，本地化自aerobic-design-mcp。不适用于非活性污泥类的水处理工艺（如纯物化/膜过滤选型用membrane-system-design）、水质达标率分析（用wastewater-ops-analysis）、运行实操知识（用activated-sludge-ops）。
-version: 2.0.0
-author: 清风明月
 display_name: 活性污泥计算器
+version: 2.0.0
+description: 活性污泥工艺动力学计算器（ASM2d 简化模型）。当用户需要计算活性污泥工艺设计参数、污泥产量、SRT污泥龄、硝化菌临界SRT、反硝化SDNR、MBR膜面积、需氧量AOR、工艺选型（MLE/A2O/后置缺氧）、物料平衡、COD氮磷平衡、AO+MBR工艺校核、污泥脱水干泥量、曝气量核算时触发。中英触发词：活性污泥计算、污泥产量、泥龄、临界泥龄、SDNR、需氧量、膜面积、物料平衡、工艺选型、sludge production、SRT calculation、nitrification、SDNR、MBR membrane area、AOR、ASM2d、process selection。基于ASM2d简化动力学，本地化自aerobic-design-mcp。不适用于非活性污泥类的水处理工艺（如纯物化/膜过滤选型用membrane-system-design）、水质达标率分析（用wastewater-ops-analysis）、运行实操知识（用activated-sludge-ops）。
+author: 清风明月
 slug: activated-sludge-calculator
 category: 科技
-tags: ["活性污泥计算", "污泥产量", "泥龄", "临界泥龄", "需氧量", "膜面积"]
+tags:
+- 活性污泥计算
+- 污泥产量
+- 泥龄
+- 临界泥龄
+- 需氧量
+- 膜面积
 ---
 
 <!-- expert-upgrade v2.0.0 20260907 -->

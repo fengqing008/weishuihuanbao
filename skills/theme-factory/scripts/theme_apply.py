@@ -290,9 +290,9 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:v
 <thead><tr><th>厂区</th><th>处理量（万吨）</th><th>达标率</th><th>吨水电耗</th><th>状态</th></tr></thead>
 <tbody>
 <tr><td>城区污水处理厂</td><td>6,820</td><td>99.2%</td><td>0.298</td><td>达标</td></tr>
-<tr><td>汪营镇污水处理厂</td><td>3,150</td><td>98.4%</td><td>0.316</td><td>达标</td></tr>
-<tr><td>苏马荡关口厂</td><td>2,940</td><td>97.1%</td><td>0.341</td><td>达标</td></tr>
-<tr><td>谋道镇污水处理厂</td><td>1,860</td><td>96.8%</td><td>0.352</td><td>达标</td></tr>
+<tr><td>某镇污水处理厂（一）</td><td>3,150</td><td>98.4%</td><td>0.316</td><td>达标</td></tr>
+<tr><td>某镇污水处理厂（二）</td><td>2,940</td><td>97.1%</td><td>0.341</td><td>达标</td></tr>
+<tr><td>某镇污水处理厂（三）</td><td>1,860</td><td>96.8%</td><td>0.352</td><td>达标</td></tr>
 </tbody></table>
 
 <h2>二、指标完成度</h2>

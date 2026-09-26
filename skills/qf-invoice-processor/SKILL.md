@@ -1,16 +1,20 @@
 ---
-name: "invoice-processor"
-description: >-
-  发票/票据识别与汇总（本地离线）。批量识别发票、收据、票据的 PDF / 图片，抽取结构化字段
-  （发票类型、发票代码、发票号码、开票日期、购买方/销售方名称与税号、金额、税额、价税合计），
-  一键导出为格式化 Excel 汇总表。**发票类型可区分增值税专用发票 / 增值税普通发票 / 电子发票等票种**。
-  当用户提到发票、识别发票、处理发票、提取发票信息、发票转Excel、
-  票据识别、报销单据、发票汇总、发票类型、专票、普票、invoice、OCR 发票 时使用。
-  电子发票 PDF 优先读文字层、无文字层再本地 OCR（rapidocr），零外部 API。
-version: "2.1.1"
-license: "MIT"
-category: "office-automation"
-author: "清风明月"
+name: qf-invoice-processor
+display_name: 发票票据汇总
+version: 2.1.1
+description: 发票与票据批量识别汇总工具。本地离线识别 PDF 与图片发票，抽取发票类型、发票代码、发票号码、开票日期、购销方名称与税号、金额、税额、价税合计等结构化字段，一键导出 Excel 汇总表，支持增值税专用发票、普通发票与电子发票区分。触发场景：发票识别、处理发票、发票转Excel、票据识别、报销单据、发票汇总、专票、普票。不适用于：合同审查、财务记账与税务申报、非发票类的图片 OCR 提取。
+author: 清风明月
+slug: qf-invoice-processor
+category: 科技
+tags:
+- 发票识别
+- 发票汇总
+- 票据识别
+- 发票转Excel
+- 报销单据
+- 专票
+- 普票
+license: MIT
 ---
 
 ## 〇、专家级路由（v2.1.0）

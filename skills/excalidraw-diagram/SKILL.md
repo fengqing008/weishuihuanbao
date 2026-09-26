@@ -1,12 +1,18 @@
 ---
 name: excalidraw-diagram
-version: 2.2.0
-author: 清风明月
 display_name: 手绘图生成官
+version: 2.2.0
+description: 手绘图生成官：把一句话需求转成可直接在 Excalidraw 打开、可继续编辑的 .excalidraw 手绘风格图表 JSON，用于流程、架构、概念的可视化论证，图要"论证"而不是"陈列"。当用户说画手绘图、出 Excalidraw、画流程图、画架构图、做可视化论证、diagram、flowchart、architecture 时触发。内置六步执行工作流与 scripts/excalidraw_check.py 坐标越界与元素重叠检查脚本。不适用：位图精修与去水印、UI 高保真设计稿、3D 渲染、CAD 工程制图、纯数据大屏。
+author: 清风明月
 slug: qf-excalidraw-diagram
 category: 科技
-tags: [excalidraw, 手绘图, 流程图, 架构图, 可视化论证, diagram-json]
-description: 手绘图生成官：把一句话需求转成可直接在 Excalidraw 打开、可继续编辑的 .excalidraw 手绘风格图表 JSON，用于流程、架构、概念的可视化论证，图要"论证"而不是"陈列"。当用户说画手绘图、出 Excalidraw、画流程图、画架构图、做可视化论证、diagram、flowchart、architecture 时触发。内置六步执行工作流与 scripts/excalidraw_check.py 坐标越界与元素重叠检查脚本。不适用：位图精修与去水印、UI 高保真设计稿、3D 渲染、CAD 工程制图、纯数据大屏。
+tags:
+- excalidraw
+- 手绘图
+- 流程图
+- 架构图
+- 可视化论证
+- diagram-json
 ---
 
 # 手绘图生成官（Excalidraw 可视化论证图）

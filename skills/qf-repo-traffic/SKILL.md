@@ -1,10 +1,18 @@
 ---
-name: "qf-repo-traffic"
-description: "GitHub 仓库流量数据取数与趋势汇报，覆盖访问量、克隆量、Stars、Release 下载与引用来源。 触发场景：下载量统计、仓库流量、views、clones、stars查看、访问量汇报、仓库数据监控。"
-version: "1.0.0"
-license: "MIT"
-category: "devops"
-author: "清风明月"
+name: qf-repo-traffic
+display_name: 仓库流量取数
+version: 1.0.0
+description: GitHub 仓库流量统计工具。拉取仓库的访问量、克隆量、热门内容与来源分布等流量数据，输出统计报表，辅助判断仓库传播效果与内容偏好。触发场景：仓库流量、GitHub 流量、clone 统计、访问统计、repo traffic。不适用于：代码搜索与仓库检索、Issue 与 Pull Request 管理、CI/CD 配置。
+author: 清风明月
+slug: qf-repo-traffic
+category: 科技
+tags:
+- 仓库流量
+- GitHub流量
+- clone统计
+- 访问统计
+- repo traffic
+license: MIT
 ---
 
 # GitHub 流量取数

@@ -1,20 +1,23 @@
 ---
 name: baoyu-format-markdown
-description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md. 当用户要求格式化 markdown、美化文章、补充标题/摘要/列表/代码块、整理版式时触发。不适用于事实改写与数据勘误、从零代写文章、代码格式化工具链、原始排版设计。
-
+display_name: Markdown排版
 version: 1.57.0
+description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md. 当用户要求格式化 markdown、美化文章、补充标题/摘要/列表/代码块、整理版式时触发。不适用于事实改写与数据勘误、从零代写文章、代码格式化工具链、原始排版设计。
+author: 清风明月
+slug: baoyu-format-markdown
+category: 自媒体
+tags:
+- 自媒体
+- baoyu
+- format
+- markdown
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-format-markdown
     requires:
       anyBins:
-        - bun
-        - npx
-author: 清风明月
-display_name: Markdown排版
-slug: baoyu-format-markdown
-category: 自媒体
-tags: ["自媒体", "baoyu", "format", "markdown"]
+      - bun
+      - npx
 ---
 
 

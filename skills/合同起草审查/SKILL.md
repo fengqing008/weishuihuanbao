@@ -1,12 +1,18 @@
 ---
 name: 合同起草审查
-description: 合同起草与审查，基于知识库范本生成合同文档并输出带修订格式的Word。触发场景：起草合同、写合同、审合同、合同审查、合同风险、合同修改、合同条款审查、上传合同/协议文件希望分析修改。中文触发词：起草合同、合同审查、审合同、合同范本、合同修改、合同风险。英文触发词：contract drafting, contract review, agreement generation, redline review。不适用于单纯的法律咨询、合同翻译或非合同类文书写作。
-version: 2.0.0
-author: 清风明月
 display_name: 合同起草审查
-slug: skill
+version: 2.0.0
+description: 合同起草与审查，基于知识库范本生成合同文档并输出带修订格式的Word。触发场景：起草合同、写合同、审合同、合同审查、合同风险、合同修改、合同条款审查、上传合同/协议文件希望分析修改。中文触发词：起草合同、合同审查、审合同、合同范本、合同修改、合同风险。英文触发词：contract drafting, contract review, agreement generation, redline review。不适用于单纯的法律咨询、合同翻译或非合同类文书写作。
+author: 清风明月
+slug: qf-contract-draft-review
 category: 法律
-tags: ["起草合同", "写合同", "审合同", "合同审查", "合同风险", "合同修改"]
+tags:
+- 起草合同
+- 写合同
+- 审合同
+- 合同审查
+- 合同风险
+- 合同修改
 ---
 
 ## 〇、专家级路由（v2.0.0）

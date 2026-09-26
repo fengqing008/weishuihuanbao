@@ -1,10 +1,19 @@
 ---
-name: "qf-env-acceptance"
-description: "污水厂建设项目竣工环境保护验收编制，覆盖自查、监测方案、验收报告与公开填报全流程。 触发场景：竣工环保验收、自主验收、验收监测报告、验收意见、环保验收清单、self-acceptance。"
-version: "1.0.0"
-license: "MIT"
-category: "environmental-engineering"
-author: "清风明月"
+name: qf-env-acceptance
+display_name: 竣工环保验收
+version: 1.0.0
+description: 污水处理厂建设项目竣工环境保护验收（建设单位自主验收）编制专家。覆盖验收自查、资料清单、验收监测方案与报告、验收意见与“其他需要说明的事项”、验收会议组织、整改复核、信息公开与全国信息平台填报，内置 9 条验收不合格情形与重大变动清单判定。触发场景：竣工环保验收、自主验收、验收监测方案与报告、验收工作清单、验收自查、验收意见、信息公开填报。不适用于：在线监测系统验收（用 qf-monitor-acceptance）、三废检测报告编制、排污许可证申领。
+author: 清风明月
+slug: qf-env-acceptance
+category: 科技
+tags:
+- 竣工环保验收
+- 自主验收
+- 验收监测方案
+- 验收监测报告
+- 验收意见
+- 验收自查
+license: MIT
 ---
 
 # 竣工环保验收

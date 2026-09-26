@@ -1,8 +1,17 @@
 ---
 name: rembg-bg-remover
-description: 基于 rembg 的本地图片去背景/抠图技能（CPU推理，无需GPU）。支持 u2netp/u2net/isnet-general-use 等多种模型，输出带透明通道的 PNG。当用户需要去除图片背景、抠图、提取前景、做公章抠图、透明背景、做商品图、人物抠图、或替换阿里百炼 image-text-edit 中的去背景环节时，触发此技能。触发词：去背景/抠图/抠公章/透明背景/提取前景/人物抠图/商品图/remove background/background removal/cutout/transparent PNG/matting。
+display_name: 图片去背景
 version: 2.0.1
+description: 基于 rembg 的本地图片去背景/抠图技能（CPU推理，无需GPU）。支持 u2netp/u2net/isnet-general-use 等多种模型，输出带透明通道的 PNG。当用户需要去除图片背景、抠图、提取前景、做公章抠图、透明背景、做商品图、人物抠图、或替换阿里百炼 image-text-edit 中的去背景环节时，触发此技能。触发词：去背景/抠图/抠公章/透明背景/提取前景/人物抠图/商品图/remove background/background removal/cutout/transparent PNG/matting。
 author: 清风明月
+slug: qf-rembg-bg-remover
+category: 科技
+tags:
+- 去背景
+- 抠图
+- 透明背景
+- 提取前景
+- 商品图
 ---
 
 ## 〇、专家级路由（v2.0.0）

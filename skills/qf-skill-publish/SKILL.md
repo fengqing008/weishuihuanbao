@@ -1,10 +1,18 @@
 ---
-name: "qf-skill-publish"
-description: "技能脱敏与发布到 GitHub 的全流程，含敏感词扫描、通用代称替换、元数据规范化、DNS 污染绕过与 Token 授权排障。 触发场景：技能脱敏、发布到GitHub、开源技能库、敏感信息清理、技能上传、仓库推送、DNS污染、Token 403。"
-version: "1.0.0"
-license: "MIT"
-category: "devops"
-author: "清风明月"
+name: qf-skill-publish
+display_name: 技能脱敏发布
+version: 1.0.0
+description: 技能脱敏与发布专家。覆盖敏感信息扫描（企业名称、项目地名、人名、内部标识、密钥凭证、本地绝对路径）、通用代称替换、技能元数据规范化、发布到 GitHub，以及 DNS 污染绕过与 Token 授权排障等发布链路问题。触发场景：技能脱敏、脱敏发布、敏感信息扫描、代称替换、发布到 GitHub、发布技能。不适用于：文档内容改写与润色、代码审查、知识库整理归档。
+author: 清风明月
+slug: qf-skill-publish
+category: 科技
+tags:
+- 技能脱敏
+- 脱敏发布
+- 敏感信息扫描
+- 代称替换
+- 发布到GitHub
+license: MIT
 ---
 
 # 技能脱敏发布

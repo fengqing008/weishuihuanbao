@@ -1,12 +1,14 @@
 ---
 name: ali-asr
-description: "阿里云 DashScope 语音转写统一入口（非实时文件转写，模型 qwen-audio-3.0-asr-flash-filetrans）。把音频/视频文件或公开 URL 转成文字，支持逐句时间戳、说话人分离、热词纠错与多语种；输出标准 JSON（text/transcripts/sentences），供 meeting-minutes-pipeline（会议纪要）与 link-report-archiver（链接内容归档）作为转写后端调用。当用户提到语音转写、音频转文字、录音转文字、会议录音整理、字幕生成、说话人分离、ASR、transcribe、speech to text 时使用。英文触发词：ASR, speech to text, audio transcription, speaker diarization。不适用于纯本地离线转写（用 whisper-local）、实时语音对话（用 qwen-audio realtime）、图片文字识别（用 textin-xparse）。"
-version: 1.0.0
-author: 清风明月
 display_name: 阿里语音转写
+version: 1.0.0
+description: 阿里云 DashScope 语音转写统一入口（非实时文件转写，模型 qwen-audio-3.0-asr-flash-filetrans）。把音频/视频文件或公开 URL 转成文字，支持逐句时间戳、说话人分离、热词纠错与多语种；输出标准 JSON（text/transcripts/sentences），供 meeting-minutes-pipeline（会议纪要）与 link-report-archiver（链接内容归档）作为转写后端调用。当用户提到语音转写、音频转文字、录音转文字、会议录音整理、字幕生成、说话人分离、ASR、transcribe、speech to text 时使用。英文触发词：ASR, speech to text, audio transcription, speaker diarization。不适用于纯本地离线转写（用 whisper-local）、实时语音对话（用 qwen-audio realtime）、图片文字识别（用 textin-xparse）。
+author: 清风明月
 slug: ali-asr
 category: 科技
-tags: ["实时语音对话（用", "图片文字识别（用"]
+tags:
+- 实时语音对话（用
+- 图片文字识别（用
 ---
 
 # ali-asr — 语音转写（DashScope）

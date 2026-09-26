@@ -1,8 +1,17 @@
 ---
 name: meeting-insights-analyzer
+display_name: 会议洞察分析
 version: 1.0.0
-author: 清风明月
 description: 从会议转录文件中识别沟通与领导行为模式：解析 .txt/.md/.vtt/.srt/.docx 转录件，统计各发言人发言时长占比、发言轮次与平均轮长、打断次数（发出与承受）、提问与陈述比、填充词与模糊限定语密度、倾听信号（复述、追问、承接他人观点）、决策方式与议程控制，逐条给出带时间戳的原话证据、影响判断与更好的说法，并可跨多场会议做趋势对比与台账沉淀。适用场景：复盘自己主持或参加的会议、改进沟通与领导力、为述职与绩效评估准备实证、辅导团队成员的表达方式。触发词：会议分析、会议洞察、沟通分析、发言比例、领导风格、会议复盘、打断分析、填充词统计、meeting insights、communication analysis、speaking ratio。
+author: 清风明月
+slug: qf-meeting-insights-analyzer
+category: 科技
+tags:
+- 会议分析
+- 会议洞察
+- 沟通分析
+- 发言占比
+- 打断分析
 ---
 
 # 会议行为洞察分析器（meeting-insights-analyzer）

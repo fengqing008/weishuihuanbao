@@ -131,7 +131,7 @@ def add_body_runs(doc, segments):
 
 def build_sop(title, baseline_date, project_name, output_path,
               date_str=None, doc_no='【待核：发文字号】',
-              drafting_unit='西安绿荫环境工程有限公司'):
+              drafting_unit='某环境工程有限公司'):
     if not date_str:
         t = _today.today()
         date_str = f'{t.year}年{t.month}月{t.day}日'
@@ -168,7 +168,7 @@ def build_sop(title, baseline_date, project_name, output_path,
     add_h2(doc, '（二）依据')
     laws = [
         f'1. {project_name}《施工总承包合同》（专用条款第11.1条“价格调整”、第11.4条“材料调差”）。',
-        f'2. 西安绿荫环境工程有限公司2026年7月8日《竣工结算专题会议纪要》（建设单位内部印发）。',
+        f'2. 某环境工程有限公司2026年7月8日《竣工结算专题会议纪要》（建设单位内部印发）。',
         f'3. 财政部、原建设部《建设工程价款结算暂行办法》（财建〔2004〕369号，本项目合同签订时适用版本）。',
         f'4. 《建设工程工程量清单计价规范》（GB 50500-2013）；《市政工程工程量计算规范》（GB 50857-2013）。',
         f'5. 陕西省住房和城乡建设厅《陕西省建设工程造价管理办法》及{baseline_date}当期《陕西工程造价管理信息》材料信息价。',
@@ -296,7 +296,7 @@ def build_sop(title, baseline_date, project_name, output_path,
     # 第十二章
     add_h1(doc, '十二、附则')
     add_h2(doc, '（一）解释主体')
-    add_body(doc, '本规程由西安绿荫环境工程有限公司工程线（总工办）负责解释。')
+    add_body(doc, '本规程由某环境工程有限公司工程线（总工办）负责解释。')
     add_h2(doc, '（二）施行日期')
     add_body(doc, '本规程自发布之日起施行；未尽事宜按合同约定、会议纪要及国家现行有关规定执行。')
 
@@ -328,7 +328,7 @@ def main():
     parser.add_argument('--output', required=True, help='输出docx路径')
     parser.add_argument('--date', default=None, help='成文日期（默认取系统当天，格式如 2026年9月11日）')
     parser.add_argument('--doc-no', default='【待核：发文字号】', help='文件编号')
-    parser.add_argument('--drafting-unit', default='西安绿荫环境工程有限公司', help='编制/落款单位')
+    parser.add_argument('--drafting-unit', default='某环境工程有限公司', help='编制/落款单位')
     args = parser.parse_args()
     print(build_sop(args.title, args.baseline_date, args.project_name, args.output,
                     date_str=args.date, doc_no=args.doc_no, drafting_unit=args.drafting_unit))

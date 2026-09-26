@@ -90,13 +90,13 @@ html = f'''<!DOCTYPE html>
   <header>
     <h1>{_A.project}项目工程结算 · SOP 流程图集</h1>
     <div class="sub">适用：施工单位 ／ 设计单位 ／ 监理单位 ／ 建设单位 ／ 审计单位</div>
-    <div class="meta">西安绿荫环境工程有限公司　│　V1.0　│　2026-09-11</div>
+    <div class="meta">某环境工程有限公司　│　V1.0　│　2026-09-11</div>
   </header>
 {chr(10).join(blocks)}
 {legend}
   <footer>
     依据：《建设工程价款结算暂行办法》（财建〔2004〕369号）、《建设工程工程量清单计价规范》（GB 50500-2013）<br>
-    西安绿荫环境工程有限公司 · 工程线（总工办）
+    某环境工程有限公司 · 工程线（总工办）
   </footer>
 </div>
 </body>

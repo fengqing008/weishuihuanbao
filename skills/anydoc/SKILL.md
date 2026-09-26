@@ -1,15 +1,21 @@
 ---
 name: anydoc
-description: "任意文档秒转 Markdown 的本地转换技能（Firecrawl 开源，Rust 实现，毫秒级）。支持 Word（.doc/.docx/.docm）、PowerPoint（.ppt/.pptx/.pptm 等）、Excel（.xls/.xlsx/.xlsm/.xlsb/.csv）、OpenDocument（.odt/.ods/.odp）、RTF、EPUB、PDF 共 20 种格式，按文件内容自动识别格式，无需安装（npx 一键调用，Node 20+）。当用户需要读取/解析/转换 docx、pptx、xlsx、pdf 等办公文档内容为 Markdown、提取文档全文、文档内容分析、把本地文件转成可读文本、文档入库前格式统一时使用。中文触发词：\"转成Markdown\"、\"文档转换\"、\"提取文档内容\"、\"读取Word/PDF内容\"、\"文档解析\"。English triggers: convert to markdown, document conversion, extract docx/pdf content。适用于有文字层的文档（扫描件/纯图片 PDF 不支持 OCR，需用 textin-xparse 技能）。不适用于：扫描件/图片 OCR 识别（用 textin-xparse）、PDF 创建编辑（用 ima-pdf）、Word 创建编辑（用 ima-doc）。"
+display_name: 文档转Markdown
+version: 2.0.0
+description: '任意文档秒转 Markdown 的本地转换技能（Firecrawl 开源，Rust 实现，毫秒级）。支持 Word（.doc/.docx/.docm）、PowerPoint（.ppt/.pptx/.pptm 等）、Excel（.xls/.xlsx/.xlsm/.xlsb/.csv）、OpenDocument（.odt/.ods/.odp）、RTF、EPUB、PDF 共 20 种格式，按文件内容自动识别格式，无需安装（npx 一键调用，Node 20+）。当用户需要读取/解析/转换 docx、pptx、xlsx、pdf 等办公文档内容为 Markdown、提取文档全文、文档内容分析、把本地文件转成可读文本、文档入库前格式统一时使用。中文触发词："转成Markdown"、"文档转换"、"提取文档内容"、"读取Word/PDF内容"、"文档解析"。English triggers: convert to markdown, document conversion, extract docx/pdf content。适用于有文字层的文档（扫描件/纯图片 PDF 不支持 OCR，需用 textin-xparse 技能）。不适用于：扫描件/图片 OCR 识别（用 textin-xparse）、PDF 创建编辑（用 ima-pdf）、Word 创建编辑（用 ima-doc）。'
+author: 清风明月
+slug: anydoc
+category: 科技
+tags:
+- 读取
+- 解析
+- 转换
+- 等办公文档内容为
+- 提取文档全文
+- 文档内容分析
 license: MIT
 metadata:
   author: firecrawl
-version: 2.0.0
-author: 清风明月
-display_name: 文档转Markdown
-slug: anydoc
-category: 科技
-tags: ["读取", "解析", "转换", "等办公文档内容为", "提取文档全文", "文档内容分析"]
 ---
 
 # 任意文档转 Markdown（anydoc）

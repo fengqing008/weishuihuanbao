@@ -1,12 +1,19 @@
 ---
 name: qf-qbs-method
-description: "QBS 法（Question-Book-Skill）端到端编排：从手头一个真问题出发，先按「经典书筛选标准」荐书（出版 30 年以上、权威作者与出版社、跨代读者验证），再给出合规取书路径，然后调用内核 book-to-skill 把这本书蒸馏成可反复调用的技能，最后加载该技能回答最初的问题，全过程留痕并归档入库。当用户提到 QBS、QBS 法、问书成技、经典书转技能、从问题到技能、我有问题想让经典书帮我解决、先荐书再转成技能、用经典书的方法论解决我的问题、question book skill、book to skill workflow 时触发。不适用于：用户已持有具体书籍文件、只想做「书→技能」转换；单纯荐书不给问题；单纯找书；不含问题输入的普通读书笔记。"
-version: 1.0.0
-author: 清风明月
 display_name: 好书变神器
+version: 1.0.0
+description: QBS 法（Question-Book-Skill）端到端编排：从手头一个真问题出发，先按「经典书筛选标准」荐书（出版 30 年以上、权威作者与出版社、跨代读者验证），再给出合规取书路径，然后调用内核 book-to-skill 把这本书蒸馏成可反复调用的技能，最后加载该技能回答最初的问题，全过程留痕并归档入库。当用户提到 QBS、QBS 法、问书成技、经典书转技能、从问题到技能、我有问题想让经典书帮我解决、先荐书再转成技能、用经典书的方法论解决我的问题、question book skill、book to skill workflow 时触发。不适用于：用户已持有具体书籍文件、只想做「书→技能」转换；单纯荐书不给问题；单纯找书；不含问题输入的普通读书笔记。
+author: 清风明月
 slug: qf-qbs-method
 category: 教育
-tags: [QBS法, 经典书, 荐书, book-to-skill, 知识蒸馏, 问题解决, 知识获取]
+tags:
+- QBS法
+- 经典书
+- 荐书
+- book-to-skill
+- 知识蒸馏
+- 问题解决
+- 知识获取
 ---
 
 ## 〇、专家级路由（v1.0.0）

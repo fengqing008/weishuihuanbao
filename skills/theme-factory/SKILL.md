@@ -1,8 +1,17 @@
 ---
 name: theme-factory
+display_name: 主题工厂
 version: 1.1.0
-author: 清风明月
 description: 专业视觉主题工厂——内置 10 套成套主题（Ocean Depths、Sunset Boulevard、Forest Canopy、Modern Minimalist、Golden Hour、Arctic Frost、Desert Rose、Tech Innovation、Botanical Garden、Midnight Galaxy），每套含四色色板（hex 值）与标题/正文字体配对，可套用到 PPT、Word 文档、HTML 页面、汇报报告与信息图，也能按场合现场生成自定义主题并输出主题应用规格表。用于给汇报、演示、报告、方案统一视觉风格：选定主题、读取 themes/ 下的主题文件、把色彩与字体按槽位落到目标成品、逐项校验对比度与字体回退链。触发词：主题工厂、主题配色、PPT 配色、幻灯片配色、换主题、配色方案、统一视觉风格、配色表、字体配对、theme、theme factory、color palette、apply theme。
+author: 清风明月
+slug: qf-theme-factory
+category: 科技
+tags:
+- 主题工厂
+- 配色方案
+- 幻灯片配色
+- 统一视觉风格
+- 字体配对
 ---
 
 ## 〇、专家级路由（v1.1.0）

@@ -1,12 +1,40 @@
 ---
 name: html-report-builder
 display_name: HTML 成果输出引擎
+version: 9.0.0
+description: HTML 成果输出引擎——把报告、说明书、方案、汇报、研究成稿、试题输出为单文件自包含 HTML，无外部依赖、可离线打开、可直接打印。内置 10 套经 WCAG 对比度校验的配色与 12 套版式母题（编辑长文、工程图纸、数据叙事、经典报告、执行简报、工程手册、周报、数据报告、竞品拆解、幻灯片、杂志长文、社媒卡片），来源分级与可追溯标注、信息缺口徽标、目录与返回顶部、打印适配与移动端响应式。能力覆盖 KaTeX 数学、callout/KPI 卡、试题三段式、缺口卡、自动 TOC、来源角标；顶部胶囊目录与 scroll-spy、章节 hero 卡与章内二次目录；八大画板与 stat/bignum/icons；图片 base64 内嵌与图注、chart 内联 SVG（bar/donut/line/area）、长表粘性表头与点击排序；图形围栏（mermaid 本地渲染、svg 直嵌）；侧栏布局与深色章节头。v7.0 并入外部最强三项实践——落笔前的设计判断三段、内容保真纪律（技术审查类页面逐条引用 file:line 证据）、反 AI slop 五条（CJK 字体栈、8px 基线网格、回避纯黑纯白、对比度 ≥4.5 带焦点态、禁用占位数据）；并全量嵌入 81 套模板库（13 类）作为可选参考，新增交付面分支（打印、邮件、公众号内联、长图）。触发场景 HTML 成果、单文件 HTML、可视化成果页、Markdown 转 HTML、网页版汇报、打印版报告、HTML 自检、配色对比度校验、无障碍校验、数学题排版、试题排版、流程图报告、架构图、按需配图、HTML 模板、版式母题。英文触发词 single-file HTML report, HTML deliverable, HTML theming, WCAG contrast check, accessibility check, KaTeX math, exam paper HTML, on-demand illustration, HTML template。不适用于 Word/PDF 文档生成（ima-doc / ima-pdf）、公文国标排版（docx-gw-format）、PPT 制作（ima-ppt）、扫描件解析（textin-xparse）。详见 SKILL.md 变更记录。
+author: 清风明月
 slug: qf-html-report
 category: 科技
-tags: [HTML输出, 单文件自包含, 配色规范, WCAG对比度, 成果交付, 模板库, 版式母题, 设计纪律, KaTeX数学公式, 试题三段式, KPI数据卡, 图形围栏, mermaid流程图, 按需配图, 配图路由, 实景图配图, 商业插画配图, 手绘线稿配图, ima生图类型匹配, 配图色调统一, 无障碍校验, 分享卡片, 打印适配, 图片放大, 目录搜索, 跟随系统深色, 动画增强, 折线面积图]
-author: 清风明月
-version: 9.0.0
-description: "HTML 成果输出引擎——把报告、说明书、方案、汇报、研究成稿、试题输出为单文件自包含 HTML，无外部依赖、可离线打开、可直接打印。内置 10 套经 WCAG 对比度校验的配色与 12 套版式母题（编辑长文、工程图纸、数据叙事、经典报告、执行简报、工程手册、周报、数据报告、竞品拆解、幻灯片、杂志长文、社媒卡片），来源分级与可追溯标注、信息缺口徽标、目录与返回顶部、打印适配与移动端响应式。能力覆盖 KaTeX 数学、callout/KPI 卡、试题三段式、缺口卡、自动 TOC、来源角标；顶部胶囊目录与 scroll-spy、章节 hero 卡与章内二次目录；八大画板与 stat/bignum/icons；图片 base64 内嵌与图注、chart 内联 SVG（bar/donut/line/area）、长表粘性表头与点击排序；图形围栏（mermaid 本地渲染、svg 直嵌）；侧栏布局与深色章节头。v7.0 并入外部最强三项实践——落笔前的设计判断三段、内容保真纪律（技术审查类页面逐条引用 file:line 证据）、反 AI slop 五条（CJK 字体栈、8px 基线网格、回避纯黑纯白、对比度 ≥4.5 带焦点态、禁用占位数据）；并全量嵌入 81 套模板库（13 类）作为可选参考，新增交付面分支（打印、邮件、公众号内联、长图）。触发场景 HTML 成果、单文件 HTML、可视化成果页、Markdown 转 HTML、网页版汇报、打印版报告、HTML 自检、配色对比度校验、无障碍校验、数学题排版、试题排版、流程图报告、架构图、按需配图、HTML 模板、版式母题。英文触发词 single-file HTML report, HTML deliverable, HTML theming, WCAG contrast check, accessibility check, KaTeX math, exam paper HTML, on-demand illustration, HTML template。不适用于 Word/PDF 文档生成（ima-doc / ima-pdf）、公文国标排版（docx-gw-format）、PPT 制作（ima-ppt）、扫描件解析（textin-xparse）。详见 SKILL.md 变更记录。"
+tags:
+- HTML输出
+- 单文件自包含
+- 配色规范
+- WCAG对比度
+- 成果交付
+- 模板库
+- 版式母题
+- 设计纪律
+- KaTeX数学公式
+- 试题三段式
+- KPI数据卡
+- 图形围栏
+- mermaid流程图
+- 按需配图
+- 配图路由
+- 实景图配图
+- 商业插画配图
+- 手绘线稿配图
+- ima生图类型匹配
+- 配图色调统一
+- 无障碍校验
+- 分享卡片
+- 打印适配
+- 图片放大
+- 目录搜索
+- 跟随系统深色
+- 动画增强
+- 折线面积图
 ---
 
 # HTML 成果输出引擎

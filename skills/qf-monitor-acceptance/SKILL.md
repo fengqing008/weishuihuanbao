@@ -1,10 +1,19 @@
 ---
-name: "qf-monitor-acceptance"
-description: "水污染源在线监测系统验收与比对监测，覆盖调试检测、性能指标与联网验收全流程。 触发场景：在线监测验收、在线设备验收、比对监测、比对检测报告、安装验收、调试检测、联网验收。"
-version: "1.0.0"
-license: "MIT"
-category: "environmental-engineering"
-author: "清风明月"
+name: qf-monitor-acceptance
+display_name: 在线监测验收
+version: 1.0.0
+description: 污水处理厂水污染源在线监测系统（CODcr、氨氮、总磷、总氮、pH、流量）验收报告与比对检测报告编制专家。覆盖安装验收、调试检测（零点漂移、量程漂移、重复性、示值误差、实际水样比对）、比对监测、联网验收，依据 HJ 354、HJ 353、HJ 355、HJ 356 判定限值。触发场景：在线监测系统验收、在线设备验收、比对监测、比对检测报告、调试检测、联网验收、设备运转率校验。不适用于：竣工环保验收（用 qf-env-acceptance）、三废检测报告编制、排污许可证申领。
+author: 清风明月
+slug: qf-monitor-acceptance
+category: 科技
+tags:
+- 在线监测验收
+- 在线设备验收
+- 比对监测
+- 比对检测报告
+- 调试检测
+- 联网验收
+license: MIT
 ---
 
 # 在线监测验收

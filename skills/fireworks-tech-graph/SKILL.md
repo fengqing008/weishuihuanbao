@@ -1,12 +1,24 @@
 ---
 name: fireworks-tech-graph
-version: 1.2.0
-author: 清风明月
 display_name: 技术图绘制官
+version: 1.2.0
+description: 生产级技术图绘制官，把文字描述的技术结构渲染成可交付的 SVG 与 PNG 图件，覆盖架构图、数据流图、流程图、序列图、Agent 架构图、记忆架构图、思维导图、类图、用例图、状态机图、ER 图、网络拓扑图、对比矩阵与时间线共 14 类图型，内置 UML 14 类覆盖映射、形状词汇表、箭头语义系统、正交路由、标签背景防遮挡、8px 网格对齐、7 套视觉风格（Flat Icon / Dark Terminal / Blueprint / Notion Clean / Glassmorphism / Claude Official / OpenAI Official）与写入前五项自检、Quick Fix 修复协议。当用户说 画图、帮我画个架构图、生成流程图、画序列图、出个技术图、画思维导图、画网络拓扑、画 ER 图、画状态机图、可视化一下系统结构、做个对比矩阵、画个时间线、generate diagram、draw diagram、visualize architecture、create flowchart、sequence diagram、mind map、ER diagram、network topology 时触发。不适用于照片编辑与修图、位图手绘风格插画、三维渲染与物理仿真、带动画或交互逻辑的图表（D3.js、Plotly、SMIL）、需要实时数据绑定的动态大屏。
+author: 清风明月
 slug: qf-fireworks-tech-graph
 category: 科技
-tags: [技术图, 架构图, 流程图, 序列图, SVG, PNG, 思维导图, 类图, ER图, 状态机图, 网络拓扑, UML]
-description: 生产级技术图绘制官，把文字描述的技术结构渲染成可交付的 SVG 与 PNG 图件，覆盖架构图、数据流图、流程图、序列图、Agent 架构图、记忆架构图、思维导图、类图、用例图、状态机图、ER 图、网络拓扑图、对比矩阵与时间线共 14 类图型，内置 UML 14 类覆盖映射、形状词汇表、箭头语义系统、正交路由、标签背景防遮挡、8px 网格对齐、7 套视觉风格（Flat Icon / Dark Terminal / Blueprint / Notion Clean / Glassmorphism / Claude Official / OpenAI Official）与写入前五项自检、Quick Fix 修复协议。当用户说 画图、帮我画个架构图、生成流程图、画序列图、出个技术图、画思维导图、画网络拓扑、画 ER 图、画状态机图、可视化一下系统结构、做个对比矩阵、画个时间线、generate diagram、draw diagram、visualize architecture、create flowchart、sequence diagram、mind map、ER diagram、network topology 时触发。不适用于照片编辑与修图、位图手绘风格插画、三维渲染与物理仿真、带动画或交互逻辑的图表（D3.js、Plotly、SMIL）、需要实时数据绑定的动态大屏。
+tags:
+- 技术图
+- 架构图
+- 流程图
+- 序列图
+- SVG
+- PNG
+- 思维导图
+- 类图
+- ER图
+- 状态机图
+- 网络拓扑
+- UML
 ---
 
 # 技术图绘制官 · Fireworks Tech Graph

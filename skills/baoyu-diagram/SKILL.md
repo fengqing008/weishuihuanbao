@@ -1,13 +1,14 @@
 ---
 name: baoyu-diagram
-description: Create professional, dark-themed SVG diagrams of any type — architecture diagrams, flowcharts, sequence diagrams, structural diagrams, mind maps, timelines, illustrative/conceptual diagrams, and more. Use this skill whenever the user asks for any kind of technical or conceptual diagram, visualization of a system, process flow, data flow, component relationship, network topology, decision tree, org chart, state machine, or any visual representation of structure/logic/process. Also trigger when the user says "画个图" "画一个架构图" "diagram" "flowchart" "sequence diagram" "draw me a ..." or uploads content and asks to visualize it. Output is always a standalone .svg file. 当用户要求画架构图、流程图、时序图、思维导图、时间线、结构图等技术图件并导出 SVG 时触发。不适用于照片修图、位图插画、三维渲染、带动画交互的图表。
-
-version: 1.117.3
-author: 清风明月
 display_name: 宝玉架构图
+version: 1.117.3
+description: Create professional, dark-themed SVG diagrams of any type — architecture diagrams, flowcharts, sequence diagrams, structural diagrams, mind maps, timelines, illustrative/conceptual diagrams, and more. Use this skill whenever the user asks for any kind of technical or conceptual diagram, visualization of a system, process flow, data flow, component relationship, network topology, decision tree, org chart, state machine, or any visual representation of structure/logic/process. Also trigger when the user says "画个图" "画一个架构图" "diagram" "flowchart" "sequence diagram" "draw me a ..." or uploads content and asks to visualize it. Output is always a standalone .svg file. 当用户要求画架构图、流程图、时序图、思维导图、时间线、结构图等技术图件并导出 SVG 时触发。不适用于照片修图、位图插画、三维渲染、带动画交互的图表。
+author: 清风明月
 slug: baoyu-diagram
 category: 科技
-tags: ["画个图", "画一个架构图"]
+tags:
+- 画个图
+- 画一个架构图
 ---
 
 

@@ -1,10 +1,18 @@
 ---
-name: "qf-settlement-sop"
-description: "工程结算标准操作程序编制与配套流程图生成，含十二章节结构与四方签字约定。 触发场景：结算SOP、规程编制、标准操作程序、流程图生成、四方签字、工程结算流程。"
-version: "1.0.0"
-license: "MIT"
-category: "engineering"
-author: "清风明月"
+name: qf-process-manual
+display_name: 结算SOP生成
+version: 1.0.0
+description: 工程结算 SOP（标准操作程序）编制与流程图生成专家。覆盖十二章结构 SOP 编制、四方签字规则约定、Y 型瀑布流程图生成、GB/T 9704-2012 排版与质量门禁核验。触发场景：结算SOP、规程、标准操作程序、结算规程、流程图、四方签字、settlement SOP、flowchart。不适用于：竣工结算审核与审减（用结算审核类技能）、造价套定额与清单编制（用造价类技能）、UML 类图与时序图。
+author: 清风明月
+slug: qf-process-manual
+category: 科技
+tags:
+- 结算SOP
+- 标准操作程序
+- 结算规程
+- 流程图
+- 四方签字
+license: MIT
 ---
 
 # 结算SOP生成

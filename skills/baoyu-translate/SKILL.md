@@ -1,19 +1,22 @@
 ---
 name: baoyu-translate
-description: "This skill should be used when the user asks to \"translate\", \"翻译\", \"精翻\", \"translate article\", \"translate to Chinese\", \"translate to English\", \"改成中文\", \"改成英文\", \"convert to Chinese\", \"localize\", \"本地化\", \"refined translation\", \"精细翻译\", \"proofread translation\", \"快速翻译\", \"快翻\", \"这篇文章翻译一下\", or provides a URL/file with translation intent. Supports three modes (quick/normal/refined) with custom glossary support. 不适用于：图片内文字翻译与本地化（用 image-text-edit）、整篇文档格式转换（用 pandoc-pdf-converter）、把文章要点提炼成报告（用 ima-report）。"
+display_name: 精翻翻译
 version: 1.117.3
+description: This skill should be used when the user asks to "translate", "翻译", "精翻", "translate article", "translate to Chinese", "translate to English", "改成中文", "改成英文", "convert to Chinese", "localize", "本地化", "refined translation", "精细翻译", "proofread translation", "快速翻译", "快翻", "这篇文章翻译一下", or provides a URL/file with translation intent. Supports three modes (quick/normal/refined) with custom glossary support. 不适用于：图片内文字翻译与本地化（用 image-text-edit）、整篇文档格式转换（用 pandoc-pdf-converter）、把文章要点提炼成报告（用 ima-report）。
+author: 清风明月
+slug: baoyu-translate
+category: 自媒体
+tags:
+- 自媒体
+- baoyu
+- translate
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-translate
     requires:
       anyBins:
-        - bun
-        - npx
-author: 清风明月
-display_name: 精翻翻译
-slug: baoyu-translate
-category: 自媒体
-tags: ["自媒体", "baoyu", "translate"]
+      - bun
+      - npx
 ---
 
 

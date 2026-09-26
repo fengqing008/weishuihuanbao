@@ -26,9 +26,9 @@ TAIL_WORK_LIMIT = 0.05  # 尾工工程不超过批准概（预）算总投资的
 
 
 def demo_data():
-    """内置某县市凉雾乡、汪营镇污水厂改造工程公开口径（单位：万元）。"""
+    """内置某县市某乡、某镇污水厂改造工程公开口径（单位：万元）。"""
     return {
-        "project": "某县市凉雾乡、汪营镇污水厂改造工程（样例）",
+        "project": "某县市某乡、某镇污水厂改造工程（样例）",
         "overview": {"approve_amount": 1591.75, "actual_amount": 894.114112},
         "settlement": {
             "send_amount": 940.083367,
