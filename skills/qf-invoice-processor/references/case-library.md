@@ -2,7 +2,7 @@
 
 > 用途：遇到同类任务时先对照本库，复用已验证做法、规避已踩过的坑。
 > 数据截至 2026-09-11；发票金额、税号等以票面原件为准，示例数字为占位示意，未核实处标【待核：...】。
-> 工具路径：`/root/.skills/invoice-processor/scripts/invoice_tool.py`（子命令 ocr / excel）。
+> 工具路径：`scripts/invoice_tool.py`（子命令 ocr / excel）。
 
 ---
 

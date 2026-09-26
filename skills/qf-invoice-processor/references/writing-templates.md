@@ -1,7 +1,7 @@
 # 模板库 — 发票/票据识别与汇总（invoice-processor）
 
 > 用途：直接复制下方骨架改成自己的任务，省去从零搭结构。
-> 脚本：`/root/.skills/invoice-processor/scripts/invoice_tool.py`。
+> 脚本：`scripts/invoice_tool.py`。
 
 ---
 
@@ -131,12 +131,12 @@ B 区：2000.00 + 260.00 = 2260.00 ✓
 - 存放目录：             （受控目录，勿外传）
 
 ## 第 1 步 批量识别
-命令：python3 /root/.skills/invoice-processor/scripts/invoice_tool.py ocr <输入路径> -o invoice_results.json [--dpi 300]
+命令：python3 scripts/invoice_tool.py ocr <输入路径> -o invoice_results.json [--dpi 300]
 返回：files=____  recognized=____
 核对：files 是否=预估张数？recognized 是否=files？不等则查失败项。
 
 ## 第 2 步 导出 Excel
-命令：python3 /root/.skills/invoice-processor/scripts/invoice_tool.py excel invoice_results.json -o invoice_results.xlsx
+命令：python3 scripts/invoice_tool.py excel invoice_results.json -o invoice_results.xlsx
 返回：rows=____  total=____（价税合计合计）
 
 ## 第 3 步 初步校验
@@ -159,7 +159,7 @@ B 区：2000.00 + 260.00 = 2260.00 ✓
 **真实示例**：
 
 ```
-- 输入路径：/sandbox/workspace/发票待整理/
+- 输入路径：./发票待整理/
 - 票据预估张数：23
 - 第 1 步 ocr → files=23  recognized=23  ✓
 - 第 2 步 excel → rows=23  total=126 800.00（示意）

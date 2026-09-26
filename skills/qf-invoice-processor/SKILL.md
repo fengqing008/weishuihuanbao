@@ -36,7 +36,7 @@ author: "清风明月"
 
 ## 环境（本沙箱已就绪）
 
-- 路径：`/root/.skills/invoice-processor/`，主脚本 `scripts/invoice_tool.py`
+- 路径：本技能目录，主脚本 `scripts/invoice_tool.py`
 - 依赖：`rapidocr-onnxruntime`（本地 OCR，已装）、`PyMuPDF`（PDF→图）、`Pillow`、`numpy`、`openpyxl`（均可用）
 
 ## 何时使用
@@ -46,7 +46,7 @@ author: "清风明月"
 ## 用法
 
 ```bash
-T=/root/.skills/invoice-processor/scripts/invoice_tool.py
+T=scripts/invoice_tool.py
 
 # ① 批量识别（输入可为单个文件，或一个目录，自动递归 PDF/JPG/PNG…）
 python3 $T ocr /path/to/发票目录 -o invoice_results.json

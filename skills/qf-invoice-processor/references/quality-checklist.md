@@ -1,7 +1,7 @@
 # 质检清单 — 发票/票据识别与汇总（invoice-processor）
 
 > 用途：交付前最后一道关，逐条打勾；命中"一票否决"即返工。
-> 脚本：`/root/.skills/invoice-processor/scripts/invoice_tool.py`。
+> 脚本：`scripts/invoice_tool.py`。
 
 ---
 
