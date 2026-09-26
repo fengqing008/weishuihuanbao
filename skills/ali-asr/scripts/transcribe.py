@@ -13,7 +13,7 @@
      "transcripts": [{"text": 全文, "sentences": [{"text","speaker_id","begin_time","end_time"}]}],
      "sentences": [...]}
 
-依赖: requests；环境变量 DASHSCOPE_API_KEY（或 /root/.dashscope_config.json）
+依赖: requests；环境变量 DASHSCOPE_API_KEY（或 ~/.dashscope_config.json）
 """
 import argparse
 import json
@@ -30,7 +30,7 @@ def load_api_key() -> str:
     key = os.environ.get('DASHSCOPE_API_KEY')
     if key:
         return key
-    cfg = pathlib.Path('/root/.dashscope_config.json')
+    cfg = pathlib.Path.home() / '.dashscope_config.json'
     if cfg.exists():
         try:
             data = json.loads(cfg.read_text(encoding='utf-8'))
@@ -39,7 +39,7 @@ def load_api_key() -> str:
                 return key
         except Exception:
             pass
-    raise SystemExit('ali-asr: 未找到 DASHSCOPE_API_KEY（请设置环境变量或写入 /root/.dashscope_config.json）')
+    raise SystemExit('ali-asr: 未找到 DASHSCOPE_API_KEY（请设置环境变量或写入 ~/.dashscope_config.json）')
 
 
 def upload_file(api_key: str, file_path: str, model: str) -> str:

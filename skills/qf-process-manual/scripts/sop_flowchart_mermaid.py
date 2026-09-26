@@ -119,7 +119,8 @@ DIFF_FLOW = """flowchart TB
 
 def render_png(mmd_path, png_path, width=1800, theme='zinc-light'):
     """调用pretty-mermaid技能渲染PNG"""
-    script = '/sandbox/workspace/skills/pretty-mermaid/scripts/render.mjs'
+    script = os.environ.get('PRETTY_MERMAID_RENDER') or str(
+        Path(__file__).resolve().parents[2] / 'pretty-mermaid' / 'scripts' / 'render.mjs')
     if not Path(script).exists():
         return f'✗ pretty-mermaid技能未安装，请先安装'
     cmd = ['node', script, '--input', str(mmd_path), '--output', str(png_path),

@@ -68,7 +68,7 @@ python3 scripts/transcribe.py 录音.mp3 --vocab "某市:5,PPP:5,街办:4" --out
 
 ## 五、失败模式与降级路径
 
-1. **F1 缺少 API Key**：检出未配置 `DASHSCOPE_API_KEY` → 立即报错退出（退出码 1），提示写入环境变量或 `/root/.dashscope_config.json`；不静默返回空结果。
+1. **F1 缺少 API Key**：检出未配置 `DASHSCOPE_API_KEY` → 立即报错退出（退出码 1），提示写入环境变量或 `~/.dashscope_config.json`；不静默返回空结果。
 2. **F2 上传失败**：获取上传凭证或文件上传非 200/204 → 报错并打印状态码与响应片段；改用公开 URL 传入可不经上传。
 3. **F3 任务失败**：任务状态为 FAILED/UNKNOWN/CANCELED → 打印完整响应片段后退出；不重试同一任务，避免重复计费。
 4. **F4 结果为空**：转写成功但句数为 0 → 打印「(空)」，仍写出 JSON；上层链路据此判定音频无有效语音。
@@ -89,7 +89,7 @@ python3 scripts/transcribe.py 录音.mp3 --vocab "某市:5,PPP:5,街办:4" --out
 ## 七、依赖说明
 
 - `requests`：HTTP 调用；缺失时先 `pip install requests`
-- `DASHSCOPE_API_KEY`：阿里云百炼 API Key（环境变量或 `/root/.dashscope_config.json`）
+- `DASHSCOPE_API_KEY`：阿里云百炼 API Key（环境变量或 `~/.dashscope_config.json`）
 - `ffmpeg`：非必需，用于音频归一化与长音频切段
 
 ## 八、集成契约（供上层链路调用）

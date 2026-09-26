@@ -47,6 +47,6 @@ python3 scripts/transcribe.py 录音.mp3 --vocab "某市:5,PPP:5,街办:4" --out
 - `--speakers` 要与真实会话人数一致，取值偏差会显著拉低分离准确率；不确定就不传。
 - 交付前核对 JSON 中 `text` 与 `sentences` 是否一致、有无截断；长音频分段结果段间衔接需人工抽查。
 - 敏感内容（隐私、未公开经营信息）按内部资料管理，不外传、不入公网。
-- 缺 `DASHSCOPE_API_KEY` → 立即报错退出（退出码 1），可写入环境变量或 `/root/.dashscope_config.json`。
+- 缺 `DASHSCOPE_API_KEY` → 立即报错退出（退出码 1），可写入环境变量或 `~/.dashscope_config.json`。
 - 任务 FAILED/UNKNOWN/CANCELED 不重试同一任务，避免重复计费；返回 Arrearage（欠费）时全部请求不可用。
 - 上层链路按候选路径查找脚本，需保证 `ali-asr/scripts/transcribe.py` 与 `ali-asr/transcribe.py` 同时存在。详见 SKILL.md 第五、八节。
