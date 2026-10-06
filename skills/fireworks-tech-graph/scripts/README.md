@@ -52,7 +52,7 @@ SVG 图表生成脚本，提供自动验证和 PNG 导出。
 ./generate-diagram.sh -t flowchart -s 2 -w 2400
 ```
 
-**注���：** SVG 内容生成需要 Claude Code，此脚本提供验证和导出功能。
+**注意：** SVG 内容生成需要 Claude Code，此脚本提供验证和导出功能。
 
 ### 3. test-all-styles.sh
 

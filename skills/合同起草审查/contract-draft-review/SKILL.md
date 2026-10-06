@@ -50,7 +50,7 @@ description: 合同起草与审查，基于知识库范本生成合同文档并�
 
 1. 根据合同类型，在知识库"合同范本库"中搜索匹配的范本：
    ```
-   search(source="kb", kb_id="（已脱敏）", question="XX合同范本")
+   search(source="kb", kb_id="-Z3CR9jWneqrcj6TIvJbUck7WPYnSnltVei0DuHHgqo=", question="XX合同范本")
    ```
 2. 使用 `fetch` 加载范本全文内容
 3. 以范本结构为骨架，结合用户提供的信息填充条款

@@ -1,13 +1,13 @@
-HTMLBASE_VERSION=v9.0.0
-SYNCED_AT=2026-09-24 14:03:17
+HTMLBASE_VERSION=v9.6.0
+SYNCED_AT=2026-09-28 14:24:58
 SOURCE=html-report-builder/scripts
 md5:
   board.py 413734de1d943d34fe6b06dfebfb9313
-  build_report.py 877f0e0e7d9135bd7216b659c363cc01
-  html_check.py 919b3f941409f8bafba8c0dfbdbf5ee8
+  build_report.py bdbe45726a28313a57b8a8d8d2048d28
+  html_check.py 351a9e7df59a898fcbb7bd782a1ac0e0
   illustrate.py 39cdb570b3d59874ee387d2e2863540b
-  md2report.py e94c66f9bf0e70ce1fcd6afea86d7486
-  motifs.py 40fba9e8c793814a60ae3d563bf0f65e
-  motif_check.py d722bb3d511d179eb19d0f169c5af547
-  palettes.py 95b3c34ecb384407f61b16cc85950f5a
+  md2report.py 23fa6d960adc35c27a902bafc799ee77
+  motif_check.py 8d1194b35fa947cdc4f9da54d44ea6e6
+  motifs.py 4a61c7ce415aeac8a2c76f091abc012b
+  palettes.py 3bc4d77ffd817f8c4a77594dc071906f
   render_diagrams.py 1ca3cd533fcabb36f9e4490c2d7cf627

@@ -30,8 +30,8 @@ except ImportError:
 
 # type -> (正文字体, 标题字体, 正文字号pt, 一级标题字号pt, 行距pt, 页边距cm)
 PROFILES = {
-    "technical": ("仿宋", "仿宋", 12, 16, 25, (2.5, 2.0, 2.0, 2.0)),
-    "commercial": ("宋体", "黑体", 12, 16, 22, (2.54, 2.54, 3.17, 3.17)),
+    "technical": ("宋体", "黑体", 12, 15, 25, (2.5, 2.0, 2.0, 2.0)),
+    "commercial": ("宋体", "黑体", 12, 15, 22, (2.54, 2.54, 3.17, 3.17)),
 }
 EN_FONT = "Times New Roman"
 
@@ -123,7 +123,8 @@ def style_footer(section):
 
 def shift_headings(doc):
     mapping = {"Heading 1": "Title", "Heading 2": "Heading 1",
-               "Heading 3": "Heading 2", "Heading 4": "Heading 3"}
+               "Heading 3": "Heading 2", "Heading 4": "Heading 3",
+               "Heading 5": "Heading 4", "Heading 6": "Heading 5"}
     for p in list(doc.paragraphs):
         sn = (p.style.name or "")
         if sn in mapping:
@@ -144,12 +145,16 @@ def style_styles(doc, prof):
     if t:
         set_style_font(t, hcn, h1_sz + 4, True)
         set_style_para(t, before=0, after=12, align=WD_ALIGN_PARAGRAPH.CENTER)
-    for name, size, align, indent in [("Heading 1", h1_sz, WD_ALIGN_PARAGRAPH.CENTER, 0),
-                                      ("Heading 2", body_sz, WD_ALIGN_PARAGRAPH.LEFT, 2),
-                                      ("Heading 3", body_sz, WD_ALIGN_PARAGRAPH.LEFT, 2)]:
+    # 城区厂投标文件（某市某水务集团）大纲字体口径：H1 黑体三号居中，H2-H4 黑体小四左顶格，H5 承原件用宋体小四
+    for name, size, align, indent, fnt in [
+            ("Heading 1", h1_sz, WD_ALIGN_PARAGRAPH.CENTER, 0, hcn),
+            ("Heading 2", body_sz, WD_ALIGN_PARAGRAPH.LEFT, 0, hcn),
+            ("Heading 3", body_sz, WD_ALIGN_PARAGRAPH.LEFT, 0, hcn),
+            ("Heading 4", body_sz, WD_ALIGN_PARAGRAPH.LEFT, 0, hcn),
+            ("Heading 5", body_sz, WD_ALIGN_PARAGRAPH.LEFT, 0, cn)]:
         st = _style(doc, name)
         if st:
-            set_style_font(st, hcn, size, True)
+            set_style_font(st, fnt, size, True)
             set_style_para(st, before=6, after=6, line_pt=line_pt, align=align, indent_chars=indent)
     for name in ["Normal", "Body Text"]:
         st = _style(doc, name)
@@ -188,7 +193,7 @@ def convert_md(path):
 
 def verify(path):
     doc = Document(path)
-    h = {"Heading 1": 0, "Heading 2": 0, "Heading 3": 0}
+    h = {"Heading 1": 0, "Heading 2": 0, "Heading 3": 0, "Heading 4": 0, "Heading 5": 0}
     for p in doc.paragraphs:
         sn = p.style.name or ""
         if sn in h:
@@ -200,6 +205,8 @@ def verify(path):
         has_upd = False
     print("== 大纲与目录校验 ==")
     print(f"Heading 1 段落数: {h['Heading 1']}")
+    print(f"Heading 4 段落数: {h['Heading 4']}")
+    print(f"Heading 5 段落数: {h['Heading 5']}")
     print(f"Heading 2 段落数: {h['Heading 2']}")
     print(f"Heading 3 段落数: {h['Heading 3']}")
     print(f"含 TOC 域: {has_toc}")

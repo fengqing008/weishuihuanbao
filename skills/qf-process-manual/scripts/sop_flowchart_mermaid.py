@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Y型瀑布流程图mermaid生成器
-- 基于某区县SOP V7实战蒸馏
+- 基于某市SOP V7实战蒸馏
 - 9种classDef+6种节点形状+商务低饱和
 - 四方签字约定自动嵌入
 
@@ -117,10 +117,25 @@ DIFF_FLOW = """flowchart TB
 """ + COMMON_STYLES
 
 
+def _find_skill_file(rel, default):
+    """跨技能脚本定位：SKILLS_ROOT 环境变量 > 按本文件位置推导 > /root/.skills > skills"""
+    cands = []
+    if os.environ.get('SKILLS_ROOT'):
+        cands.append(os.path.join(os.environ['SKILLS_ROOT'], rel))
+    here = Path(__file__).resolve().parent          # <skill>/scripts
+    cands.append(str(here.parent.parent / rel))      # 技能根/rel
+    cands.append(os.path.join('/root/.skills', rel))
+    cands.append(os.path.join('skills', rel))
+    for c in cands:
+        if Path(c).exists():
+            return c
+    return default
+
+
 def render_png(mmd_path, png_path, width=1800, theme='zinc-light'):
     """调用pretty-mermaid技能渲染PNG"""
-    script = os.environ.get('PRETTY_MERMAID_RENDER') or str(
-        Path(__file__).resolve().parents[2] / 'pretty-mermaid' / 'scripts' / 'render.mjs')
+    script = _find_skill_file('pretty-mermaid/scripts/render.mjs',
+                              'skills/pretty-mermaid/scripts/render.mjs')
     if not Path(script).exists():
         return f'✗ pretty-mermaid技能未安装，请先安装'
     cmd = ['node', script, '--input', str(mmd_path), '--output', str(png_path),

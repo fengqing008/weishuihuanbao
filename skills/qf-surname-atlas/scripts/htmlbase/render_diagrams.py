@@ -27,8 +27,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # 三级探测：随包副本 → 技能目录 → 工作区软链
 PM_CANDIDATES = (
     os.path.join(HERE, "vendors", "pretty-mermaid"),
-    "/root/.skills/pretty-mermaid",
-    "/sandbox/workspace/skills/pretty-mermaid",
+    "pretty-mermaid",
+    "skills/pretty-mermaid",
 )
 
 

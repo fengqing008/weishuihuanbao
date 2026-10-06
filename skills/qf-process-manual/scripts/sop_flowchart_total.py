@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 模板风格流程图 · 工程量核对（主图）
-用法：python3 sop_flowchart_total.py --project 示例PPP --out 工程量核对.png
+用法：python3 sop_flowchart_total.py --project 某PPP --out 工程量核对.png
 """
 import argparse
 import os
@@ -14,7 +14,7 @@ from flowchart_kit import (init, save, title_block, start_node, end_node,
                            RES_F, RES_E, WARN_F, WARN_E, ACT_E, EDGE, DEC_F, DEC_E)
 
 ap = argparse.ArgumentParser(description='模板风格流程图 · 工程量核对')
-ap.add_argument('--project', default='示例PPP', help='项目名称前缀')
+ap.add_argument('--project', default='某PPP', help='项目名称前缀')
 ap.add_argument('--subtitle', default='适用：施工单位 ／ 监理单位 ／ 审计单位 ／ 建设单位')
 ap.add_argument('--out', default='工程量核对_流程图.png')
 A = ap.parse_args()

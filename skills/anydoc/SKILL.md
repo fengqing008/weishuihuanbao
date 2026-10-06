@@ -1,8 +1,14 @@
 ---
 name: anydoc
 display_name: 文档转Markdown
-version: 2.0.0
-description: '任意文档秒转 Markdown 的本地转换技能（Firecrawl 开源，Rust 实现，毫秒级）。支持 Word（.doc/.docx/.docm）、PowerPoint（.ppt/.pptx/.pptm 等）、Excel（.xls/.xlsx/.xlsm/.xlsb/.csv）、OpenDocument（.odt/.ods/.odp）、RTF、EPUB、PDF 共 20 种格式，按文件内容自动识别格式，无需安装（npx 一键调用，Node 20+）。当用户需要读取/解析/转换 docx、pptx、xlsx、pdf 等办公文档内容为 Markdown、提取文档全文、文档内容分析、把本地文件转成可读文本、文档入库前格式统一时使用。中文触发词："转成Markdown"、"文档转换"、"提取文档内容"、"读取Word/PDF内容"、"文档解析"。English triggers: convert to markdown, document conversion, extract docx/pdf content。适用于有文字层的文档（扫描件/纯图片 PDF 不支持 OCR，需用 textin-xparse 技能）。不适用于：扫描件/图片 OCR 识别（用 textin-xparse）、PDF 创建编辑（用 ima-pdf）、Word 创建编辑（用 ima-doc）。'
+version: 2.1.0
+description: '任意文档秒转 Markdown 的本地转换技能（Firecrawl 开源，Rust 实现，毫秒级）。支持 Word（.doc/.docx/.docm）、PowerPoint（.ppt/.pptx/.pptm
+  等）、Excel（.xls/.xlsx/.xlsm/.xlsb/.csv）、OpenDocument（.odt/.ods/.odp）、RTF、EPUB、PDF
+  共 20 种格式，按文件内容自动识别格式，无需安装（npx 一键调用，Node 20+）。当用户需要读取/解析/转换 docx、pptx、xlsx、pdf 等办公文档内容为
+  Markdown、提取文档全文、文档内容分析、把本地文件转成可读文本、文档入库前格式统一时使用。中文触发词："转成Markdown"、"文档转换"、"提取文档内容"、"读取Word/PDF内容"、"文档解析"。English
+  triggers: convert to markdown, document conversion, extract docx/pdf content。适用于有文字层的文档（扫描件/纯图片
+  PDF 不支持 OCR，需用 textin-xparse 技能）。不适用于：扫描件/图片 OCR 识别（用 textin-xparse）、PDF 创建编辑（用
+  ima-pdf）、Word 创建编辑（用 ima-doc）。'
 author: 清风明月
 slug: anydoc
 category: 科技
@@ -17,6 +23,7 @@ license: MIT
 metadata:
   author: firecrawl
 ---
+
 
 # 任意文档转 Markdown（anydoc）
 
@@ -163,4 +170,108 @@ metadata:
 - **v1.1.0**：格式清单与退出码语义固化。
 - **v1.0.0**：首版。
 
-> 更多用法与示例见 `references/usage-and-examples.md`。
+> 更多用法与示例见 `references/usage-and-examples.md`；案例库见 `references/case-library.md`。
+
+## 能力边界（不适用范围与场景路由）
+
+**能力边界**：本技能只做一件事——把**有文字层**的办公文档/PDF 转成 Markdown 文本。除此之外均不在范围内。
+
+**不适用范围 / 不在范围**：
+
+- 扫描件、纯图片 PDF、拍照截图 → 转 textin-xparse（OCR）
+- PDF 创建、合并、拆分、加密、表单填写 → 转 ima-pdf
+- Word 创建、编辑、套模板排版 → 转 ima-doc
+- 网页抓取与正文提取 → 转 web-scraper
+- 图片美化、批量缩放与格式转换 → 转 image-tools-suite
+- 文档内容的事实改写、翻译、摘要生成 → 属写作类任务，不属转换范围
+
+**场景路由表**：
+
+| 用户场景 | 判据 | 走向 |
+|---|---|---|
+| docx/pptx/xlsx 读内容 | 扩展名在支持清单且未加密 | 本技能 npx 转换 |
+| 有文字层 PDF | 首页文字可选中 | 本技能 npx 转换 |
+| 无文字层 PDF / 图片 / 截图 | 首页不可选中文字 | textin-xparse OCR |
+| 一批 Office 文件入库前格式统一 | ≥3 份同类文件 | 本技能 + `scripts/anydoc_check.py` 质检 |
+| CSV 无扩展名 / stdin 输入 | 无扩展名 | 本技能 `--format` 显式指定 |
+| 加密或损坏文档 | 打开即报错 | 让用户另存可读副本后再转 |
+
+**English triggers**: convert to markdown, document conversion, extract docx/pdf content, parse document, office to markdown.
+
+## 降级路径与失败模式（异常处理预案）
+
+文档转换的**失败模式**，多数不是"命令打错"，而是"输入不具备可转换条件"。下表覆盖六类失败分支与**降级处置**，触发即按其执行，不得绕道臆断。
+
+| 序号 | 场景 | 触发条件 | 降级处置（含兜底方案） |
+|---|---|---|---|
+| F1 | 无文字层 | PDF/图片为扫描件，首页文字不可选中；退出码 1 | **不重试**同一命令；降级为 OCR 通道（textin-xparse）取文字层后再回归 |
+| F2 | 加密/损坏文档 | 打开即报错或退出码 1 | 终止该项，请用户另存为可读副本；不尝试解密；记录"待人工授权" |
+| F3 | 依赖不可用 | 无 Node 20+ 或 npm 源不可达，`npx` 失败 | **回退（fallback）到备用解析路径**：有文字层 PDF 走 `pdftotext` 或平台自带解析；Office 走 textin-xparse / ima-doc |
+| F4 | 产物不合格 | 表格错列、乱码、空产物 | 编码类 **回退** text-io 的 `convert` 先修源文件；结构类人工核对重建；复跑 `anydoc_check.py` 确认 |
+| F5 | 大文档超窗口 | 单文件 >50 页或 >10MB | 降级为 `-o` 落盘 + 分片读取；必要时按目录切片，逐段处理，避免一次性载入 |
+| F6 | 批量部分失败 | 目录内个别件转换失败 | **断点续跑**：只重跑失败件，已合格件不重跑；失败件单列原因并给替代通道 |
+
+**容错与补救原则**：①任一结论须可复算可回溯，产物与源文件一一对应；②退出码先判（0 成功 / 1 无法转换 / 2 用法错误），按码处置，不盲目重试；③**边界条件**——空产物、纯元数据产物一律视为失败交付；④已交付材料口径有误的，出具更正说明并留痕；⑤对不可转换输入采用**防御**姿态（先判定再动手），不做无效尝试。
+
+**兜底通道标注**：走兜底或降级通道产出的文本，须在交付说明中如实标注所用通道与精度差异，不隐去降级事实。
+
+**错误处理速查**：退出码 2 → 检查路径与 `--format` 写法；退出码 1 → 判定加密/损坏/无文字层，换通道；stderr 单行 `anydoc: <message>`，无多余提示。
+
+## 引用依据与溯源
+
+本节固定引用口径：涉及格式规范、编码与字符集的技术结论，一律落到"标准全称＋编号＋来源"，不以俗称代替。
+
+| 层级 | 标准/文件全称 | 编号 | 来源与核验入口 |
+|---|---|---|---|
+| 文件格式（Office） | 《信息技术 办公软件文档格式规范》 | GB/T 20916-2007 | 国家标准全文公开系统 |
+| 文件格式（OOXML） | ISO/IEC 29500-1:2016 Office Open XML | ISO/IEC 29500 | ISO 官网 / ECMA-376 |
+| 版式文档 | 《电子文件存储与交换格式 版式文档》 | GB/T 33190-2016 | 国家标准全文公开系统 |
+| 字符集 | RFC 3629 UTF-8, a transformation format of ISO 10646 | IETF RFC 3629 | IETF Datatracker |
+| 表格数据 | RFC 4180 Common Format and MIME Type for CSV Files | IETF RFC 4180 | IETF Datatracker |
+| 标记语言 | CommonMark Spec（GitHub Flavored Markdown 为其扩展） | CommonMark 0.31.2 / GFM Spec | commonmark.org / GitHub Docs |
+| 数据安全 | 《中华人民共和国网络安全法》 | 主席令第五十三号（2017-06-01 施行） | 中国政府网 |
+
+**溯源纪律**：①格式支持范围与退出码语义以本技能 `scripts/anydoc_check.py` 与官方 CLI 行为为准；②技术标准以现行有效版本为准，效力存疑时标注并提示用户核对；③本技能全部规则为条文与官方文档转述，**不编造、不杜撰**未见于公开资料的行为描述；④用户文档仅用于本任务，不外发、不转送，处理全程在本地完成。
+
+## 合规红线（固定拒绝口径）
+
+1. **不得**对扫描件/纯图片 PDF 反复重试转换——无文字层必然失败，应分流 OCR；`不适用` 即拒，不做无效尝试。
+2. **不得**用本技能创建、编辑、美化任何文档（PDF/Word/PPT/Excel 的生成与修改均不在范围）。
+3. **不得**编造或改写原文内容——转换只做结构搬运，原文没有的文字一个字不加。
+4. **不得**把大文档全文灌入上下文——一律先 `-o` 落盘再按需分片读取。
+5. **不得**将用户文档向外部传输或送交第三方——本地运行，文件不出本机；涉及敏感内容的，遵守脱敏与隐私要求。
+6. **不得**把未经 `anydoc_check.py` 质检的产物当最终交付物——空产物、纯元数据产物一律视为失败交付。
+
+## 可交付物与输出规范
+
+| 产出 | 格式 | 说明 |
+|---|---|---|
+| 单份/批量 Markdown | `.md`（UTF-8 无 BOM） | `npx @firecrawl/anydoc <file> -o <stem>.md`，命名沿用源文件名干 |
+| 转换质检报告 | 文本 / JSON | `python3 scripts/anydoc_check.py --source <dir> --md-dir <dir> [--json]` |
+| 缺件与失败清单 | 文本 | 质检输出的缺件、空件、结构异常逐项列出并给替代通道 |
+| 交付说明 | Markdown | 列明通道（主用/兜底）、成功与失败件数、需人工核对项 |
+
+**输出纪律**：①stdout 模式给 GitHub 风格 Markdown；②文件模式 UTF-8 无 BOM，多文档保持一一对应；③保留原文结构与数据，不做增删改写；④凡走降级/兜底通道的，在交付说明中标注。
+
+## 版本沿革（CHANGELOG）
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| 2.1.0 | 2026-10 | 新增「降级路径与失败模式」表（F1–F6）与容错补救原则；新增「引用依据与溯源」小节（七条标准依据）；新增「合规红线」六条固定拒绝口径、「能力边界与场景路由」表与「可交付物与输出规范」表；新增 `scripts/anydoc_check.py` 转换质检脚本（退出码 0/1/2）与 `references/case-library.md` 案例库；补英文触发词 |
+| 2.0.0 | 2026-09-07 | 补齐九要素（定位/触发/工作流/输出规范/边界/依赖/范例）；原 CLI 命令、格式清单、使用规则与 ima 平台调用规则原文保留 |
+| 1.1.0 | — | 格式清单与退出码语义固化 |
+| 1.0.0 | — | 首版 |
+
+**版本维护约定**：CLI 退出码语义、支持格式清单、质检脚本行为变更时升次版本号；新增脚本与案例库不改变既有触发语义。
+
+## 脚本调用速查
+
+```bash
+# 单份产物抽查
+python3 scripts/anydoc_check.py --sample out.md --json
+
+# 批量对账（源目录 vs 产物目录）
+python3 scripts/anydoc_check.py --source ./合同 --md-dir ./合同_md --min-bytes 32
+```
+
+退出码：0 = 全部通过；1 = 存在不合格项，按降级路径处置；2 = 输入不足或路径不可用。

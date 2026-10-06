@@ -25,7 +25,7 @@ v2.0 新增能力（2026-09-22）：
 
 用法：
   python3 md2report.py 成稿.md -o 成果页.html
-  python3 md2report.py 成稿.md -o 成果页.html --theme forest --audience 某负责人 --check --math
+  python3 md2report.py 成稿.md -o 成果页.html --theme forest --audience 李云 --check --math
   python3 md2report.py --doc 成稿.md --list-themes
 """
 import argparse

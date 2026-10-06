@@ -388,7 +388,7 @@ def generate_review(data: dict, output_path: Path):
 # ── 主入口 ────────────────────────────────────────────────
 
 def highlight_pending(doc):
-    """v1.1.0：将段落/表格中含【待核 的 run 加黄色底纹（FFFF00），某负责人硬性要求"""
+    """v1.1.0：将段落/表格中含【待核 的 run 加黄色底纹（FFFF00），某工硬性要求"""
     from lxml import etree
     W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
     count = 0

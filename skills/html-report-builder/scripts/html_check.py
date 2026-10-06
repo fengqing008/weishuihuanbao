@@ -151,6 +151,7 @@ def main():
     ap.add_argument("--density-min", type=int, default=300, help="每章最少中文字数（密度门禁 WARN 线），默认 300")
     ap.add_argument("--no-density", action="store_true", help="关闭内容密度检查")
     ap.add_argument("--no-tone", action="store_true", help="关闭文风（黑话/序列化路标）检查")
+    ap.add_argument("--no-slop", action="store_true", help="关闭反 AI 模板化（视觉套路）检查")
     a = ap.parse_args()
 
     p = a.file
@@ -324,11 +325,43 @@ def main():
         else:
             add("OK", "AI_TONE", "未见黑话与序列化路标")
 
+    # 8.7 反 AI 模板化（视觉套路）——SLOP 系列（默认 WARN 级，需人工复核；--no-slop 关闭）
+    # 规则依据 references/anti-slop-checklist.md v1.0（Taste Skill + Impeccable 反模式）
+    if not a.no_slop:
+        _css = "\n".join(re.findall(r"<style[^>]*>(.*?)</style>", html, re.S))
+        _CJK = ("PingFang", "Microsoft YaHei", "Noto Sans SC", "Source Han",
+                "Hiragino", "Heiti", "SimHei", "WenQuanYi", "sans-serif CJK")
+        _DEF = ("Inter", "Roboto", "Arial", "Helvetica")
+        _ff = re.findall(r"font-family\s*:\s*([^;}]+)", _css, re.I)
+        _bad_font = [f.strip() for f in _ff
+                     if any(d.lower() in f.lower() for d in _DEF)
+                     and not any(c.lower() in f.lower() for c in _CJK)]
+        add("WARN", "SLOP_FONT", "字体栈用 AI 默认英文字体且未见中文字体：%s" % _bad_font[:2],
+            "补中文字体栈（PingFang SC / Microsoft YaHei / Noto Sans SC）") if _bad_font else \
+            add("OK", "SLOP_FONT", "字体栈含中文字体或未用默认英文字体")
+        _PURPLE = r"#(?:8b5cf6|a855f7|7c3aed|9333ea|c084fc|6366f1|818cf8|4f46e5|3b82f6|60a5fa)"
+        _grad_purple = [g for g in re.findall(r"linear-gradient\([^)]*\)", _css, re.I)
+                        if re.search(_PURPLE, g, re.I)]
+        add("WARN", "SLOP_GRAD", "检出紫/蓝系渐变（AI 默认 hero 套路）：%s" % _grad_purple[0][:60],
+            "确认是否刻意的品牌选择；非必要则换有辨识度的配色") if _grad_purple else \
+            add("OK", "SLOP_GRAD", "未见紫→蓝系默认渐变")
+        _pure = re.findall(r"(?:color|background(?:-color)?)\s*:\s*(#000(?:000)?\b|#fff(?:fff)?\b|\bblack\b|\bwhite\b)", _css, re.I)
+        add("WARN", "SLOP_PURE", "直接使用纯黑/纯白 %d 处" % len(_pure),
+            "改用近邻（#0f172a 深灰 / #fff 配 #f8fafc 底）") if _pure else \
+            add("OK", "SLOP_PURE", "未直接使用纯黑/纯白")
+        add("WARN", "SLOP_OUTLINE", "存在 outline:none/0（可能移除焦点环）",
+            "保留可见焦点环，或改 :focus-visible 自定义") if re.search(r"outline\s*:\s*(none|0)", _css, re.I) else \
+            add("OK", "SLOP_OUTLINE", "未见静默移除焦点环")
+        add("WARN", "SLOP_BOUNCE", "动效使用 bounce/弹性缓动", "换 ease-out / ease-in-out 等克制曲线") \
+            if re.search(r"bounce", _css, re.I) else add("OK", "SLOP_BOUNCE", "未见 bounce 缓动")
+
     # 9 JS 语法（可选）
     if a.node:
         scripts = re.findall(r"<script[^>]*>(.*?)</script>", html, re.S)
         if scripts:
-            tmp = os.path.join(os.path.dirname(os.path.abspath(p)), "_html_check_tmp.js")
+            # v9.2.1：临时名带 pid，避免同目录并发渲染时多个进程互删临时文件
+            tmp = os.path.join(os.path.dirname(os.path.abspath(p)),
+                               "_html_check_tmp_%d.js" % os.getpid())
             open(tmp, "w", encoding="utf-8").write("\n".join(scripts))
             try:
                 r = subprocess.run(["node", "--check", tmp], capture_output=True, text=True, timeout=30)
@@ -405,7 +438,7 @@ def main():
         add("OK", "MOBILE_TOC", "移动端抽屉式目录已注入（≤640px 启用，含配色行）")
     # 15b 内容动效层（v4.11.0，仅提示不判 FAIL）
     has_fx_layer = 'anim-ready' in html
-    has_fx_comp = bool(re.search(r'class="(?:kpi-card|b-cell|stat-cell|bar-fill|tl-item|phase|law-card)"', html))
+    has_fx_comp = bool(re.search(r'class="(?:kpi-card|b-cell|stat-cell|bar-fill|tl-item|phase|law-card|pg-row|sum-box|day-card|plan-card|term|quote|spark-card|heat|gauge-card|feed-item|dropcap)"', html))
     if has_fx_layer:
         add("OK", "FX", "内容动效层已注入（卡片错峰淡入/条形生长/图表淡入/数字滚动）")
     elif has_fx_comp:
@@ -503,6 +536,17 @@ def main():
     _screen = _strip_print(html)
     _pure = re.findall(r'#(?:0{3}|0{6}|f{3}|f{6})\b', _screen, re.I)
     _pure += re.findall(r'(?:color|background|background-color)\s*:\s*(?:black|white)\b', _screen, re.I)
+    # 渐变填充承载反白文字（v9.3.0：防「浅色渐变终点 + 白字」回归）
+    _gw = []
+    for _st in re.findall(r"<style[^>]*>(.*?)</style>", html, re.S):
+        for _blk in re.findall(r"\{[^{}]*\}", _st):
+            if "linear-gradient" in _blk and re.search(r"color:\s*#(?:fff|ffffff|fdfdfd)\b", _blk, re.I):
+                _gw.append(re.sub(r"\s+", " ", _blk)[:70])
+    if _gw:
+        add("WARN", "GRAD_TEXT", "渐变填充承载反白文字 %d 处，需确认渐变终点对比度 ≥4.5" % len(_gw),
+            "承载文字的填充改用 --ds-accent-deep，或改为浅底深字")
+    else:
+        add("OK", "GRAD_TEXT", "未发现「渐变填充 + 反白文字」组合")
     if _pure:
         add("WARN", "PURE_BW", "使用纯黑或纯白 %d 处" % len(_pure),
             "改用近黑近白（如 #0d1117 / #f7f6f3）")

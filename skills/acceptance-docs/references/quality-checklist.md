@@ -12,7 +12,7 @@
 - [ ] 运行参数齐全：`-o` 输出目录、`--project-name` 必填；`report` 补 `--location`/`--cost`；`meeting` 补 `--meeting-date`/`--meeting-place`/`--host`；未知信息保留脚本默认【待填：…】占位，不臆造；
 - [ ] 产物数量齐全：checklist 1 个、records 4 个、report 1 个、meeting 4 个、divisions 1 个 Word 文件，文件均可正常打开；
 - [ ] 无损坏核验（可选）：`soffice --headless --convert-to pdf --outdir ./output/pdf ./output/*.docx` 转换成功；
-- [ ] 成果入库（如环境支持）：upload_file.py 入 ima 成果库（kb_id=（已脱敏））＋提供下载链接。
+- [ ] 成果入库（如环境支持）：upload_file.py 入 ima 成果库（kb_id=ztJsLCMwR3pgWo250gemdopQbgBCLefIJCGns0HK9D0=）＋提供下载链接。
 
 ## B. 内容完整度自检（对照脚本内置口径逐项过）
 

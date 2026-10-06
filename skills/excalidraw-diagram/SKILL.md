@@ -1,10 +1,12 @@
 ---
 name: excalidraw-diagram
 display_name: 手绘图生成官
-version: 2.2.0
-description: 手绘图生成官：把一句话需求转成可直接在 Excalidraw 打开、可继续编辑的 .excalidraw 手绘风格图表 JSON，用于流程、架构、概念的可视化论证，图要"论证"而不是"陈列"。当用户说画手绘图、出 Excalidraw、画流程图、画架构图、做可视化论证、diagram、flowchart、architecture 时触发。内置六步执行工作流与 scripts/excalidraw_check.py 坐标越界与元素重叠检查脚本。不适用：位图精修与去水印、UI 高保真设计稿、3D 渲染、CAD 工程制图、纯数据大屏。
+version: 2.3.0
+description: 手绘图生成官：把一句话需求转成可直接在 Excalidraw 打开、可继续编辑的 .excalidraw 手绘风格图表 JSON，用于流程、架构、概念的可视化论证，图要"论证"而不是"陈列"。当用户说画手绘图、出
+  Excalidraw、画流程图、画架构图、做可视化论证、diagram、flowchart、architecture 时触发。内置六步执行工作流与 scripts/excalidraw_check.py
+  坐标越界与元素重叠检查脚本。不适用：位图精修与去水印、UI 高保真设计稿、3D 渲染、CAD 工程制图、纯数据大屏。
 author: 清风明月
-slug: qf-excalidraw-diagram
+slug: excalidraw-diagram
 category: 科技
 tags:
 - excalidraw
@@ -14,6 +16,7 @@ tags:
 - 可视化论证
 - diagram-json
 ---
+
 
 # 手绘图生成官（Excalidraw 可视化论证图）
 
@@ -324,3 +327,68 @@ tags:
 ---
 
 **维护**：本技能正文为设计方法论与工作流；颜色、元素模板、JSON 字段、渲染脚本分别见 `references/color-palette.md`、`references/element-templates.md`、`references/json-schema.md`、`references/render_excalidraw.py`。
+
+## 二十二、引用依据与溯源
+
+手绘图生成官的方法论与视觉规范依据下列权威文件（全称＋编号＋来源）；图中出现的真实事件名、接口名、数据格式须回溯到可查来源，**不编造、不杜撰**术语，无来源信息标 `【待填：待查证】`。
+
+| 序号 | 依据全称 | 编号/文号 | 适用环节 | 来源 |
+|---|---|---|---|---|
+| 1 | 《图形符号 术语》 | GB/T 15565-2020 | 形状与符号的语义约定 | 国家标准化管理委员会 |
+| 2 | 《标志用图形符号表示规则 总则》 | GB/T 16903-2021 | 图形符号的表示与一致性 | 国家标准化管理委员会 |
+| 3 | 《图形符号表示规则 总则》 | GB/T 16900-2008 | 符号系统的构造规则 | 国家标准化管理委员会 |
+| 4 | 《标准化工作导则 第1部分：标准化文件的结构和起草规则》 | GB/T 1.1-2020 | 文档结构与术语规范 | 国家标准化管理委员会 |
+| 5 | 《Web 内容无障碍指南（WCAG）2.1》 | W3C Recommendation 2018 | 对比度、可读性与无障碍 | W3C 万维网联盟 |
+| 6 | 《Excalidraw 文件格式与元素 JSON Schema》 | v2（开源规范） | 元素字段、绑定与渲染 | Excalidraw 开源项目 |
+
+**来源分级**：P0 一手官方规范｜P1 国家标准与国际标准｜P2 二手转述。其余引用以文档原文为准（以官方发布为准）。
+
+## 二十三、能力边界与不适用范围
+
+本技能只负责把一句话需求转成**可在 Excalidraw 打开、可继续编辑**的 `.excalidraw` JSON 与配套体检/渲染验证，以下明确不覆盖：
+
+- **不在范围**：位图精修、去水印、抠图等像素级处理；
+- **不在范围**：UI 高保真设计稿、交互原型；
+- **不在范围**：3D 渲染、三维场景；
+- **不在范围**：CAD 工程制图与尺寸标注出图（转 `cad-editor`/`cad-asbuilt`）；
+- **不在范围**：纯数据大屏与实时数据绑定图表；
+- **不做**：替代真实版式软件排版成品 PDF 印刷稿。
+
+## 二十四、降级路径与失败模式
+
+补充失败分支与降级路径：任一步失败即判失败分支，按「重试一次 → 降级处理 → 兜底方案」三步处置，处置后须重新体检，容错不等于放过。
+
+| 场景 | 触发条件 | 降级处置（fallback） |
+|---|---|---|
+| 渲染依赖缺失 | Playwright/Chromium 未装或安装异常 | 执行 `uv sync && uv run playwright install chromium` 重试；仍失败降级为纯静态体检 + 人工复核 JSON，交付说明标注未做目视校验 |
+| 大图输出被截断 | 单次生成超 token 上限（边界条件） | 改为按区段逐批生成；兜底把大图拆成两张分图交付 |
+| 元素坐标越界/重叠 | 体检脚本报 ERROR | 回退到区段基准坐标重算相对偏移；重叠则拉开间距后重试并再渲染 |
+| 文字溢出容器 | 估算文字宽 > 容器宽 | 加宽容器或回退为无框自由文本；兜底缩小字号一档重排 |
+| 箭头绑定错连 | startBinding/endBinding 缺失或 ID 不匹配 | 逐条核对两端 elementId，补全绑定，重试后确认箭头随元素移动 |
+| JSON 导入空白 | 顶层结构或 text 混入 JSON 结构 | 回退到最小合法模板重建外壳，兜底降级为仅核心形状再加细节 |
+| 版本过旧 | 规范/色板更新而图沿用旧值 | 断点续跑：保留已完成区段，仅重算受影响元素，并对旧值作补救标注 |
+
+**错误处理**原则：所有纠偏动作须留痕（写清失败原因与影响面）；对术语与颜色加**防御**性校验（不与色板/来源冲突），任何【待填：待查证】须显式标注。完整速查表见 `references/failure-modes.md`。
+
+## 二十五、可交付物与输出规范
+
+| 交付物 | 形态 | 规范要点 |
+|---|---|---|
+| 手绘图文件 | `.excalidraw` JSON | 顶层 `type/version/elements/appState/files` 齐备，可导入编辑 |
+| 静态体检报告 | 终端/JSON | 由 `scripts/excalidraw_check.py` 生成，越界/重叠/错连/溢出清零 |
+| 交付自检报告 | 终端/JSON | 由 `scripts/excalidraw_deliver_check.py` 生成，退出码 0/1/2 |
+| 渲染预览图 | PNG | 由 `references/render_excalidraw.py` 渲染，供目视复核 |
+| 真实术语对照表 | Markdown/表格 | 技术图必附，占位词全部替换为真名 |
+
+**输出规范**：形状语义化、颜色取自色板、容器占比 < 30%、`text` 只放可读词、全部元素 `opacity:100`；缺口显性化 `【待填：待查证】`。
+
+**英文触发词**：English triggers: hand-drawn diagram, excalidraw, flowchart, architecture diagram, visual argument, diagram json, sketch.
+
+## 二十六、版本沿革（CHANGELOG）
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| 2.3.0 | 2026-10-04 | 增补引用依据与溯源、能力边界、降级路径与失败模式、可交付物与输出规范、英文触发词；新增 `scripts/excalidraw_deliver_check.py` 与 `references/case-library.md` |
+| 2.2.0 | 2026-09-20 | 补齐失败模式速查、渲染验证循环与质量核对清单 |
+| 2.1.0 | 2026-09-10 | 增补容器纪律、字体层级与反例黑名单 |
+| 2.0.0 | 2026-08-30 | 重构为六步执行工作流 + 三级缩放架构 |

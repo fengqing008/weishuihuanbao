@@ -200,7 +200,7 @@ def _add_heading_para(doc, text, level):
     if level == 'title':
         _set_para_fmt(p, WD_ALIGN_PARAGRAPH.CENTER, first_indent=Pt(0))
     else:
-        # 一级/二级/三级标题 左空二字（首行缩进 2 字符，某负责人 2026-09-12 定）
+        # 一级/二级/三级标题 左空二字（首行缩进 2 字符，某工 2026-09-12 定）
         _set_para_fmt(p, WD_ALIGN_PARAGRAPH.LEFT, first_indent=INDENT_2CHAR)
     fn, fs, bd = cfg.get(level, (FONT_SONG, PT_16, False))
     for seg in _ENGLISH_RE.split(text):

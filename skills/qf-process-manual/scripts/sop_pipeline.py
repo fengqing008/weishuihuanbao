@@ -7,9 +7,9 @@ SOP一键流水线（四件齐备）
 - 结束输出四件齐备清单（manifest.json）供入库核验
 
 Usage:
-    python3 scripts/sop_pipeline.py --project "示例PPP" --baseline-date "2019年7月" \
+    python3 scripts/sop_pipeline.py --project "某PPP" --baseline-date "2019年7月" \
         --output-dir outputs/
-    python3 scripts/sop_pipeline.py --project "示例项目B" --baseline-date "2021年3月" \
+    python3 scripts/sop_pipeline.py --project "某县XX" --baseline-date "2021年3月" \
         --output-dir outputs/ --no-render-png --skip-word
 """
 import argparse
@@ -42,7 +42,7 @@ def run_step(label, cmd, retries=1):
 
 def main():
     ap = argparse.ArgumentParser(description="工程结算SOP一键流水线")
-    ap.add_argument("--project", required=True, help="项目名称，如 示例PPP")
+    ap.add_argument("--project", required=True, help="项目名称，如 某PPP")
     ap.add_argument("--baseline-date", required=True, help="基准价日期，如 2019年7月")
     ap.add_argument("--output-dir", default="outputs/", help="产物输出目录")
     ap.add_argument("--title", help="SOP文档标题（默认 <项目>竣工结算SOP）")

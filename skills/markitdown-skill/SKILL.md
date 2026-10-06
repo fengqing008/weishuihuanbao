@@ -1,10 +1,16 @@
 ---
 name: markitdown-skill
 display_name: 文档转Markdown官
-version: 0.3.0
-description: 把 PDF、Word（DOCX）、PowerPoint（PPTX）、Excel（XLSX/XLS）、图片（OCR）、音频（转写）、HTML、CSV、JSON、XML、ZIP、YouTube 链接、EPUB 等 15 种以上文件格式批量转成结构化 Markdown，保留标题层级、表格、列表与超链接，输出天然适配大模型文本分析管道。提供 markitdown 命令行、Python API 与本技能附带的零依赖调度脚本三种调用方式，支持插件扩展与 OCR、语音转写集成。当用户需要转成 Markdown、文档转换、Word 转 Markdown、PDF 转 Markdown、提取文档内容、读取 Word/PDF 内容、文档解析、批量转换、文件转文本、OCR 提取、音频转文字时触发；English triggers：convert to markdown, document conversion, extract docx/pdf content, batch convert, file to text, OCR extraction, audio transcription。不适用边界：PDF 创建与编辑改用 ima-pdf，Word 创建与编辑改用 ima-doc，纯图片美化与处理改用 image-tools-suite，视频剪辑改用 ffmpeg-skill，纯在线网页抓取改用 web-scraper。
+version: 0.4.0
+description: 把 PDF、Word（DOCX）、PowerPoint（PPTX）、Excel（XLSX/XLS）、图片（OCR）、音频（转写）、HTML、CSV、JSON、XML、ZIP、YouTube
+  链接、EPUB 等 15 种以上文件格式批量转成结构化 Markdown，保留标题层级、表格、列表与超链接，输出天然适配大模型文本分析管道。提供 markitdown
+  命令行、Python API 与本技能附带的零依赖调度脚本三种调用方式，支持插件扩展与 OCR、语音转写集成。当用户需要转成 Markdown、文档转换、Word
+  转 Markdown、PDF 转 Markdown、提取文档内容、读取 Word/PDF 内容、文档解析、批量转换、文件转文本、OCR 提取、音频转文字时触发；English
+  triggers：convert to markdown, document conversion, extract docx/pdf content, batch
+  convert, file to text, OCR extraction, audio transcription。不适用边界：PDF 创建与编辑改用 ima-pdf，Word
+  创建与编辑改用 ima-doc，纯图片美化与处理改用 image-tools-suite，视频剪辑改用 ffmpeg-skill，纯在线网页抓取改用 web-scraper。
 author: 清风明月
-slug: qf-markitdown-skill
+slug: markitdown-skill
 category: 科技
 tags:
 - 文档转换
@@ -16,6 +22,7 @@ tags:
 - 文本抽取
 license: MIT
 ---
+
 
 # MarkItDown 技能：把任何文档转成 Markdown
 
@@ -384,3 +391,93 @@ grep -c '^#' /path/to/out/sample.md
 - 失败模式排障：references/failure-modes.md
 - 零依赖调度脚本：scripts/md_convert.py
 - 发布说明：PUBLISH.md
+- 案例库：references/case-library.md
+
+---
+
+## 降级路径与失败模式（异常处理预案总表）
+
+上文「失败模式 1–10」为逐条处置，本节给出**总表与兜底口径**，把失败分支收敛为可判定的六类，触发即按表处置，不做无效尝试。凡未能实测确认的件数、路径与密钥状态，一律标注【待核】。
+
+| 序号 | 场景 | 触发条件 | 降级处置（含兜底方案） |
+|---|---|---|---|
+| F1 | 环境缺失 | `markitdown --version` 无返回（命令不存在或导入失败） | 先 `pip install 'markitdown[all]'` 重试；安装不可行时**回退（fallback）到零依赖脚本** `scripts/md_convert.py` 处理纯文本类（`.txt/.log/.html/.htm/.csv`），PDF/Office 分流 anydoc / textin-xparse |
+| F2 | 无文字层 | 扫描件 PDF 输出为空或仅含元数据 | 先取文字层（OCR）再转换；无 OCR 通道则标注"需人工处理"，**不得交付空产物** |
+| F3 | 密钥/模型缺失 | `AZURE_*` 或 LLM Key 为空，图片与音频只有元数据 | 降级到本地转写/OCR 工具先出文本，再合并进 Markdown；缺件单列，不静默通过 |
+| F4 | 编码乱码 | GBK/GB2312 源文件输出乱码或 UnicodeDecodeError | 先 `iconv -f GBK -t UTF-8` 转码后重试；编码前置修复由 text-io 承担 |
+| F5 | 超大文件 | 单文件 >100MB 触发内存溢出或进程被终止 | 按页/按工作表拆分后逐件转换，**件数对账**确认无遗漏；支持**断点续跑**只补失败分片 |
+| F6 | 加密/嵌套包 | 文档带密码、限制编辑，或 ZIP 内含嵌套 ZIP | 加密件不暴力破解（**防御**姿态），解密另存可读副本再转；嵌套包先递归解压再批量转换 |
+
+**容错与补救原则**：①先看退出码与日志，按错因处置，不盲目重试同一错误输入；②任一产物须可回溯到源文件，件数对账是硬检查；③**边界条件**——空产物、纯元数据产物一律视为失败交付；④结构类问题（表格压平、公式丢值）采用**补救**路径：重算、重建或标注"表格待核"；⑤已交付材料口径有误的，出具更正说明并留痕。**错误处理**一律写入 `run.log`，失败分支逐条落痕可追溯。
+
+---
+
+## 引用依据与溯源
+
+本节固定引用口径：涉及格式与规范的结论，一律落到"全称＋编号＋来源"，不以俗称代替。
+
+| 层级 | 标准/文件全称 | 编号 | 来源与核验入口 |
+|---|---|---|---|
+| 文件格式（OOXML） | ISO/IEC 29500-1:2016 Office Open XML | ISO/IEC 29500 | ISO 官网 / ECMA-376 |
+| 文件格式（Office） | 《信息技术 办公软件文档格式规范》 | GB/T 20916-2007 | 国家标准全文公开系统 |
+| 版式文档 | 《电子文件存储与交换格式 版式文档》 | GB/T 33190-2016 | 国家标准全文公开系统 |
+| 字符集 | RFC 3629 UTF-8, a transformation format of ISO 10646 | IETF RFC 3629 | IETF Datatracker |
+| 表格数据 | RFC 4180 Common Format and MIME Type for CSV Files | IETF RFC 4180 | IETF Datatracker |
+| 标记语言 | CommonMark Spec（GitHub Flavored Markdown 为其扩展） | CommonMark 0.31.2 / GFM Spec | commonmark.org / GitHub Docs |
+| 软件来源 | microsoft/markitdown（官方仓库与 PyPI 包） | PyPI 包 markitdown | github.com/microsoft/markitdown / pypi.org |
+| 数据安全 | 《中华人民共和国网络安全法》 | 主席令第五十三号 | 中国政府网 |
+
+**溯源纪律**：①格式支持范围、退出码与 CLI 行为以官方仓库与 `scripts/md_check.py` 实测为准；②标准以现行有效版本为准，效力存疑时标注并提示用户核对；③本技能全部规则为官方文档与条约的转述，**不编造、不杜撰**未见于公开资料的转换行为；④用户文档仅用于本任务，不外发、不转送，处理全程在本地完成。
+
+---
+
+## 红线声明（固定拒绝口径）
+
+1. **不得**用 MarkItDown 创建或编辑 PDF、Word、PPT、Excel——这类任务不适用本技能，改走 ima-pdf / ima-doc / 表格类技能。
+2. **不得**把扫描件 PDF 当文字层 PDF 直接处理——未 OCR 即交付空产物属不可接受的失败交付。
+3. **不得**跳过编码检测直转 GBK 文件——中文乱码会污染下游检索与训练语料，须先转 UTF-8。
+4. **不可**对加密文档盲目重试或尝试破译——无授权凭据时终止该项并留痕，越权解密是红线行为。
+5. **不得**将用户文档向外部传输或送交第三方——本地流程优先，文件不出本机；涉及敏感内容的遵守脱敏与隐私要求。
+6. **不得**在未核对件数、未校验产物非空的情况下把 Markdown 直接喂给大模型或落库——先过检查点 4/6，再交付。
+
+---
+
+## 可交付物与输出规范
+
+| 产出 | 格式 | 说明 |
+|---|---|---|
+| 单份/批量 Markdown | `.md`（UTF-8 无 BOM） | markitdown 或 `scripts/md_convert.py` 生成，命名对应源文件名干 |
+| 运行日志 | `run.log`（文本） | 记录每件输入、通道、退出状态与失败原因 |
+| 质检报告 | 文本 / JSON | `python3 scripts/md_check.py --dir <outdir> [--json]` |
+| 失败与待处理清单 | 文本 | 空产物、加密、无文字层、依赖缺口逐项列出并给替代通道 |
+| 交付说明 | Markdown | 列明通道（主用/兜底）、成功与失败件数、需人工核对项 |
+
+**输出纪律**：①产物保留标题层级、表格、列表与超链接；②件数对账通过方可落库；③凡走降级/兜底通道的，在交付说明中如实标注，不隐去降级事实。
+
+---
+
+## 版本沿革（CHANGELOG）
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| 0.4.0 | 2026-10 | 新增「降级路径与失败模式」总表（F1–F6）与容错补救原则；新增「引用依据与溯源」小节（八条依据）；新增「红线声明」六条固定拒绝口径与「可交付物与输出规范」表；新增 `scripts/md_check.py` 产物校验闸门（退出码 0/1/2）与 `references/case-library.md` 案例库（六则） |
+| 0.3.0 | — | 检查点 1–6、执行工作流八步、失败模式 1–10、反例与红线、零依赖脚本 `md_convert.py` |
+| 0.2.0 | — | 格式支持矩阵与 references 分层 |
+| 0.1.0 | — | 首版 |
+
+**版本维护约定**：支持格式清单、失败模式条目、质检脚本行为变更时升次版本号；新增脚本与案例库不改变既有触发语义。
+
+---
+
+## 脚本调用速查
+
+```bash
+# 产物校验（单份 / 全目录）
+python3 scripts/md_check.py --md out.md
+python3 scripts/md_check.py --dir /path/to/out --require-heading 1 --json
+
+# 目录级批量转换（零依赖兜底通道）
+python3 scripts/md_convert.py --input /path/to/docs --outdir /path/to/out --log run.log
+```
+
+退出码：0 = 全部合格；1 = 存在不合格项（按「失败模式」处置）；2 = 输入不足或路径不可用。

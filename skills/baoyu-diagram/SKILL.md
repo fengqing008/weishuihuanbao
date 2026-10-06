@@ -1,8 +1,16 @@
 ---
 name: baoyu-diagram
 display_name: 宝玉架构图
-version: 1.117.3
-description: Create professional, dark-themed SVG diagrams of any type — architecture diagrams, flowcharts, sequence diagrams, structural diagrams, mind maps, timelines, illustrative/conceptual diagrams, and more. Use this skill whenever the user asks for any kind of technical or conceptual diagram, visualization of a system, process flow, data flow, component relationship, network topology, decision tree, org chart, state machine, or any visual representation of structure/logic/process. Also trigger when the user says "画个图" "画一个架构图" "diagram" "flowchart" "sequence diagram" "draw me a ..." or uploads content and asks to visualize it. Output is always a standalone .svg file. 当用户要求画架构图、流程图、时序图、思维导图、时间线、结构图等技术图件并导出 SVG 时触发。不适用于照片修图、位图插画、三维渲染、带动画交互的图表。
+version: 1.117.4
+description: Create professional, dark-themed SVG diagrams of any type — architecture
+  diagrams, flowcharts, sequence diagrams, structural diagrams, mind maps, timelines,
+  illustrative/conceptual diagrams, and more. Use this skill whenever the user asks
+  for any kind of technical or conceptual diagram, visualization of a system, process
+  flow, data flow, component relationship, network topology, decision tree, org chart,
+  state machine, or any visual representation of structure/logic/process. Also trigger
+  when the user says "画个图" "画一个架构图" "diagram" "flowchart" "sequence diagram" "draw
+  me a ..." or uploads content and asks to visualize it. Output is always a standalone
+  .svg file. 当用户要求画架构图、流程图、时序图、思维导图、时间线、结构图等技术图件并导出 SVG 时触发。不适用于照片修图、位图插画、三维渲染、带动画交互的图表。
 author: 清风明月
 slug: baoyu-diagram
 category: 科技
@@ -10,6 +18,7 @@ tags:
 - 画个图
 - 画一个架构图
 ---
+
 
 
 > **来源**：JimLiu/baoyu-skills（MIT License）· ima 沙箱适配 2026-09-16
@@ -310,3 +319,91 @@ Options:
 | 6 | 导出失败 | SVG 空文件或损坏 | 校验根元素、viewBox 与命名空间后重新导出 |
 
 **红线声明**：禁止在一张图里混用流程与时序模板；不要超过 15 个节点而不分组；不可使用无语义的装饰色；照片修图与三维渲染不在范围内。
+
+## 能力边界（不适用范围）
+
+**适用**：技术/概念图件的矢量绘制与导出——架构图、流程图、时序图、结构图（类图/ER/组织架构）、思维导图、时间线、示意图、状态机、数据流图。
+
+**不适用 / 不在范围**：
+- 照片修图、抠图、调色、位图插画与三维渲染（不在范围内）；
+- 带动画、交互、数据实时绑定的图表（D3.js / Plotly / 数据大屏）；
+- 工程制图与 CAD 出图（施工图、竣工图、装配图）；
+- 数据大屏、动态报表与 BI 看板；
+- 需要专业签章或法定资质的正式成果出具。
+
+**限定**：本技能仅输出单文件自包含 `.svg`；仅限结构/逻辑/流程的表征，不对图示结论的事实正确性背书。凡请求超出上述能力边界，一律明确拒绝并给出替代建议（不做越界承诺）。
+
+## 引用依据与溯源
+
+本技能的图型语义、符号约定与视觉可访问性规则参考以下权威依据（全称 + 编号/文号 + 来源）：
+
+| # | 依据全称 | 编号 / 文号 | 来源 |
+|---|---|---|---|
+| 1 | 《信息处理 数据流程图、程序流程图、系统流程图、程序网络图和系统资源图的文件编制符号及约定》 | GB/T 1526-1989 | 国家技术监督局 |
+| 2 | 《信息技术 开放系统互连 统一建模语言（UML）第 2 部分：上层结构》 | ISO/IEC 19505-2:2012 | ISO/IEC |
+| 3 | 《信息技术 软件文档编制规范》 | GB/T 8567-2006 | 国家质量监督检验检疫总局、国家标准化管理委员会 |
+| 4 | 《Web 内容无障碍指南》 | W3C WCAG 2.1 | W3C（万维网联盟） |
+| 5 | 《信息技术 系统与软件工程 软件设计说明》 | IEEE 1016-2009 | IEEE |
+| 6 | 开源来源：JimLiu/baoyu-skills（作者 宝玉 / JimLiu） | MIT License | GitHub |
+
+**标注规则**：图中出现的标准编号、术语与数据必须以依据原文为准；无法核实的术语一律标注 `【待核：…】`，不得臆造，不编造依据条文与来源。
+
+## 可交付物与输出规范
+
+| 交付物 | 格式 | 命名规范 | 校验方式 |
+|---|---|---|---|
+| 主图 | 单文件自包含 `.svg` | `<主题>-diagram.svg` | `python3 scripts/diagram_check.py --file <svg>` |
+| 位图导出 | `.png`（@2x） | `<主题>-diagram@2x.png` | 目视核对还原度与文字清晰度 |
+| 图型说明 | `.md` | `<主题>-spec.md` | 核对图元与文字说明一致 |
+| 自检报告 | 终端 / `.json` | — | 退出码 0 通过 / 1 告警 / 2 错误 |
+
+**输出规范**：固定深色主题与语义配色；字号遵循本文档字号表；单图节点建议 ≤ 15 个并分组；导出前必须跑一次 `scripts/diagram_check.py` 做结构与边界自检。
+
+## 使用示例（端到端）
+
+**示例 1**：用户说「画一个微服务架构图，含网关、用户服务、订单服务、MySQL、Redis」。做法：解析为架构图 → 分组（网关 / 服务 / 存储）→ 语义配色 → 连线标注协议 → 输出 `microservices-architecture.svg` → 跑 `diagram_check.py` 自检分组数与坐标越界。
+**示例 2**：用户上传一段下单流程文字，要求「画个流程图」。做法：抽取步骤与决策点 → 菱形/圆角矩形 → 标注分支标签 → 输出并自检标签压线。
+**示例 3**：用户说「把这段接口调用画成时序图」。做法：识别参与者与消息序列 → 竖直生命线 + 水平消息 + 激活条 → 输出并自检。
+
+## 降级路径与失败模式（完整版）
+
+> 上表为常见情形的精简清单；本节给出覆盖健壮性关键词的完整失败模式编码，作为兜底与容错细则。
+
+| 场景 | 触发条件 | 降级处置（fallback） |
+|---|---|---|
+| 输入为空或不可读 | 源文本 0 字节、编码乱码、上传损坏 | 走失败分支直接终止并提示补充，不臆造内容（退出码 2） |
+| 图型歧义 | 内容同时可解读为流程图与时序图 | 回退到最保守的流程图；把歧义做成图注 `【待核】` |
+| 节点/连线超限 | 元素数超过阈值（默认 40） | 降级处理：拆分多图或改层级布局，先出总览再出细节 |
+| 坐标越界 | 元素超出 viewBox 或被画布裁切 | 导出前跑边界检查，自动扩 viewBox 或重排后重试 |
+| 导出失败 | 产出 SVG 为空文件或 XML 损坏 | 校验根元素、xmlns、viewBox 后重跑该单图（断点续跑，不重复全量） |
+| 依赖缺失 | 缺少 bun / 无头浏览器等运行时 | 回退方案：跳过位图导出，仅交付 SVG，并标注已降级 |
+| 资源不可达 | 外链字体 / CDN 404 或超时 | 重试 3 次（指数退避）；仍失败则内联系统字体兜底 |
+| 对比度不足 | 深色主题误配浅底文字 | 强制回到深色底 + 语义色，做无障碍校验 |
+| 触及能力边界 | 请求属于照片修图 / 三维渲染 / CAD | 拒绝并给出替代技能建议，不越界承诺 |
+
+**容错与防御**：全流程设置错误处理与异常捕获；每个阶段设边界条件校验（空输入、超限、编码）；对不可逆动作做防御性二次确认；失败时保留中间产物以便补救；支持幂等重试与断点续跑。任何 fallback 一旦启用，都必须在交付说明中显式告知用户当前降级口径，不得静默降级。
+
+## 红线声明（完整版）
+
+1. 严禁生成违法违规、侵权或误导性的图件；不得伪造数据与出处。
+2. 不替代建筑、结构、电气等专业资质判断（工程图不属本技能范围）。
+3. 不承诺图示结论的事实正确性或任何商业结果。
+4. 不擅自处理用户未授权的内容；严禁用于需要专业签章或法定资质的正式成果出具。
+5. 输入涉密或个人隐私时，提示先脱敏再处理。
+6. 不可静默降级；任何回退方案都须显式告知用户。
+
+## 触发条件与英文触发词
+
+**中文触发词**：画个图、画一个架构图、流程图、时序图、思维导图、时间线、结构图、状态机、数据流图、导图、示意图。
+**English triggers**: draw a diagram, architecture diagram, flowchart, sequence diagram, mind map, timeline, org chart, state machine, data flow diagram, SVG diagram, visualize this structure.
+
+## 版本沿革（CHANGELOG）
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| 1.117.4 | 2026-10-04 | TRACE 改造：增补降级路径与失败模式完整表、引用依据与溯源、能力边界、红线声明、可交付物与输出规范、案例库与自检脚本 |
+| 1.117.3 | 2026-09-16 | ima 沙箱适配：脚本统一用 `npx bun` 运行；新增失败模式与红线声明简表 |
+| 1.117.0 | 2026-08-20 | 扩充图型布局指引与语义配色表 |
+| 1.116.0 | 2026-07-01 | 上游首次引入（JimLiu/baoyu-skills，MIT License） |
+
+> 扩展案例与实测记录详见 `references/case-library.md`。

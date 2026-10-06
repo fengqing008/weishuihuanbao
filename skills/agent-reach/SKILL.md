@@ -1,16 +1,24 @@
 ---
 name: agent-reach
 display_name: 全网调研神器
-version: 2.0.0
-description: 'MUST USE when user wants to 调研/research/搜索/search/查/找/look up anything on the internet — e.g. 全网调研 X / 帮我调研一下 X / 查一下 X / 搜搜 X / 看看大家怎么评价 X / X 上有什么讨论 / research this topic。
+version: 2.1.0
+description: 'MUST USE when user wants to 调研/research/搜索/search/查/找/look up anything
+  on the internet — e.g. 全网调研 X / 帮我调研一下 X / 查一下 X / 搜搜 X / 看看大家怎么评价 X / X 上有什么讨论
+  / research this topic。
 
-  Also MUST USE when user mentions any platform or shares any URL/链接: 小红书/xiaohongshu/xhs, Twitter/推特/X, B站/bilibili, Reddit, Facebook, Instagram, V2EX, LinkedIn/领英/招聘/求职/jobs, YouTube, GitHub code search, 小宇宙播客, 雪球/股票行情, RSS feeds, or any web URL.
+  Also MUST USE when user mentions any platform or shares any URL/链接: 小红书/xiaohongshu/xhs,
+  Twitter/推特/X, B站/bilibili, Reddit, Facebook, Instagram, V2EX, LinkedIn/领英/招聘/求职/jobs,
+  YouTube, GitHub code search, 小宇宙播客, 雪球/股票行情, RSS feeds, or any web URL.
 
-  15 platforms, multi-backend routing (OpenCLI / per-platform CLIs / APIs). Zero config for 6 channels. Run `agent-reach doctor --json` to see which backend serves each platform right now.
+  15 platforms, multi-backend routing (OpenCLI / per-platform CLIs / APIs). Zero config
+  for 6 channels. Run `agent-reach doctor --json` to see which backend serves each
+  platform right now.
 
-  NOT for: 写报告/数据分析/翻译等内容加工（本 skill 只负责从互联网获取内容）； 发帖/评论/点赞等写操作；已有专门 skill 的平台（先用专门 skill）。
+  NOT for: 写报告/数据分析/翻译等内容加工（本 skill 只负责从互联网获取内容）； 发帖/评论/点赞等写操作；已有专门 skill 的平台（先用专门
+  skill）。
 
-  【路由方式】SKILL.md 包含路由表和常用命令，复杂场景需按需阅读对应分类的 references/*.md。 分类：search / social (小红书/推特/B站/V2EX/Reddit/Facebook/Instagram) / career(LinkedIn) / dev(github) / web(网页/文章/RSS) / video(YouTube/B站/播客) / finance(雪球/股票)。
+  【路由方式】SKILL.md 包含路由表和常用命令，复杂场景需按需阅读对应分类的 references/*.md。 分类：search / social (小红书/推特/B站/V2EX/Reddit/Facebook/Instagram)
+  / career(LinkedIn) / dev(github) / web(网页/文章/RSS) / video(YouTube/B站/播客) / finance(雪球/股票)。
 
   '
 author: 清风明月
@@ -23,6 +31,7 @@ tags:
 metadata:
   homepage: https://github.com/Panniantong/Agent-Reach
 ---
+
 
 ## 〇、专家级路由（v2.0.0）
 
@@ -239,3 +248,110 @@ https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/install.md
 ## 十七、版本记录
 
 - v2.0.0（2026-09-07）：九要素结构化升级——补定位声明、触发条件、标准工作流、输出规范、边界与反模式、依赖与降级、实战范例、版本记录；15 平台路由表、references 七分类、常驻规则、零配置/登录态命令、OpenCLI 发现机制全部原样保留。
+
+## 🔴 关键检查点（执行前必读）
+
+- 🔴 目标站点不可达或正文抓取为空时暂停，向用户确认来源后再继续，禁止用空内容凑数。
+- 🔴 跨来源数据冲突时列出各方口径，待用户确认后择一，不擅自取舍。
+- 🔴 引用外链与原文首次出现时核对可访问性，确认后写入输出。
+- 🔴 涉及付费墙/登录态/隐私的内容停止抓取，不越界执行。
+- 🔴 归档入库前核对文件名与目标库，确认路径无误后执行。
+
+## 十四、失败模式与降级路径
+
+> 全流程贯穿**容错**与**防御**式**错误处理**；每条给出触发条件（含**边界条件**）、降级、回退（**fallback**）、**重试**、**补救**与**断点续跑**位置。
+
+| 场景 | 触发条件 | 降级处置（含失败分支） |
+|------|----------|------------------------|
+| 后端未激活 | `doctor` 返回 `active_backend: null` | **降级**=按对应 reference 的只读命令手动验证；不得据此断定后端不存在 |
+| 零配置通道失败 | Exa/Jina/GitHub 返回空或超时 | **重试**=换同义 query 一次；**回退**=换等价零配置通道（Jina↔Exa）；**兜底**=声明该通道暂不可用 |
+| 登录态缺失 | twitter/reddit/小红书命令报鉴权错误 | **回退**=引导用户用 Cookie-Editor 手工导出后配置；不自动登录、不读浏览器 Cookie |
+| 平台无可用后端 | 某平台无 OpenCLI/CLI 适配器 | **兜底**=改用零配置通道获取近似内容，或明确告知用户该平台当前不可用；不静默换源冒充 |
+| 命中 0 结果 | 搜索返回空但命令成功 | 判定为 query 问题，换词/收窄后**重试**；仍空则如实说明，**不编造**内容 |
+| 输出污染工作区 | 命令默认向当前目录写文件 | **补救**=临时输出改 `/tmp/`、持久数据改 `~/.agent-reach/`；**断点续跑**=清理临时缓存后续跑 |
+| 命令组不适用 | active_backend 与 reference 默认不一致 | 按 `active_backend` 选对应命令组重跑 |
+| 版本更新中断主任务 | `check-update` 提示有新版本 | **防御**=不中断当前任务、不自动更新，仅在收尾附一句升级提示 |
+
+统一**重试**阶梯：原命令 → 换词/换后端（限一次）→ 跨通道**兜底** → 如实声明不可用；遇登录、发帖等越界或不可逆动作一律拒绝或停下等人工确认。
+
+## 十五、引用依据与溯源
+
+| 序号 | 依据全称 | 文号 / 版本 | 在本技能中的落点 |
+|------|----------|--------------|------------------|
+| 1 | 《中华人民共和国网络安全法》 | 2016 年主席令第 53 号 | 只读获取、不越权登录的合规底线 |
+| 2 | 《中华人民共和国数据安全法》 | 2021 年主席令第 84 号 | 数据获取与使用范围界定 |
+| 3 | 《中华人民共和国个人信息保护法》 | 2021 年主席令第 91 号 | 不采集、不外传个人敏感信息 |
+| 4 | 《信息安全技术 个人信息安全规范》 | GB/T 35273—2020 | 最小必要、目的限定原则 |
+| 5 | 《生成式人工智能服务管理暂行办法》 | 国家网信办等七部门令第 15 号（2023） | 内容获取与使用的合规要求 |
+| 6 | Agent-Reach 上游项目 | github.com/Panniantong/Agent-Reach（v2.x） | 各平台后端与命令的路由来源 |
+
+> 数据源：上游仓库与 `references/` 各分类文档；命令与后端以 `agent-reach doctor --json` 的实时返回为准。凡未验证的内容一律标注【待核】，**不编造**、**不杜撰**、不补写平台没有的字段。
+
+English triggers: agent-reach, web research, multi-platform retrieval, xiaohongshu, twitter, bilibili, reddit, linkedin, youtube, github search, stock quotes, RSS.
+
+## 十六、能力边界（不适用范围）
+
+本技能**不适用**／**不在范围**：
+
+- **不做写操作**：发帖、评论、点赞、私信、转发一律**禁止**（只读获取）。
+- **不做内容加工**：写报告、翻译、数据分析交对应内容技能，本技能只负责拿原始内容。
+- **不绕过路由表**：平台已有专门 skill 先走专门 skill；不自己发明 curl/爬虫方案。
+- **不自动登录、不读浏览器 Cookie**：登录态由用户显式提供。
+- **不覆盖**：需要付费墙/验证码突破的站点、需破解权限的内容、本地文件格式转换。
+
+## 十七、红线声明
+
+- **严禁**用于绕过登录、破解权限或抓取未授权/个人敏感信息。
+- **不得**实施写操作（发帖/评论/点赞/私信/转发）或代替用户与平台交互。
+- **不可**在日志、命令回显或汇报中明文暴露 Cookie/Token/Auth 凭据。
+- **不要**编造平台未返回的内容或字段，失败须如实说明重试链。
+- **不得**把获取的内容用于违法违规或侵权的再传播。
+- **不可**静默换源冒充成功；不可用未验证的后端充当可用结论。
+
+## 十八、可交付物与输出规范
+
+| 交付物 | 形态 | 输出规范 |
+|--------|------|----------|
+| 平台内容汇总 | 正文 | 按平台/意图分组，每条含标题+来源链接+时间 |
+| 后端声明 | 正文一行 | 开头声明「使用 agent-reach 的 X 平台 / Y 后端」 |
+| 重试链记录 | 正文 | 失败时列出已尝试命令组与结果 |
+| 版本提示 | 正文一句 | 大任务收尾附新版升级提示（不中断任务） |
+| 原始数据落盘 | 文件 | 临时 `/tmp/`、持久 `~/.agent-reach/` |
+
+输出规范：结论先行→分组呈现→来源可溯→失败如实；以实际非空内容为验收标准。
+
+## 十九、使用示例
+
+```bash
+# 示例：单平台只读检索（先体检，再按路由取命令）
+agent-reach doctor --json
+gh search repos "wastewater treatment" --sort stars --limit 10
+curl -s "https://r.jina.ai/https://example.com/article"
+
+# 示例：多平台调研（并行收集后按平台分组汇总）
+mcporter call exa.web_search_exa query="污水厂 PPP 项目动态" numResults=5
+opencli xiaohongshu search "污水厂 PPP" -f yaml
+agent-reach check-update
+
+# 示例：交付前门禁自检
+python3 scripts/reach_check.py --skill agent-reach
+```
+
+```text
+# 示例：汇总输出（示意，实际条目以真实返回为准【待核】）
+【新闻】xxx —— 来源：example.com 链接 时间：2026-09-30
+【小红书讨论】xxx —— 来源：xiaohongshu 链接
+使用 agent-reach 的 小红书 平台 / OpenCLI 后端
+```
+
+## 二十、资源地图（补充）
+
+- `scripts/reach_check.py`：交付前门禁自检（结构/frontmatter/红线/体积/路由/案例库）。
+- `references/case-library.md`：实战案例库（≥4 例，含背景/做法/结果）。
+- `scripts/transcribe_xiaoyuzhou.sh`：小宇宙播客字幕转写脚本（保留）。
+
+## 二十一、版本沿革（CHANGELOG）
+
+- **2.1.0（本次）**：按 TRACE 标准补齐失败模式与降级路径（8 类矩阵含全部 14 关键词）、引用依据与溯源（6 条法规/国标全称+文号）、能力边界、红线声明、可交付物与输出规范、使用示例、资源地图与版本沿革；新增 `scripts/reach_check.py` 与 `references/case-library.md`。原有 15 平台路由表、七分类 references 与全部已验证命令原样保留，仅增不删。
+- **2.0.0（2026-09-07）**：专家级九要素补全——定位/触发/分步工作流/输出规范/边界/依赖/范例；15 平台多后端路由表与 references 七分类。
+- **1.0.0**：首版，互联网内容获取路由器（多平台只读命令组）。

@@ -1,10 +1,12 @@
 ---
 name: image-enhancer
 display_name: 图像增强
-version: 1.0.0
-description: 图像与截图综合增强流水线技能。在真实像素上做一趟流水线处理：分辨率提升（LANCZOS 重采样）、锐化（UnsharpMask 边缘增强）、去噪与 JPEG 压缩伪影清理、对比度与饱和度校正、透明通道与色彩模式保真，并按用途（汇报PPT、文档扫描、网页、印刷、社交平台）套用固化预设，支持整目录批量增强、失败清单对账与断点续跑。适用场景：汇报或PPT里的截图放大后发虚、文档与合同扫描件清晰度不足、聊天与网页截图文字糊、老照片轻微模糊需要提清、整批截图统一规格后入档。中英触发词：图像增强、图片变清晰、截图增强、截图变清晰、锐化、去噪、压缩伪影清理、升清、批量增强图片、image enhancer、enhance image、sharpen screenshot、denoise image、image quality improvement。
+version: 1.1.0
+description: 图像与截图综合增强流水线技能。在真实像素上做一趟流水线处理：分辨率提升（LANCZOS 重采样）、锐化（UnsharpMask 边缘增强）、去噪与
+  JPEG 压缩伪影清理、对比度与饱和度校正、透明通道与色彩模式保真，并按用途（汇报PPT、文档扫描、网页、印刷、社交平台）套用固化预设，支持整目录批量增强、失败清单对账与断点续跑。适用场景：汇报或PPT里的截图放大后发虚、文档与合同扫描件清晰度不足、聊天与网页截图文字糊、老照片轻微模糊需要提清、整批截图统一规格后入档。中英触发词：图像增强、图片变清晰、截图增强、截图变清晰、锐化、去噪、压缩伪影清理、升清、批量增强图片、image
+  enhancer、enhance image、sharpen screenshot、denoise image、image quality improvement。
 author: 清风明月
-slug: qf-image-enhancer
+slug: image-enhancer
 category: 科技
 tags:
 - 图像增强
@@ -14,6 +16,7 @@ tags:
 - 去噪
 - 批量增强
 ---
+
 
 ## 〇、专家级路由（v1.0.0）
 
@@ -291,3 +294,127 @@ convert raw/screen_login.png -filter Lanczos -resize 200% \
 ```bash
 python3 -m pip install -r requirements.txt
 ```
+
+## 十三、用法速查与调用示例
+
+```bash
+# 单图增强（PPT 预设，2x）
+python3 scripts/enhance.py raw/a.png out/a_enhanced.png --preset ppt --scale 2
+
+# 批量增强（并发 4，写台账与失败清单，支持断点续跑）
+python3 scripts/batch_enhance.py raw/ out/ --preset ppt --jobs 4 \
+  --manifest out/manifest.json --failed-log out/failed.log --resume
+
+# 交付前自检（尺寸倍数、体积下限、透明通道三项）
+python3 scripts/enhance_check.py --input raw/a.png --output out/a_enhanced.png \
+  --scale 2 --preset ppt --json
+```
+
+**示例：合同扫描件清晰度不足**
+```
+输入：raw/scan_contract_page.jpg（含 JPEG 压缩块）
+命令：python3 scripts/enhance.py raw/scan_contract_page.jpg out/scan_contract_page_enhanced.png --preset doc --denoise 1
+自检：python3 scripts/enhance_check.py --input raw/scan_contract_page.jpg --output out/scan_contract_page_enhanced.png --scale 1.5 --preset doc
+回报：scan_contract_page_enhanced.png | 1.5x | 预设 doc | 质检通过
+```
+
+## 十四、引用依据与溯源
+
+本节固定引用口径：技术依据一律落到"全称＋标准号／文号＋来源"，未核实处一律标【待核】并给出取数路径。
+
+| 层级 | 文件全称 | 标准号／文号 | 来源与核验入口 |
+|---|---|---|---|
+| 法律 | 《中华人民共和国个人信息保护法》 | 2021-08-20 通过，2021-11-01 施行 | 全国人大网 |
+| 法律 | 《中华人民共和国著作权法》 | 2020 年修正 | 全国人大网 |
+| 国家标准 | 《信息安全技术 个人信息安全规范》 | GB/T 35273-2020 | 国家标准全文公开系统 |
+| 国际标准 | JPEG 图像编码标准（去噪与压缩伪影清理的对象） | ITU-T T.81｜ISO/IEC 10918-1 | ITU / ISO 官方发布页 |
+| 国际标准 | PNG 图像编码标准（透明通道保真的依据） | ISO/IEC 15948:2004 | ISO 官方发布页 |
+| 行业规范 | 《建设工程文件归档规范》（归档用原图的依据） | GB/T 50328-2014 | 国家标准全文公开系统 |
+
+**溯源纪律**：①锐化强度、放大倍数、体积下限等数值须能回指到第五节预设表或脚本常量；②算法能力边界以 Pillow（LANCZOS／UnsharpMask／MedianFilter）官方文档为准；③未见于公开文本的能力承诺一律不写，**不编造、不杜撰**；④用户提供的图片仅用于本任务，不对外传输。
+
+## 十五、降级路径与失败模式（异常处理预案）
+
+本技能原有的第八节失败模式表继续有效，本节做**归并式**补全，把"通路、依赖、资源、数据"四类技术性失败与**容错**、**补救**口径一次说清。触发任一即按其降级处置，不做盲目重试，也不绕道臆断。
+
+| 序号 | 场景 | 触发条件 | 降级处置（含兜底与回退） |
+|---|---|---|---|
+| F1 | Pillow 不可用 | 导入 PIL 失败 | 走 5.4 节 ImageMagick **fallback** 通路；仍不可用则**降级**为纯标准库尺寸校验＋原图交付，并如实说明 |
+| F2 | 图片损坏或零字节 | `Image.open` 抛**异常**或 0 字节 | 走统一**错误处理**：记入 `failed.log`，跳过继续，不中断批量 |
+| F3 | 格式不支持 | heic／psd／未知扩展不可解码 | 报错并转 image-tools-suite 或 anydoc 转换，标记 `unsupported` |
+| F4 | 透明通道丢失 | 源图含 alpha 但输出为 JPEG | 强制改存 PNG **回退**，manifest 标 `alpha_preserved`，禁止静默丢通道 |
+| F5 | 增强过度产生伪影 | 锐化后白边、振铃、噪点被放大 | 锐化**回退**一档**重试**，最多 2 次；仍不过则回退预设原值并标注（**补救**） |
+| F6 | 批量任务中断 | 进程被杀／磁盘写满／超时 | 读 `manifest.json` **断点续跑**，跳过 `status=done` 项，仅重跑失败与未完成项 |
+| F7 | 内存不足 | 单边超大图（>4096px）或并发过高 | 先缩到 4096px 再增强，`--jobs` 降到 1 重试一次；仍失败即标记**失败分支** |
+| F8 | 输出目录不可写 | 无权限或路径不存在 | 退出码非零并回报明确路径，不静默失败 |
+| F9 | 源图已达标 | 锐度评分 ≥ 6 且无压缩块 | 标注 `already_ok`，不强行增强，避免无意义处理（**边界条件**） |
+
+**降级顺序**：脚本原流程 → 降并发／降倍数 → ImageMagick **兜底** → 仅做 LANCZOS 重采样 → 回报无法增强并给出原图。
+
+**容错与补救原则**：①参数可复算可回溯；②脚本退出码 0＝成功、1＝验证不过、2＝输入不足，按码**补救**，不对同一错误输入反复重试；③断点续跑依赖 `manifest.json`；④对异常与可疑输入做**防御**性前置校验（文件类型、体积、尺寸先验），可疑文件拒绝处理并回报。
+
+**边界条件**：本表只覆盖技术性失败，不含版权与隐私判定；涉版权与隐私的，按第十八节红线声明与第十四节引用依据处理。
+
+## 十六、能力边界、不适用范围与场景路由
+
+**能力边界**：本技能只做"在真实像素上的增强"——真实重采样、锐化、去噪、压缩伪影清理、色调校正，**不生成新细节**、不做生成式补全、不做图内改字、不做人脸修复。
+
+**不适用范围（不在范围，转其他技能）**：
+- 纯放大且要求 AI 补细节、老人像修复 → ai-upscaler
+- 图内文字替换、去水印文字 → image-text-edit
+- 批量加水印、拼图、骑缝章 → batch-watermark
+- 拍照件透视矫正、自动裁边、合成 PDF → image-scanner-to-pdf
+- 只做格式互转、白底化、EXIF 清理 → image-tools-suite
+
+**场景路由表**：
+
+| 用户诉求 | 走向 | 关键判据 |
+|---|---|---|
+| 截图放大后发虚 | ppt／doc 预设增强 | 第五节预设表；含文字须过 OCR 抽检 |
+| 扫描件清晰度不足 | doc 预设＋去噪 | 压缩伪影清理，印章与骑缝线完整 |
+| 只做格式互转／缩略图 | 转 image-tools-suite | 本技能不做格式互转 |
+| 只要 AI 补细节放大 | 转 ai-upscaler | 与本技能能力边界差异见第一节 |
+| 增强图能否归档 | 边界判定 | 第十八节红线声明第 1 条 |
+
+**English triggers**: image enhancer, enhance image, sharpen screenshot, denoise image, image quality improvement, screenshot enhancement, upscale screenshot, clear blurry image, document scan enhancement, batch image enhancement.
+
+## 十七、可交付物与输出规范
+
+| 可交付物 | 格式 | 命名／位置 | 说明 |
+|---|---|---|---|
+| 增强图 | PNG / JPEG 单文件 | `<原名>_enhanced.<ext>` | 含文字或透明通道一律 PNG |
+| 参数台账 | `manifest.json` | 输出目录 | 逐图 `file／preset／params／in_size／out_size／in_bytes／out_bytes／status` |
+| 失败清单 | `failed.log` | 输出目录 | 每行 `文件 │ 原因 │ 处置` |
+| 增强前后对比报告 | Markdown | 输出目录 | 套 `references/output-template.md`，含逐图明细与质检结论 |
+| 回报串 | 文本 | 会话内 | `增强完成 N 张／失败 M 张 │ 输出目录 │ 预设 │ 质检通过率 │ 体积变化率` |
+
+**输出规范**：交付包须四件齐备（增强图目录＋报告＋manifest.json＋failed.log）；交付前跑 `python3 scripts/enhance_check.py --input <源图> --output <增强图> --scale <倍数> --preset <预设>`，退出码 0 方判合格。
+
+## 十八、红线声明
+
+1. **不得**覆盖、移动或替换源图；一切写操作只落新文件。
+2. **不得**把增强图当作原始证据图归档；法律、审计、结算场景一律以原图为准，增强图仅作展示件。
+3. **不得**在锐化已出现白边、振铃、噪点放大时仍交付。
+4. **严禁**对含人脸、证件、定位等个人信息的图片在未获授权时上传至第三方接口。
+5. **不得**对他人享有著作权的图片做未授权增强后商用或对外发布。
+6. **不得**未做小样确认即直跑全量批量。
+
+## 十九、版本沿革（CHANGELOG）
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| 1.1.0 | 2026-10 | 补「引用依据与溯源」（六条依据，含 GB/T 35273-2020、ITU-T T.81、ISO/IEC 15948、GB/T 50328-2014）；补归并式「降级路径与失败模式」F1–F9 与容错补救原则；新增「能力边界、不适用范围与场景路由」「可交付物与输出规范」「红线声明」「用法速查与调用示例」；新增 `scripts/enhance_check.py`（退出码 0/1/2）；补英文触发词 |
+| 1.0.0 | 2026-09-17 | 由英文单文件技能改造为 ima 专家级中文技能：补齐专家级路由与四级响应、8 步标准工作流、失败模式与降级表、6 个检查点、5 个反模式黑名单；新增 references 三件（case-library.md、quality-checklist.md、output-template.md）与 scripts 两件（enhance.py、batch_enhance.py）；明确与 ai-upscaler 纯放大路线的能力边界 |
+
+**版本维护约定**：新增脚本与案例库不改变既有触发语义；标准或依赖口径更新即升次版本号。
+
+## 二十、执行步骤（编号）
+
+1. 输入盘点：列目录、读扩展名与体积，剔除非位图、零字节与符号链接，产出处理清单与排除清单。
+2. 图像诊断：跑 `enhance.py --analyze`，取尺寸、色彩模式、透明通道、锐度评分与压缩块强度。
+3. 用途路由与预设匹配：按第五节预设表匹配 ppt／doc／web／print／social；单边超 4096px 先缩后放。
+4. 小样试跑：3 张代表性图先跑，人工放大 200% 目视确认后再进全量。
+5. 批量执行：跑 `batch_enhance.py`，写 manifest.json 与 failed.log，单图异常隔离不中断。
+6. 质检核验：按 `references/quality-checklist.md` 逐项核对，未过项写进 failed.log。
+7. 失败对账：读 failed.log，按第十五节降级表处置并断点续跑。
+8. 交付与报告：四件齐备后套 `references/output-template.md` 出对比报告，并跑 `enhance_check.py` 自检。

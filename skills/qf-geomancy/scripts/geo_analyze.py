@@ -5,7 +5,7 @@
 不涉及吉凶判断，仅供了解传统建筑环境文化。
 
 用法:
-  python3 geo_analyze.py --address "某市某区XXX"
+  python3 geo_analyze.py --address "西安市某区XXX"
   python3 geo_analyze.py --lat 34.37 --lng 109.21
   python3 geo_analyze.py --address "..." --radius 1500 --json
 """

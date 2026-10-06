@@ -1,10 +1,20 @@
 ---
 name: html-report-builder
 display_name: HTML 成果输出引擎
-version: 9.0.0
-description: HTML 成果输出引擎——把报告、说明书、方案、汇报、研究成稿、试题输出为单文件自包含 HTML，无外部依赖、可离线打开、可直接打印。内置 10 套经 WCAG 对比度校验的配色与 12 套版式母题（编辑长文、工程图纸、数据叙事、经典报告、执行简报、工程手册、周报、数据报告、竞品拆解、幻灯片、杂志长文、社媒卡片），来源分级与可追溯标注、信息缺口徽标、目录与返回顶部、打印适配与移动端响应式。能力覆盖 KaTeX 数学、callout/KPI 卡、试题三段式、缺口卡、自动 TOC、来源角标；顶部胶囊目录与 scroll-spy、章节 hero 卡与章内二次目录；八大画板与 stat/bignum/icons；图片 base64 内嵌与图注、chart 内联 SVG（bar/donut/line/area）、长表粘性表头与点击排序；图形围栏（mermaid 本地渲染、svg 直嵌）；侧栏布局与深色章节头。v7.0 并入外部最强三项实践——落笔前的设计判断三段、内容保真纪律（技术审查类页面逐条引用 file:line 证据）、反 AI slop 五条（CJK 字体栈、8px 基线网格、回避纯黑纯白、对比度 ≥4.5 带焦点态、禁用占位数据）；并全量嵌入 81 套模板库（13 类）作为可选参考，新增交付面分支（打印、邮件、公众号内联、长图）。触发场景 HTML 成果、单文件 HTML、可视化成果页、Markdown 转 HTML、网页版汇报、打印版报告、HTML 自检、配色对比度校验、无障碍校验、数学题排版、试题排版、流程图报告、架构图、按需配图、HTML 模板、版式母题。英文触发词 single-file HTML report, HTML deliverable, HTML theming, WCAG contrast check, accessibility check, KaTeX math, exam paper HTML, on-demand illustration, HTML template。不适用于 Word/PDF 文档生成（ima-doc / ima-pdf）、公文国标排版（docx-gw-format）、PPT 制作（ima-ppt）、扫描件解析（textin-xparse）。详见 SKILL.md 变更记录。
+displayName: HTML 成果输出引擎
+version: 9.7.0
+description: HTML 成果输出引擎——把报告、说明书、方案、汇报、研究成稿、试题输出为单文件自包含 HTML，无外部依赖、可离线打开、可直接打印。内置
+  17 套经 WCAG 对比度校验的配色（含专业商务、清新旅行、极简日式、复古怀旧、瑞士国际、水墨、奢华深金）与 15 套版式母题（编辑长文、工程图纸、数据叙事、经典报告、执行简报、工程手册、周报、数据报告、竞品拆解、幻灯片、杂志长文、社媒卡片、简洁商务、瑞士网格、水墨留白），来源分级与可追溯标注、信息缺口徽标、目录与返回顶部、打印适配与移动端响应式。能力覆盖
+  KaTeX 数学、callout/KPI 卡、试题三段式、缺口卡、自动 TOC、来源角标；顶部胶囊目录与 scroll-spy；八大画板与 stat/bignum/icons；进度行、摘要框、日程卡、方案卡、终端窗、引文块、走势线
+  KPI、热力网格、半圆仪表、动态流、首字下沉十一种组件；图片 base64 内嵌与图注、chart 内联 SVG（bar/donut/line/area）、长表粘性表头与点击排序；图形围栏（mermaid
+  本地渲染、svg 直嵌）；侧栏布局与深色章节头。内置反 AI slop 纪律（CJK 字体栈、8px 基线网格、回避纯黑纯白、对比度 ≥4.5）；随包分发 81
+  套模板库（13 类）作为可选参考，含打印、邮件、公众号内联、长图四种交付面。触发场景 HTML 成果、单文件 HTML、可视化成果页、Markdown 转 HTML、网页版汇报、打印版报告、HTML
+  自检、配色对比度校验、无障碍校验、数学题排版、试题排版、流程图报告、架构图、按需配图、HTML 模板、版式母题。英文触发词 single-file HTML report,
+  HTML deliverable, HTML theming, WCAG contrast check, accessibility check, KaTeX
+  math, exam paper HTML, on-demand illustration, HTML template。不适用于 Word/PDF 文档生成（ima-doc
+  / ima-pdf）、公文国标排版（docx-gw-format）、PPT 制作（ima-ppt）、扫描件解析（textin-xparse）。
 author: 清风明月
-slug: qf-html-report
+slug: html-report-builder
 category: 科技
 tags:
 - HTML输出
@@ -36,6 +46,7 @@ tags:
 - 动画增强
 - 折线面积图
 ---
+
 
 # HTML 成果输出引擎
 
@@ -216,7 +227,7 @@ python3 "$S/scripts/build_report.py" --data spec.json --out 成果页.html --the
 python3 "$S/scripts/palettes.py" check --json
 
 # 4. 一键入口：Markdown 成稿 → 底座级 HTML（供各技能调用）
-python3 "$S/scripts/md2report.py" 成稿.md -o 成果页.html --theme forest --audience 某负责人 --check
+python3 "$S/scripts/md2report.py" 成稿.md -o 成果页.html --theme forest --audience 李云 --check
 python3 "$S/scripts/md2report.py" --list-themes
 
 # 5. 看板入口：指标 JSON → 数据看板（KPI 卡 + 条形对比 + 阈值预警）
@@ -228,9 +239,14 @@ python3 "$S/scripts/illustrate.py" plan 成稿.md --theme sunset --max 4
 python3 "$S/scripts/illustrate.py" apply 成稿.md --plan illustration/plan.json
 python3 "$S/scripts/illustrate.py" check 成稿_illustrated.md --plan illustration/plan.json
 python3 "$S/scripts/illustrate.py" styles
+
+# 7. 设计决策咨询（借鉴 UI设计智能：配色/风格/字体/图表 + 对比度自检）
+python3 "$S/scripts/ui_consult.py" "数据看板"
+python3 "$S/scripts/ui_consult.py" "内部汇报" --domain color --json
+python3 "$S/scripts/ui_consult.py" --list
 ```
 
-自检项的判定与修复动作见 `references/quality-checklist.md`；工具细节与扩展方式见 `references/output-spec.md`。
+自检项的判定与修复动作见 `references/quality-checklist.md`；工具细节与扩展方式见 `references/output-spec.md`。视觉套路（AI 模板化）红线——字体/配色/对比度/布局/动效/无障碍六类，逐条核对见 `references/anti-slop-checklist.md`，`html_check.py` 已内置 `SLOP_*` 自动检查项。
 
 ### 统一底座与技能接入契约（一键入口）
 
@@ -314,6 +330,8 @@ board 参数文件三段：`kpis`（label/value/unit/delta/status，status 取 o
 
 本技能 v2.0 同时整合 `structured-proposition-master` 的诉求：把 JSON 结构化试题渲染为三段式 HTML（题号/分值/难度/题干/子问题），并支持 KaTeX 数学公式渲染。
 
+本技能 v9.2.0 借鉴「UI设计智能」（nextlevelbuilder/ui-ux-pro-max-skill 移植版）的 BM25 设计库，内置 `scripts/ui_consult.py`，在设计决策前取回配色 / 风格 / 字体 / 图表参数并做 WCAG 对比度自检，详见「设计决策咨询」章节。
+
 ## 十六、v2.0 新增组件与语法（2026-09-22）
 
 基于「信息收集与整理 v3.0」与「高中数学命题 skill」的实际输出对比，新增五类视觉组件与四项自检。
@@ -393,7 +411,7 @@ $$
 
 ```bash
 python3 md2report.py 成稿.md -o 成果页.html \
-    --theme ocean --audience 某负责人 --check \
+    --theme ocean --audience 李云 --check \
     --math           # 启用 KaTeX 数学公式（数学题必备）
     --no-toc         # 关闭自动 TOC
 ```
@@ -432,6 +450,15 @@ mermaid 字号修正；v6.2 设计纪律层与四套版式母题；v6.3 内容�
 ## 变更记录
 
 > 以下为各版本迭代沿革（原记录于 description，为控制元信息长度迁至此处）。
+
+- v9.6.0 吸收第二套参考集：3 套配色 + 2 个母题 + 5 类组件 + 首字下沉（2026-09-28）—— 完整取得第二辑七份模板源码后逐份拆解，按「可复用版式能力 vs 纯装饰元素」分级吸收：① 新增 3 套配色——`swiss` 瑞士国际（纸白 #f4f4f1／墨黑 #111111 配信号红 #c8102e）、`inkwash` 新中式水墨（宣纸 #f7f3ea／墨 #1f1d1a 配朱砂 #9e2b25 与靛青 #2f4858）、`luxury` 奢华深金（深绿 #0c1a17 配古金 #c9a86a 与香槟 #e6d3a3），17 套配色全部通过 WCAG 门禁（17/17）。② 新增 2 个母题——`swiss` 瑞士网格（全直角、发丝分隔线、单一强调色、超大留白与字距、无渐变无动效）、`inkwash` 水墨留白（纸墨为底、朱印点睛、衬线标题、首字下沉、广留白），母题数达 15。③ 新增 5 类组件——`:::spark` 走势线 KPI 卡（标签｜值｜单位｜环比｜序列，内联 SVG 折线与面积，min-max 归一化）、`:::heat` 热力网格（行标签｜值序列，按相对最大值映射强调色深浅）、`:::gauge` 半圆仪表（标签｜百分比｜说明，stroke-dasharray 控制弧长）、`:::feed` 动态流（时间｜等级｜内容，四色状态点）、`:::dropcap` 首字下沉段落（首字放大、主题色、float 入文）。④ 未吸收项——粗野主义的硬偏移阴影与七色高饱和、手账拼贴的胶带贴纸手写体，属装饰堆砌，与「克制装饰」纪律冲突，仅登记不入库。⑤ 三份样例分别验证数据大屏、瑞士网格、水墨留白三组组合，复校 FAIL=0 WARN=0；分发 72 副本漂移 0。
+- v9.5.0 学习外部六套成套模板：新增 6 个版式组件（2026-09-28）—— 完整取得「HTML 版式风格参考集」六套模板源码后逐份拆解，取其可复用组件、弃其纯装饰元素：① `:::progress` 进度行（标签｜百分比｜状态｜负责人，双层轨道条，用于执行跟踪）；② `:::summary` 摘要框（首行作标题、其余每行一条要点，左侧强调竖条）；③ `:::day` 日程卡（序号｜标题｜日期｜要点，序号可留空自动编号）；④ `:::plan` 方案卡（方案名｜价格与单位｜要点分号分隔｜推荐标记，自动分离数字与单位）；⑤ `:::term` 终端窗（首行以井号作窗口标题，内容等宽保换行，深色底浅字形成反差）；⑥ `:::quote` 引文块（引文｜出处，衬线体加左侧竖线）。全部组件由主题变量驱动，与 14 套配色、13 个母题正交组合，已纳入动效错峰清单；未纳入双线边框、票根锯齿、噪点纹理等纯装饰元素（与克制取向冲突，由配色承载）。验证：商务/科技/日式三组配色母题组合复校 FAIL=0 WARN=0，分发 72 副本漂移 0。
+- v9.4.0 吸收成套风格参考集：4 套配色 + 1 个母题（2026-09-28）—— 依外部「HTML 版式风格参考集」，把六种成套风格中基座尚缺的部分落地：① 新增 4 套配色——`business` 专业商务（深藏蓝 #12304f／#1c4670 配古金 #9c7c10，冷灰底 #eef1f5，用于工作汇报与商业方案）、`travel` 清新旅行（青绿 #0b6f6e 配珊瑚 #c2543f，暖米底 #f4efe6）、`japan` 极简日式（墨 #2c2a27 配棕 #7a5c3e，暖白底 #faf8f5）、`vintage` 复古怀旧（砖红 #a03c26 配暗金 #8a6a2a，米黄底 #f2e7cf）；14 套配色全部通过 WCAG 门禁（14/14）。② 新增母题 `business` 简洁商务——深蓝金线、白卡承载 KPI 与图表、顶部色条分区、圆角与阴影克制，`--motif` 与 `--theme` 可自由组合，母题数达 13。③ 两处 CLI 的 `--motif` 帮助文本补齐至 13 个母题名。④ 四套新风格各出一份样例（商务数据汇报／出行方案／行业观察／活动节目单），复校 FAIL=0 WARN=0，分发 72 副本漂移 0。
+- v9.3.0 标签与表头改浅底深字 + 三项版式优化（2026-09-28）—— 上一轮把填充加深后，实测反馈深底白字在手机端仍偏糊，故改换思路：① 选中标签胶囊由「深底白字」改为「浅底深字」——背景取主题色 16% 浅调，文字用主题深字色，编号用主题色，边框强调；顶部目录条与抽屉目录同步；表头同理由「主题色底 + 浅字」改为「浅底深字 + 底部 2px 主题色线」。② 章节头不再自动摘取正文首段作摘要（原致同一段在章节头与正文各出现一次）。③ 表格新增首列冻结，小屏横向滑动时行首常驻。④ 移动端标签触控热区 34→44px。⑤ `html_check` 新增 GRAD_TEXT 检查——扫描「渐变填充 + 反白文字」组合并告警；本次即由该检查抓出图标块的同类问题并一并修复。四份样例复校 FAIL=0 WARN=0。
+
+- v9.2.2 反白文字可读性修复（2026-09-28）—— 实测反馈「顶部目录条的白色文字看不清」，据此定位两处根因：① 顶部目录条与抽屉目录的「选中胶囊」背景沿用 `linear-gradient(var(--accent), var(--accent-2))`，accent-2 偏浅，实测 10 套主题下白字对比度仅 1.53–4.26（全部低于 4.5）；该规则特异性高于设计纪律层的单色覆盖，使纪律层失效。② ocean／tech／galaxy 三个亮调主题连 accent 起点也不达标（2.14–3.00）。修复：新增 `--ds-accent-deep`（accent 55% 混深墨，附 color-mix 不可用时的纯色回退），承载反白文字的填充（选中胶囊、章节编号、KPI 数值、返回顶部）统一改走 deep，纯装饰（色点、条形图）保留主题原色；选中胶囊编号由 86% 半透明白改为不透明；窄屏标签字号 12→13px、触控高度 30→34px。修复后 10 套主题白字对比度最低 5.39，全部达标；三份样例复校 FAIL=0 WARN=0。
+
+- v9.2.1 自检器修复与版本清单校正（2026-09-28）—— 三份模拟成果页（运营月报／竣工验收汇报／工艺技术比选）端到端渲染时暴露并修复两处缺陷：① `motif_check.py` 的母题白名单停留在最初的 4 个（editorial/blueprint/narrative/classic），而 v9.x 已扩展至 12 个，致 briefing/datareport/teardown 等新母题页面被误报「未声明版式母题」；现改为自 `motifs.py` 动态取键，新母题不再漏判。② `html_check.py` 的临时脚本名固定为 `_html_check_tmp.js`，同目录并发渲染时多个进程互删临时文件报 FileNotFoundError；现临时名带进程号。③ `_version.txt` 此前停留在 v9.0.0（9.1/9.2 升级时漏同步），本次校正为 v9.2.1 并分发 72 个内嵌副本，漂移 0。三份样例复校 html_check FAIL=0 WARN=0、motif_check PASS。
 
 - v9.0.0 围栏别名打通与时间轴两列（2026-09-24）——① **修复「逐日行程未按时间轴渲染」的根因**：底座原仅识别冒号围栏 `:::timeline`，而各技能文档普遍写反引号围栏（三反引号 + timeline），内容因此被当作普通代码块输出；现新增围栏别名表，`timeline / bar / bento / phase / law / faq / tags / matrix / stat / bignum / icons / kpi / gap` 等反引号围栏与冒号围栏完全等价，解析异常时降级为等宽代码块、不阻断整篇渲染。② **时间轴改为卡片内两列**（左时间 + 右内容），时间列用等宽数字右对齐、窄屏回落单列，更贴近移动端行程卡版式；圆点悬停同步放大。③ **图片块纳入入场动效**（图片与图片格错峰淡入上浮）。
 
@@ -532,15 +559,16 @@ HTML 报告无固定章节数，按下列密度控制，可按内容体量上下
 
 用法：`python3 scripts/motifs.py list`；渲染时 `--motif <id>`，与十套配色正交组合。
 
-## 模板参考库（81 套全量嵌入，v7.0.0）
+## 模板参考库（81 套，随包分发，v9.6.2）
 
-81 套外部精选模板已全量嵌入 `templates/`（来源 nexu-io/html-anything，Apache-2.0），13 类覆盖：幻灯片 23、文档 8、仪表盘 8、网页原型 8、视频帧 8、社媒卡片 7、海报 5、长文 4、数据 3、移动端 3、财务 2、邮件 1、简历 1。
+81 套外部精选模板随包以 `templates/` 目录分发（来源 nexu-io/html-anything，Apache-2.0），每套含设计指令 `SKILL.md`，13 类覆盖：幻灯片 23、文档 8、仪表盘 8、网页原型 8、视频帧 8、社媒卡片 7、海报 5、长文 4、数据 3、移动端 3、财务 2、邮件 1、简历 1。`templates.py` 采用「目录优先、zip 回退」双模式：本地有 `templates/` 目录时读目录，否则回退读 `templates.zip`。
 
 ```bash
 python3 scripts/templates.py list                  # 全部模板
 python3 scripts/templates.py list --cat slides     # 按分类
 python3 scripts/templates.py search 仪表盘          # 关键词检索
 python3 scripts/templates.py show data-report      # 读设计指令与示例路径
+python3 scripts/templates.py source                # 当前数据来源（目录/zip）
 ```
 
 定位：模板库为可选参考，不替换本技能既有渲染路径。视觉型制品（海报、社媒卡、落地页、视频帧）优先取模板；交付型报告（汇报、说明、方案、研究）走本技能骨架与门禁。
@@ -566,8 +594,110 @@ python3 scripts/templates.py show data-report      # 读设计指令与示例路
 | P0-2 | 内容保真纪律（技术审查类逐条引用证据，禁为版面编造） | 第七章 |
 | P1-1 | 反 AI slop 五条 | 第十章子节 + html_check 增 CJK_FONT / PURE_BW |
 | P1-2 | 版式母题 4 → 12 套 | motifs.py |
-| P2-1 | 81 套模板库全量嵌入 + templates.py | templates/ |
+| P2-1 | 81 套模板库随包分发 + templates.py | templates/ |
 | P2-2 | 交付面分支（打印、邮件、公众号内联、长图） | 本章 |
 
 外部证据来源：visual-explainer 9.7k 星（设计判断与证据纪律）、huashu-design 19.5k 星（反 AI slop 清单）、html-anything 8.9k 星（81 套模板）；交叉验证过程与依赖实测见本次对标评估报告。
 
+## PaySkill 付费调用 · 支付宝 AI 按量付费（v9.6.2 · 2026-10-03）
+
+本技能已按 **支付宝 AI 按量付费（A2M / `402 Payment Required`）** 协议改造为 Pay Skill，**按调用量计费 · 0.20 元/次**。
+改造件位于 `pay/`（支付宝核心库、付费闸口、计费配置）与 `references/payskill-integration.md`。
+
+### 一、何时进入付费流程
+
+当本技能被作为付费服务（Pay Skill）由 Agent 调用时，服务端按下方链路交付；本地离线使用（CLI 直调脚本）不受影响。
+
+### 二、协议链路四步（服务端 + Agent）
+
+1. **402 账单下发**：请求未携带有效支付凭证时，服务端返回 `HTTP 402 Payment Required`，并在 **`Payment-Needed`** 响应头给出 Base64URL 编码的账单（含 `out_trade_no` / `amount` / `currency` / `resource_id` / `pay_before` / `seller_*` / `service_id`，RSA2 签名）。
+2. **携带凭证重试**：用户在 AI 智能体内完成支付后，Agent 在请求头带 **`Payment-Proof`** 重新请求同一接口（解析出 `payment_proof` / `trade_no` / `client_session`）。
+3. **验付调用**：服务端调用 **`alipay.aipay.agent.payment.verify`** 验证凭证，并逐项校验 `active=true`、`amount`、`out_trade_no`、`resource_id` 是否一致；任一不符即重新返回 402。
+4. **履约确认**：资源成功返回后，服务端**异步**调用 **`alipay.aipay.agent.fulfillment.confirm`**（参数 `trade_no`）回执。
+
+> 第二、四步最易出错：不携带 `Payment-Proof` 重试就拿不到内容；不调用 `fulfillment.confirm` 则订单始终处于未履约状态。
+> **普通下单、异步通知、主动查单、客户端显示成功，均不能替代本按量付费协议。**
+
+### 三、计费与合规硬约束 🔴
+
+- 🔴 **三处单价必须完全一致（0.20 元/次）**：服务端 `pay/pay_config.json` / 支付宝商户侧登记单价 / 上架表单标价；不一致将导致买家付款被拒。
+- 🔴 **仅使用支付宝 A2M 协议标识**（`Payment-Needed` 响应头 / `Payment-Proof` 请求头）——不得引入其他支付渠道的协议标识，否则会被平台审核判为不合规。
+- 🔴 **私钥仅存服务端**：应用私钥（`keys/app_private_key.pem`）不得放入前端、客户端或公开仓库。
+- 🔴 **幂等**：`out_trade_no` 全局唯一；同一 `trade_no` 不重复履约，避免同一笔支付被多次使用。
+
+### 四、自检
+
+```bash
+python3 pay/payment_gate.py --selftest                        # 402 账单/验付/履约/幂等 9 项自检
+python3 pay/payment_gate.py --challenge html-report/render    # 生成一次 402 账单（调试）
+```
+
+## 设计决策咨询（借鉴 UI设计智能 · v9.2.0）
+
+本技能内置 `scripts/ui_consult.py` 薄封装，直连「UI设计智能」（ui-ux-pro-max-skill 移植版）的 BM25 设计库——192 套产品配色、88 种界面风格、26 组字体搭配、25 类图表类型。做视觉决策前先咨询，再落到本技能的配色 id 与版式母题。
+
+### 命令
+
+```bash
+# 综合咨询（配色 + 风格 + 字体，按中文场景自动路由）
+python3 "$S/scripts/ui_consult.py" "数据看板"
+python3 "$S/scripts/ui_consult.py" "内部汇报" --domain color
+python3 "$S/scripts/ui_consult.py" "data dashboard" --all --json
+python3 "$S/scripts/ui_consult.py" --list
+```
+
+### 输出与落地
+
+- **配色**：输出 Primary/Secondary/Accent/Background/Foreground/Card/Border 等槽位 hex，并附 WCAG 对比度自检（阈值 4.5）。选定后映射到本技能 10 套预校验配色或直接写入页面内嵌 CSS 变量。
+- **风格**：给出复杂度、可访问性、实现清单，据此选 12 套版式母题之一。
+- **字体**：给出标题/正文字体对与 Mood 关键词。
+- **看板/数据场景**自动补 chart 域，给出图表类型与可访问性等级。
+
+### 🔴 检查点
+
+- 🔴 检索关键词须用英文（数据库为英文 CSV）；中文场景由 `ui_consult.py` 内置路由表（`--list` 可查）转换，未命中路由时回落通用默认并明确声明。
+- 🔴 采用某配色前，核对输出中的对比度自检项是否全为 ✓；带 ⚠ 的槽位不得用于正文，改用替代槽位或退回本技能 10 套预校验配色。
+- 🔴 咨询结果为设计决策输入，最终页面仍须过 `html_check.py` 与 `palettes.py check` 两道门禁，不得以咨询结果替代自检。
+- 🔴 底部来源区块照旧按第七节规范标注——咨询库仅为设计参考，不作为报告内容来源。
+
+### 失败模式
+
+| 情况 | 后果 | 处置 |
+|---|---|---|
+| 用中文关键词直查数据库 | 零命中，误判技能失效 | 用 `ui_consult.py` 路由或改英文关键词 |
+| 直接照搬咨询配色 | 与全文母题冲突、对比度未复核 | 先核对对比度自检，再映射到本技能配色体系 |
+| 把咨询库当作内容来源 | 报告来源区块失真 | 咨询仅用于设计，来源仍按第七节规范标注 |
+
+## 引用依据与溯源（国内标准口径 · v9.6.3 增补）
+
+本节登记本技能排版与无障碍口径的国内标准出处，供合规报告与打印版引用；每个数据角标与来源区块仍按第七节规范标注 P0–P4 出处。
+
+| 口径 | 依据 | 本技能落地 |
+|---|---|---|
+| 打印版公文/报告版式 | 《党政机关公文格式》GB/T 9704-2012 | 页边距、字号层级、行距与页码规范 |
+| 网页无障碍与对比度 | 《信息技术 互联网内容无障碍可访问性技术要求与测试方法》GB/T 37668-2019 | 对比度阈值 4.5、语义标签、键盘可达 |
+| 中文长文排版 | CJK 字体栈与 8px 基线网格（工程实践约定） | 避免纯黑纯白、行距与段距基线对齐 |
+
+溯源约定：来源与出处不可查的数字或结论不得写入成品，缺口一律标【待核：】；参考他人方法论时在「十五、方法论来源与借鉴登记」留痕。
+
+## 失败模式与降级路径速查（v9.6.3 增补）
+
+| 失败模式 | 识别信号 | 处置 | 降级路径 |
+|---|---|---|---|
+| 依赖缺失 | node/chrome/ffmpeg 缺失导致渲染失败 | 按需安装依赖后重试 | 无法安装时降级为静态 SVG／纯 CSS 兜底方案 |
+| Mermaid 渲染失败 | headless Chrome 未就绪 | 重试一次并检查日志 | 回退到源码围栏（保留 mermaid 代码块）并标注 |
+| 图表数据异常 | 数值缺失或非数字 | 修正数据后重绘 | 数据不可得时降级为占位卡并标【待核：】 |
+| 对比度不达标 | palettes check 报 ⚠ | 更换配色槽位 | 兜底改用 10 套预校验配色之一 |
+| 长文超长 | 单文件体积过大 | 拆分章节 | 回退为分册输出并生成索引页 |
+| 输出中断 | 构建中途报错 | 按步骤复核后重跑 | 断点续跑：跳过已完成页面，仅重生成失败页 |
+
+**异常与错误处理**：构建脚本对缺依赖、坏数据、渲染异常均做防御性检查；门禁（`html_check.py` / `palettes.py check`）不过即阻断交付，具备重试与容错能力，失败分支逐条回落到兜底方案，直到 FAIL=0。
+
+## 版本沿革（CHANGELOG，v9.6.3）
+
+- **v9.7.0**（2026-10-06）：新增 references/专家名片卡.md（快捷示例卡）。
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| 9.6.3 | 2026-10-04 | 增补「引用依据与溯源（国内标准口径）」与「失败模式与降级路径速查」；主流程、配色、模板库与 pay/ 付费链路未改 |
+| 9.6.2 | 2026-10-03 | PaySkill 付费调用与设计决策咨询上线 |

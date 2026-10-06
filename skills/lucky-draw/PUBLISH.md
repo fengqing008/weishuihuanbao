@@ -9,7 +9,7 @@
 | 显示名 | 摇号抽签 |
 | 技能标识 | lucky-draw |
 | slug | qf-lucky-draw |
-| 版本 | 1.0.0 |
+| 版本 | 1.1.0 |
 | 作者 | 清风明月 |
 | 类别 | 科技 |
 | 依赖 | 无（仅用 Python 标准库 secrets） |
@@ -59,7 +59,7 @@ python3 scripts/lucky_draw.py --input 名单.csv --count 10 --rounds 3 \
 
 ## 七、版本与作者
 
-- 版本：1.0.0
+- 版本：1.1.0
 - 作者：清风明月
 - 更新日期：【待填：发布日期】
 - 反馈渠道：【待填：反馈渠道】

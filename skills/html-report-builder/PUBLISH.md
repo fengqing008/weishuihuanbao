@@ -8,13 +8,14 @@
 |------|------|
 | 显示名 | HTML 成果输出引擎 |
 | 技能标识 | html-report-builder |
-| slug | qf-html-report |
-| 版本 | 5.0.0 |
+| slug | qf-html-report-2 |
+| 版本 | 9.6.2 |
 | 作者 | 清风明月 |
-| 类别 | 科技 |
-| 依赖 | 无（脚本基于 Python 标准库） |
+| 类别 | 科技（SkillHub 付费技能 pay-skill） |
+| 计费 | 按调用量计费 · 0.2 元/次 |
+| 依赖 | 无（技能主体基于 Python 标准库；PaySkill 网关需 cryptography） |
 
-## 二、使用说明（6 条）
+## 二、使用说明（7 条）
 
 1. **把报告做成单文件 HTML**：对我说「把这份调研报告做成单文件 HTML，要能离线打开、可直接打印」，我会生成一个自包含 `.html`，图片 base64 内嵌、断网可看。
 2. **给报告配达标的配色**：说「给这份 Markdown 配一套对比度达标的主题」，我从 10 套经 WCAG 校验的配色里选，并可切侧栏布局或深色章节头。
@@ -38,7 +39,7 @@ python3 scripts/md2report.py 报告.md --theme ocean --layout sidebar -o 报告.
 python3 scripts/html_check.py 报告.html
 ```
 
-### 示例四：智能配图（规划 → 出图 → 回填）
+### 示例三：智能配图（规划 → 出图 → 回填）
 
 ```bash
 python3 scripts/illustrate.py plan 报告.md --theme ocean --max 3
@@ -49,16 +50,11 @@ python3 scripts/md2report.py 报告_illustrated.md -o 报告.html --theme ocean 
 
 退出码：0 = 全部通过；1 = 存在 FAIL 项（须修复后再交付）。
 
-### 示例三：内置组件围栏语法（节选）
+### 示例四：PaySkill 支付宝付费链路自检
 
-```markdown
-:::kpi 营业收入|3,327 万元|同比 +12.4%
-:::bar 各厂达标率
-城东厂|98.2|一级A
-城南厂|96.4|一级A
-:::chart donut 成本结构
-药剂|18.5
-能源|42.0
+```bash
+python3 pay/payment_gate.py --selftest                        # 402 账单/验付/履约/幂等 9 项自检
+python3 pay/payment_gate.py --challenge html-report/render    # 生成一次 402 账单（调试）
 ```
 
 ## 四、适用场景
@@ -81,19 +77,34 @@ python3 scripts/md2report.py 报告_illustrated.md -o 报告.html --theme ocean 
 
 | 路径 | 用途 |
 |------|------|
-| `SKILL.md` | 主文档：能力说明、组件语法、变更记录 |
+| `SKILL.md` | 主文档：能力说明、组件语法、变更记录、PaySkill 付费调用 |
 | `references/` | 配色、组件、排版与交付规范 |
+| `references/payskill-integration.md` | 支付宝 A2M 接入规范（402 账单 / 验付 / 履约 / 签名 / 自查） |
 | `scripts/md2report.py` | Markdown → 单文件 HTML 转换 |
 | `scripts/html_check.py` | 结构与配色自检 |
 | `scripts/palettes.py` | 10 套主题色板定义 |
 | `scripts/illustrate.py` | 智能配图：识别配图点、生成任务单、瘦身回填 |
 | `scripts/board.py` | 数据看板引擎（KPI + 条形对比 + 阈值预警） |
-| `references/illustration-guide.md` | 智能配图规范：识别规则、提示词模板、体积门禁 |
+| `pay/pay_config.json` | 支付宝 A2M 计费与商户配置（0.20 元/次、seller_*、service_id、单价三处核对） |
+| `pay/alipay_aipay.py` | A2M 核心库：RSA2 加签、账单构造、Payment-Needed 编解码、Payment-Proof 解析、verify/confirm 调用、幂等存储 |
+| `pay/payment_gate.py` | 付费闸口：`PaymentGate.protect()` 接入业务端点 + 离线自测 |
+| `pay/keys/README.md` | 应用私钥 / 支付宝公钥放置说明 |
+| `pay/README.md` | 支付宝 A2M 接入与部署说明 |
 | `PUBLISH.md` | 本发布资料 |
 
-## 七、版本与作者
+## 七、PaySkill 付费化（支付宝 AI 按量付费 / A2M · 402）
 
-- 版本：5.0.0
+按**支付宝 AI 按量付费（A2M）**协议改造为付费技能，计费 **0.20 元/次**：
+
+- **协议链路（4 步）**：① 无凭证 → `HTTP 402` + `Payment-Needed`（Base64URL 账单，RSA2 签名）→ ② 用户支付后 Agent 带 `Payment-Proof` 重试 → ③ 服务端调 `alipay.aipay.agent.payment.verify` 验付（校验 active/amount/out_trade_no/resource_id）→ ④ 返回资源后异步调 `alipay.aipay.agent.fulfillment.confirm` 履约回执。
+- **加签规则**：RSA2，8 字段按字典序拼 `k=v&k=v`（amount/currency/goods_name/out_trade_no/pay_before/resource_id/seller_id/service_id），用应用私钥本地加签。
+- **硬约束**：三处单价一致（0.20 元/次）；私钥仅存服务端；`out_trade_no` 幂等、`trade_no` 不重复履约。
+- **费率**：单笔 1.0%；个人开发者优惠期 2026-04-15 至 2026-12-31 零费率。
+- **发布通道**：SkillHub 网页后台手工上传 zip，分类选 pay-skill（CLI 不支持 pay-skill）。
+
+## 八、版本与作者
+
+- 版本：9.6.2
 - 作者：清风明月
-- 更新日期：2026-09-23
+- 更新日期：2026-10-03
 - 反馈渠道：【待填：反馈渠道】

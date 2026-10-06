@@ -15,10 +15,10 @@ acceptance_tools.py —— 工程验收全套资料生成工具
   - GB 50300-2013《建筑工程施工质量验收统一标准》
 
 用法示例：
-  python acceptance_tools.py checklist -o ./output --project-name "某市区污水处理厂PPP项目"
-  python acceptance_tools.py records   -o ./output --project-name "某市区污水处理厂PPP项目"
-  python acceptance_tools.py report    -o ./output --project-name "某市区污水处理厂PPP项目" --location "西安市某市区"
-  python acceptance_tools.py meeting   -o ./output --project-name "某市区污水处理厂PPP项目"
+  python acceptance_tools.py checklist -o ./output --project-name "某区污水处理厂PPP项目"
+  python acceptance_tools.py records   -o ./output --project-name "某区污水处理厂PPP项目"
+  python acceptance_tools.py report    -o ./output --project-name "某区污水处理厂PPP项目" --location "西安市某区"
+  python acceptance_tools.py meeting   -o ./output --project-name "某区污水处理厂PPP项目"
 """
 
 import argparse

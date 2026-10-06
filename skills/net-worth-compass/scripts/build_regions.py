@@ -13,7 +13,7 @@ baseline.json 的 regions 记录，自动计算 收入比 / 密度比 / coef / �
 
 CSV 列（表头须含 code,name,population_wan,urban_income；可选 household_600w）：
   code,name,population_wan,urban_income,household_600w
-  610115,某市区,68.67,41387,
+  610115,某区,68.67,41387,
   610800,榆林市,360.13,47143,10802
 
 规则：

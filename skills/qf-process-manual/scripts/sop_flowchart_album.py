@@ -3,7 +3,7 @@
 import base64, os, argparse
 
 _ap = argparse.ArgumentParser(description='SOP流程图集HTML生成器')
-_ap.add_argument('--project', default='示例PPP')
+_ap.add_argument('--project', default='某PPP')
 _ap.add_argument('--total', required=True, help='工程量核对图路径')
 _ap.add_argument('--diff', required=True, help='差异处理图路径')
 _ap.add_argument('--out', default='SOP流程图集.html')
@@ -48,7 +48,7 @@ html = f'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>示例PPP竣工结算 SOP 流程图集</title>
+<title>某PPP竣工结算 SOP 流程图集</title>
 <style>
   :root {{ --edge:#5a6c7d; --bg:#f4f6f8; --ink:#22303d; --line:#e2e7ec; }}
   * {{ box-sizing:border-box; }}
@@ -90,13 +90,13 @@ html = f'''<!DOCTYPE html>
   <header>
     <h1>{_A.project}项目工程结算 · SOP 流程图集</h1>
     <div class="sub">适用：施工单位 ／ 设计单位 ／ 监理单位 ／ 建设单位 ／ 审计单位</div>
-    <div class="meta">某环境工程有限公司　│　V1.0　│　2026-09-11</div>
+    <div class="meta">某水务项目公司　│　V1.0　│　2026-09-11</div>
   </header>
 {chr(10).join(blocks)}
 {legend}
   <footer>
     依据：《建设工程价款结算暂行办法》（财建〔2004〕369号）、《建设工程工程量清单计价规范》（GB 50500-2013）<br>
-    某环境工程有限公司 · 工程线（总工办）
+    某水务项目公司 · 工程线（总工办）
   </footer>
 </div>
 </body>

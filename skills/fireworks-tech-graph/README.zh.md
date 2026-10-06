@@ -8,7 +8,7 @@
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/code)
 [![7 种视觉风格](https://img.shields.io/badge/风格-7种-purple)]()
 [![14 种图类型](https://img.shields.io/badge/图类型-14种-green)]()
-[![UML ��持](https://img.shields.io/badge/UML-完整支持-orange)]()
+[![UML 完整支持](https://img.shields.io/badge/UML-完整支持-orange)]()
 
 ## 概述
 

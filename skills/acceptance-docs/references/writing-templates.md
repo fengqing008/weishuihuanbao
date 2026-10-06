@@ -14,7 +14,7 @@
 | 模板四 会议四件套 | `python scripts/acceptance_tools.py meeting -o ./output --project-name "<工程名称>" --meeting-date "<时间>" --meeting-place "<地点>" --host "<主持人>"` | 议程／验收组名单／签到表／意见书 4 个文件 |
 | 附：分部分项划分表 | `python scripts/acceptance_tools.py divisions -o ./output --project-name "<工程名称>"` | 污水厂工程分部分项划分表.docx |
 
-生成后核验与交付：可用 `soffice --headless --convert-to pdf` 转 PDF 核验文档无损坏；正式交付时通过 ima 环境 upload_file.py 入 ima 成果库（kb_id=（已脱敏））并提供下载链接。
+生成后核验与交付：可用 `soffice --headless --convert-to pdf` 转 PDF 核验文档无损坏；正式交付时通过 ima 环境 upload_file.py 入 ima 成果库（kb_id=ztJsLCMwR3pgWo250gemdopQbgBCLefIJCGns0HK9D0=）并提供下载链接。
 
 ---
 

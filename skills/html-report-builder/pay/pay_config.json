@@ -1,0 +1,51 @@
+{
+  "pay_skill": {
+    "slug": "qf-html-report-2",
+    "display_name": "HTML 成果输出引擎",
+    "billing_mode": "per_call",
+    "price": "0.20",
+    "price_fen": 20,
+    "currency": "CNY",
+    "goods_name": "HTML 成果输出引擎（单文件 HTML 产物渲染）"
+  },
+  "provider": {
+    "name": "清风明月",
+    "author": "清风明月",
+    "contact": "809277254@qq.com"
+  },
+  "protocol": "alipay-a2m-402",
+  "alipay_aipay": {
+    "sign_type": "RSA2",
+    "gateway": "https://openapi.alipay.com/gateway.do",
+    "verify_api": "alipay.aipay.agent.payment.verify",
+    "confirm_api": "alipay.aipay.agent.fulfillment.confirm",
+    "seller_id": "【待填：收款方 userId（2088 开头的支付宝商家账号）】",
+    "seller_name": "【待填：收款方名称】",
+    "seller_app_id": "【待填：商户应用 AppId；第三方代调用时填三方应用 AppId】",
+    "service_id": "【待填：服务 ID，获取方式见 https://ideservice.alipay.com/cms/site/0j7uos】",
+    "goods_name": "HTML 成果输出引擎",
+    "bill_ttl_seconds": 300,
+    "app_private_key_path": "keys/app_private_key.pem",
+    "alipay_public_key_path": "keys/alipay_public_key.pem"
+  },
+  "fee": {
+    "rate": "1.0%",
+    "note": "单笔费率 1.0%；个人开发者优惠期 2026-04-15 至 2026-12-31 享零费率，实际扣费以账单为准。"
+  },
+  "endpoints": {
+    "resource": "/render",
+    "note": "受保护端点须由服务端接入 PaymentGate.protect()；网关地址按实际部署填写。"
+  },
+  "price_checklist": [
+    "① 服务端 pay_config.json 的 pay_skill.price（本次 = 0.20 元）",
+    "② 支付宝 AI 付商户侧登记的单价",
+    "③ SkillHub 上架表单标价",
+    "三处必须完全一致，否则买家付款会被拒。"
+  ],
+  "compliance_notes": [
+    "仅使用支付宝 A2M 协议标识（Payment-Needed / Payment-Proof），不得引入其他支付渠道协议。",
+    "402 账单走 Payment-Needed 响应头；支付凭证走 Payment-Proof 请求头。",
+    "验付必须调 alipay.aipay.agent.payment.verify 并校验 active/amount/out_trade_no/resource_id。",
+    "资源返回后必须异步调 alipay.aipay.agent.fulfillment.confirm。"
+  ]
+}

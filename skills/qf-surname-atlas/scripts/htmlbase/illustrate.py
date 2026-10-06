@@ -533,8 +533,8 @@ def load_lineart_engine():
     import importlib
     root = os.path.dirname(os.path.abspath(__file__))
     for d in (os.path.join(root, "vendors", "qf-lineart", "scripts"),
-              "/root/.skills/qf-lineart/scripts",
-              "/sandbox/workspace/skills/qf-lineart/scripts"):
+              "qf-lineart/scripts",
+              "skills/qf-lineart/scripts"):
         if not os.path.exists(os.path.join(d, "lineart_engine.py")):
             continue
         if d not in sys.path:
@@ -579,7 +579,7 @@ def cmd_lineart(args):
     E = load_lineart_engine()
     if E is None:
         print("[lineart][FAIL] 未找到 qf-lineart 引擎（lineart_engine.py）。"
-              "请确认 /root/.skills/qf-lineart/scripts 可用。", file=sys.stderr)
+              "请确认 qf-lineart/scripts 可用。", file=sys.stderr)
         return 2
     md = read_md(args.md)
     base = os.path.dirname(os.path.abspath(args.md))

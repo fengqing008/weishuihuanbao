@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 模板风格流程图 · 工程量差异处理
-用法：python3 sop_flowchart_diff.py --project 示例PPP --out 差异处理.png
+用法：python3 sop_flowchart_diff.py --project 某PPP --out 差异处理.png
 """
 import argparse
 import os
@@ -15,7 +15,7 @@ from flowchart_kit import (init, save, title_block, start_node, end_node,
                            EDGE, DEC_F, DEC_E, NOTE_F, NOTE_E)
 
 ap = argparse.ArgumentParser(description='模板风格流程图 · 工程量差异处理')
-ap.add_argument('--project', default='示例PPP', help='项目名称前缀')
+ap.add_argument('--project', default='某PPP', help='项目名称前缀')
 ap.add_argument('--subtitle', default='适用：施工单位 ／ 设计单位 ／ 监理单位 ／ 建设单位')
 ap.add_argument('--out', default='差异处理_流程图.png')
 A = ap.parse_args()

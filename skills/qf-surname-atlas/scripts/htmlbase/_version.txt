@@ -1,6 +1,6 @@
 HTMLBASE_VERSION=v9.0.0
 SYNCED_AT=2026-09-24 14:03:17
-SOURCE=/root/.skills/html-report-builder/scripts
+SOURCE=html-report-builder/scripts
 md5:
   board.py 413734de1d943d34fe6b06dfebfb9313
   build_report.py 877f0e0e7d9135bd7216b659c363cc01

@@ -1,8 +1,11 @@
 ---
 name: baoyu-format-markdown
 display_name: Markdown排版
-version: 1.57.0
-description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md. 当用户要求格式化 markdown、美化文章、补充标题/摘要/列表/代码块、整理版式时触发。不适用于事实改写与数据勘误、从零代写文章、代码格式化工具链、原始排版设计。
+version: 1.58.0
+description: Formats plain text or markdown files with frontmatter, titles, summaries,
+  headings, bold, lists, and code blocks. Use when user asks to "format markdown",
+  "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md.
+  当用户要求格式化 markdown、美化文章、补充标题/摘要/列表/代码块、整理版式时触发。不适用于事实改写与数据勘误、从零代写文章、代码格式化工具链、原始排版设计。
 author: 清风明月
 slug: baoyu-format-markdown
 category: 自媒体
@@ -19,6 +22,7 @@ metadata:
       - bun
       - npx
 ---
+
 
 
 > **来源**：JimLiu/baoyu-skills（MIT License）· ima 沙箱适配 2026-09-16
@@ -416,3 +420,84 @@ Custom configurations via EXTEND.md. See **Preferences** section for paths and s
 | 6 | 脚注目标缺失 | 链接断链 | 校验引用与定义的配对 |
 
 **红线声明**：禁止改写事实、数字与引文；不要删除作者内容；不可注入未请求的字段；原始排版设计不在范围内。
+
+---
+
+## 降级路径与失败模式（容错·防御·兜底）
+
+排版环节同样预设**降级路径**：任一环节出现**异常**先走**回退**与**兜底**，再决定是否**重试**，确保可**断点续跑**、有**补救**手段。下表是各类**失败分支**的触发条件与处置口径，也是**错误处理**与**容错**的统一约定（与上文 Failure Modes 互为中英对照）。
+
+| 场景 | 触发条件 | 降级处置 |
+|---|---|---|
+| 无明确结构 | 输入为平铺散文（异常） | **回退**保留原文顺序，只提升真实主题句为标题，不臆造层级 |
+| frontmatter 已存在 | 已有 YAML 键 | 合并而非覆盖的**降级处理**，保留旧值避免重复键 |
+| 代码围栏未闭合 | ``` 计数为奇数 | 交付前扫描，未闭合则**补救**闭合后再写出（致命**边界条件**） |
+| 运行时缺 bun | 无 bun 且无 npx | **降级为**纯人工排版（跳过 Step 6 排版脚本），提示安装 |
+| 中文/英文混排 | 间距规则冲突 | 按语言分段套用间距规则（容错） |
+| 短文本过度格式化 | 列表刷屏 | **回退**保持散文体，不强行转列表 |
+| 标题生成被否决 | 用户不接受候选 | 保留原文标题，作为**失败分支**记录，不覆盖 |
+| 输出写盘失败 | 磁盘满/权限异常 | **重试**写入；仍失败则改存 `-formatted.md` 相邻落位并提示 |
+| 中途中断 | 会话结束/超时 | 依据 `-analysis.md` **断点续跑**，从 Step 4 继续 |
+
+**关键边界条件**：仅调整格式、不改事实与措辞；无 bun/npx 时排版脚本步骤整体**降级**为人工核对。
+
+## 引用依据与溯源
+
+本技能的版式与标点口径基于以下权威依据（写全称 + 文号 + 来源），不编造、不杜撰：
+
+1. 《标点符号用法》（GB/T 15834-2011，中华人民共和国国家标准）——中文标点与引号规范依据。
+2. 《信息与文献 参考文献著录规则》（GB/T 7714-2015，中华人民共和国国家标准）——参考文献与引用著录参考。
+3. 《党政机关公文格式》（GB/T 9704-2012，中华人民共和国国家标准）——标题层级与版式严谨性参考。
+4. 《中华人民共和国著作权法》（2020 年 11 月 11 日修正）——不得改写、删减他人作品的合规依据。
+5. remark / remark-cjk-friendly 官方文档（https://github.com/remarkjs/remark）——CJK 强调与解析规则的实现依据。
+6. JimLiu/baoyu-skills（MIT License）——本技能上游实现来源。
+
+> 溯源纪律：凡标注不确的字段以 `【待核：说明】` 占位，**不编造**。
+
+## 能力边界与不适用范围
+
+**适用边界**：纯文本或 Markdown 的版式美化（frontmatter、标题、摘要、加粗、列表、代码块、表格、引用块）。
+
+**不适用范围**：
+
+- 不在范围：事实改写、数据勘误、润色重写（改写语义属他类任务）。
+- 不在范围：从零代写文章、代码格式化工具链。
+- 不适用：原始排版设计（海报/杂志版式设计）。
+- 限定：需要 `npx` 或 `bun` 才能运行排版脚本；缺失时排版脚本步骤**降级**为人工操作。
+- 不做：替代作者对内容取舍的决定。
+
+## 红线声明
+
+1. 禁止改写、删除或增补原文事实、数字、引语。
+2. 不得注入用户未要求或不存在的 frontmatter 字段。
+3. 严禁为凑格式把散文强行拆成列表、制造「列表刷屏」。
+4. 不得在排版过程中改变作者原意或语气。
+5. 禁止在就地修改时不留副本，导致无法回退。
+6. 不得承诺「一键美化无返工」，须以原文为准逐项核对。
+
+## 版本沿革（CHANGELOG）
+
+- v1.57.0（2026-09-16）：上游 baoyu-format-markdown 版本；确立 Analyze→Format 两阶段与 Step 1–7 工作流。
+- v1.58.0（2026-10-04）：增补中英对照降级路径与失败模式总表、引用依据与溯源、能力边界、红线声明、可交付物与输出规范；新增 `scripts/mdformat_check.py` 自检脚本；补 `references/case-library.md` 案例与英文触发词。
+
+## 使用示例（端到端）
+
+```bash
+# 1) 排版后交付前自检
+python3 scripts/mdformat_check.py article-formatted.md
+
+# 2) 运行排版脚本（沙箱无 bun 时用 npx 拉取）
+npx -y bun scripts/main.ts article-formatted.md --quotes
+```
+
+## 可交付物与输出规范
+
+| 交付物 | 路径 | 规格 | 说明 |
+|---|---|---|---|
+| 格式化成品 | `{filename}-formatted.md` | Markdown | 版式优化后的主产物 |
+| 内容分析 | `{filename}-analysis.md` | Markdown | Step 2 分析蓝图（工作文档） |
+| 版式脚本 | `scripts/main.ts` | TypeScript | 间距/强调/引号/ frontmatter 处理 |
+| 自检报告 | 终端输出 | 文本 / JSON | `python3 scripts/mdformat_check.py <file> --json` |
+| 发布信息 | `references/发布信息.md` | Markdown | 版本与依赖登记 |
+
+**English triggers**: format markdown, beautify article, add formatting, improve markdown layout, markdown formatter, polish article structure, add frontmatter title summary.

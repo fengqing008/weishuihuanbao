@@ -9,7 +9,7 @@
   4) lec-calc     LEC 作业条件危险性评价法计算（D = L × E × C，输出危险等级）
 
 用法示例：
-  python3 scripts/safety_report_builder.py outline --type 安全设施设计专篇 --project "某县生物医药产业园污水处理厂建设工程"
+  python3 scripts/safety_report_builder.py outline --type 安全设施设计专篇 --project "某市生物医药产业园污水处理厂建设工程"
   python3 scripts/safety_report_builder.py outline --type 安全验收评价报告 --project "某某污水厂" --out /tmp/out.md
   python3 scripts/safety_report_builder.py hazard-list --project-type 污水厂 --stage 生化池
   python3 scripts/safety_report_builder.py hazard-list --project-type 管网 --stage 全部

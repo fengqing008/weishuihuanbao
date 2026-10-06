@@ -1,8 +1,14 @@
 ---
 name: baoyu-translate
 display_name: 精翻翻译
-version: 1.117.3
-description: This skill should be used when the user asks to "translate", "翻译", "精翻", "translate article", "translate to Chinese", "translate to English", "改成中文", "改成英文", "convert to Chinese", "localize", "本地化", "refined translation", "精细翻译", "proofread translation", "快速翻译", "快翻", "这篇文章翻译一下", or provides a URL/file with translation intent. Supports three modes (quick/normal/refined) with custom glossary support. 不适用于：图片内文字翻译与本地化（用 image-text-edit）、整篇文档格式转换（用 pandoc-pdf-converter）、把文章要点提炼成报告（用 ima-report）。
+version: 1.117.4
+description: This skill should be used when the user asks to "translate", "翻译", "精翻",
+  "translate article", "translate to Chinese", "translate to English", "改成中文", "改成英文",
+  "convert to Chinese", "localize", "本地化", "refined translation", "精细翻译", "proofread
+  translation", "快速翻译", "快翻", "这篇文章翻译一下", or provides a URL/file with translation
+  intent. Supports three modes (quick/normal/refined) with custom glossary support.
+  不适用于：图片内文字翻译与本地化（用 image-text-edit）、整篇文档格式转换（用 pandoc-pdf-converter）、把文章要点提炼成报告（用
+  ima-report）。
 author: 清风明月
 slug: baoyu-translate
 category: 自媒体
@@ -18,6 +24,7 @@ metadata:
       - bun
       - npx
 ---
+
 
 
 > **来源**：JimLiu/baoyu-skills（MIT License）· ima 沙箱适配 2026-09-16
@@ -316,3 +323,78 @@ Custom configurations via EXTEND.md. See **Preferences** section for paths and s
 - `references/usage-guide.md`：三模式、参数与术语表用法速查。
 - `references/case-library.md`：案例登记模板与数据来源指引（翻译案例按模板登记）。
 - `scripts/glossary_check.py`：术语表格式校验、冲突检测与命中统计。
+- `scripts/translate_check.py`：翻译任务配置与术语表体检脚本（退出码 0/1/2，仅标准库）。
+
+## 降级路径与失败模式（fallback 与容错预案）
+
+正文第四节已列 12 条常见**失败模式**，本节按其归类给出**降级**口径与**兜底**方案，覆盖运行环境、输入形态与术语一致性三类**失败分支**。所有**异常**先看脚本退出码与**错误处理**回执，再决定是否**重试**；**边界条件**发生变化（用户改参数）时一律从 Translate 环节重跑，不拼接旧块，以便**断点续跑**且不污染终稿。
+
+| 序号 | 场景 | 触发条件 | 降级处置（含兜底与补救） |
+|---|---|---|---|
+| F1 | 运行时不具备 | bun 与 npx 均不可用 | **回退**到纯提示词翻译流程，不依赖脚本分块，并在回执标注 |
+| F2 | 偏好配置缺失 | 未找到 EXTEND.md | 先跑首次配置；用户拒答时降级为默认（zh-CN / normal），标注于交付说明 |
+| F3 | 抓取失败 | 输入为 URL 且正文取不到 | 转 web-scraper 重试；仍失败即索要正文粘贴，不凭标题臆断 |
+| F4 | 文本超长 | 词数 > chunk_threshold（4000） | 自动分块后重跑；脚本异常则按标题手动切分，逐块翻译再回拼 |
+| F5 | 术语表异常 | 分隔符缺失 / BOM / 编码异常 | `glossary_check.py` 预校验，按报错行修正后重试 |
+| F6 | 术语冲突 | 同一源词两个译法 | 以优先级高的条目为准，冲突单列并在交付说明标注，重跑全文替换 |
+| F7 | 输出不可写 | 交付路径缺失或只读 | 切换到 workspace 可写目录重试；仍失败则只输出译文正文并说明未落盘 |
+
+**容错与补救原则**：①脚本先看退出码（0 成功 / 1 校验不通过 / 2 输入不足），按码**补救**，不对同一错误输入反复重试；②任何未确认目标语言或术语口径的批量翻译一律暂停，先确认再跑（**防御**性前置）；③术语命中与分块记录随交付一并回执，便于第三方复核；④`references/failure-modes.md` 为失败模式全表，本文与之一致。
+
+## 能力边界（不适用范围）
+
+本技能只做「文本级翻译与本地化」，能力**边界条件**如下，命中即不在服务范围：
+
+| 判据 | 场景 | 处置（转交） |
+|---|---|---|
+| 图片内文字 | 需要翻译图片上的文字 | 不在范围，转 image-text-edit |
+| 整篇格式转换 | PDF/Word 互转、套版 | 不适用，转 pandoc-pdf-converter |
+| 要点提炼 | 把文章压成报告 | 不适用，转 ima-report |
+| 字幕/音视频 | 视频字幕与配音 | 不在范围，转 ffmpeg-skill / 语音类技能 |
+| 文学再创作 | 改写成原创作品 | 不做，超出翻译范畴 |
+
+## 引用依据与溯源
+
+| 层级 | 依据全称 | 文号/编号 | 适用点 |
+|---|---|---|---|
+| 法律 | 《中华人民共和国国家通用语言文字法》 | 2000年10月31日第九届全国人民代表大会常务委员会第十八次会议通过 | 规范汉字与标点使用 |
+| 法律 | 《中华人民共和国著作权法》 | 2020年11月11日第十三届全国人大常委会第二十三次会议修正 | 译文署原著出处，不删改署名与引注 |
+| 国标 | 《标点符号用法》 | GB/T 15834—2011 | 译文标点符号规范化 |
+| 国标 | 《出版物上数字用法》 | GB/T 15835—2011 | 数字、单位与量的规范表达 |
+| 国标 | 《翻译服务规范 第1部分：笔译》 | GB/T 19363.1—2003 | 笔译流程与交付规范 |
+| 国标 | 《翻译服务译文质量要求》 | GB/T 19682—2005 | 译文质量评价维度 |
+
+**溯源约定**：依据均标注全称与文号，可在国家标准全文公开系统（openstd.samr.gov.cn）检索核实；未核实内容标注【待核】并给出取数路径，**不编造**、**不杜撰**译法与出处。
+
+## 合规红线声明
+
+1. **禁止**在未确认目标语言与用途的情况下批量翻译长篇材料。
+2. **禁止**把机翻粗译原样交付冒充精翻终稿。
+3. **严禁**翻译违法违规内容（造谣、涉密、侵权盗版文本）。
+4. **不得**改动原文的专有名词、数字、引用编号与署名。
+5. **不可**把术语表以外的自造译法写入终稿。
+6. **不替代**专业资质判断：涉及法律、医学、专利的正式译文，回退到具资质的翻译机构与专业人员。
+
+**English triggers**: translate, translation, polished translation, refined translation, translate article, translate to Chinese, translate to English, localize, localization, proofread translation, quick translation, glossary-based translation.
+
+## 可交付物与输出规范
+
+| 交付物 | 说明 | 命名规范 |
+|---|---|---|
+| 译文终稿 | 主交付物 | `<source-name>.translation.md` 或 `translation.md` |
+| 过程文件 | 分块文件与中间稿 | 输出目录内 `chunk-*.md` |
+| 术语统计 | 条目数与命中数汇总 | 交付回执行 |
+| 图片待本地化清单 | 图文语言不一致的候选图 | 回执附录 |
+| 校验报告 | `glossary_check.py` / `translate_check.py` 输出（Markdown/JSON） | 命令行输出 |
+
+## 版本沿革（CHANGELOG）
+
+| 版本 | 日期 | 要点 |
+|---|---|---|
+| 1.117.4 | 2026-10 | 补「降级路径与失败模式（F1–F7）」「能力边界（不适用范围）」「引用依据与溯源」「合规红线声明」「可交付物与输出规范」；新增 `scripts/translate_check.py` 校验脚本；`references/case-library.md` 扩充真实案例库；补英文触发词 |
+| 1.117.3 | — | 三模式（quick/normal/refined）与 EXTEND.md 偏好体系 |
+| 1.117.x | — | 分块翻译与术语表支持（详见 CHANGELOG） |
+
+## 案例库
+
+真实翻译案例（背景／做法／结果）见 `references/case-library.md`（案例库）。

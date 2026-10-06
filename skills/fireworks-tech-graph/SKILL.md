@@ -1,10 +1,15 @@
 ---
 name: fireworks-tech-graph
 display_name: 技术图绘制官
-version: 1.2.0
-description: 生产级技术图绘制官，把文字描述的技术结构渲染成可交付的 SVG 与 PNG 图件，覆盖架构图、数据流图、流程图、序列图、Agent 架构图、记忆架构图、思维导图、类图、用例图、状态机图、ER 图、网络拓扑图、对比矩阵与时间线共 14 类图型，内置 UML 14 类覆盖映射、形状词汇表、箭头语义系统、正交路由、标签背景防遮挡、8px 网格对齐、7 套视觉风格（Flat Icon / Dark Terminal / Blueprint / Notion Clean / Glassmorphism / Claude Official / OpenAI Official）与写入前五项自检、Quick Fix 修复协议。当用户说 画图、帮我画个架构图、生成流程图、画序列图、出个技术图、画思维导图、画网络拓扑、画 ER 图、画状态机图、可视化一下系统结构、做个对比矩阵、画个时间线、generate diagram、draw diagram、visualize architecture、create flowchart、sequence diagram、mind map、ER diagram、network topology 时触发。不适用于照片编辑与修图、位图手绘风格插画、三维渲染与物理仿真、带动画或交互逻辑的图表（D3.js、Plotly、SMIL）、需要实时数据绑定的动态大屏。
+version: 1.3.0
+description: 生产级技术图绘制官，把文字描述的技术结构渲染成可交付的 SVG 与 PNG 图件，覆盖架构图、数据流图、流程图、序列图、Agent 架构图、记忆架构图、思维导图、类图、用例图、状态机图、ER
+  图、网络拓扑图、对比矩阵与时间线共 14 类图型，内置 UML 14 类覆盖映射、形状词汇表、箭头语义系统、正交路由、标签背景防遮挡、8px 网格对齐、7 套视觉风格（Flat
+  Icon / Dark Terminal / Blueprint / Notion Clean / Glassmorphism / Claude Official
+  / OpenAI Official）与写入前五项自检、Quick Fix 修复协议。当用户说 画图、帮我画个架构图、生成流程图、画序列图、出个技术图、画思维导图、画网络拓扑、画
+  ER 图、画状态机图、可视化一下系统结构、做个对比矩阵、画个时间线、generate diagram、draw diagram、visualize architecture、create
+  flowchart、sequence diagram、mind map、ER diagram、network topology 时触发。不适用于照片编辑与修图、位图手绘风格插画、三维渲染与物理仿真、带动画或交互逻辑的图表（D3.js、Plotly、SMIL）、需要实时数据绑定的动态大屏。
 author: 清风明月
-slug: qf-fireworks-tech-graph
+slug: fireworks-tech-graph
 category: 科技
 tags:
 - 技术图
@@ -20,6 +25,7 @@ tags:
 - 网络拓扑
 - UML
 ---
+
 
 # 技术图绘制官 · Fireworks Tech Graph
 
@@ -290,3 +296,74 @@ rsvg-convert -w 1920 out/broken.svg -o out/broken.png 2>&1
 | `scripts/validate-svg.sh` | SVG 语法与结构校验 | `bash scripts/validate-svg.sh out/x.svg` |
 | `scripts/test-all-styles.sh` | 七套风格批量出图回归测试 | `bash scripts/test-all-styles.sh out/` |
 | `scripts/README.md` | 脚本参数说明与用法汇总 | — |
+| `scripts/techgraph_check.py` | 交付前质量门：SVG 结构自检 + 规格 JSON 校验（仅标准库，退出码 0/1/2） | `python3 scripts/techgraph_check.py --svg out/x.svg --spec specs/x.json --cjk` |
+| `references/case-library.md` | 案例库：架构图/序列图/ER 图/边界反例 4 例（背景·做法·结果） | — |
+
+## 十六、引用依据与溯源
+
+本技能的图型符号、文档编制与渲染语法以下列权威依据为准；正文或参考文件写法与依据
+不一致时，以依据原文为准，如有出入一律以 `【待核：…】` 标注并在交付说明中提示复核。
+
+| # | 依据全称 | 文号 / 版本 | 本技能引用点 |
+|---|---------|------------|-------------|
+| 1 | 《信息处理 数据流程图、程序流程图、系统流程图、程序网络图和系统资源图的文件编制符号及约定》 | GB/T 1526-1989 | 流程图/数据流图的符号、连线与约定 |
+| 2 | 《Information processing — Documentation symbols and conventions for data, program and system flowcharts, program network charts and system resources charts》 | ISO 5807:1985 | 流程图符号的国际口径 |
+| 3 | 《计算机软件文档编制规范》 | GB/T 8567-2006 | 技术文档中图件的编号、题注与引用方式 |
+| 4 | 《Information technology — Open Distributed Processing — Unified Modeling Language (UML)》 | ISO/IEC 19501:2005（UML 1.4.2） | 类图、用例图、状态机图、序列图的元素语义 |
+| 5 | 《Scalable Vector Graphics (SVG) 1.1 Specification》 | W3C Recommendation，2011-08-16 | 根元素、viewBox、marker、clipPath 等 SVG 语法 |
+| 6 | 《计算机软件需求规格说明规范》 | GB/T 9385-2008 | 需求/架构图中系统边界的表达口径 |
+
+**溯源要求**：图中全部文字（节点名、标签、图例、题注）只取自用户提供的描述与上列
+依据，不编造、不杜撰术语与关系；无法从输入确定或与依据冲突的字段，一律以
+`【待核：xxx】` 占位并提示用户复核，不得臆造。技能不引用未标注来源的第三方图库。
+
+## 十七、能力边界与不适用范围
+
+本技能仅在「二维静态技术图」范围内作业，以下请求不在范围，遇到时先说明边界并给出
+替代路径（不得沉默拒绝，也不得越界硬做）：
+
+- **不适用**：非 SVG 矢量格式的产出（PDF 矢量、EPS）。
+- **不适用**：图外文案创作、报告撰写、数据核实与事实查证。
+- **不在范围**：照片编辑、位图修图、手绘风格插画。
+- **不在范围**：三维渲染与物理仿真图。
+- **不做**：带动画或交互逻辑的图表（D3.js、Plotly、SMIL）与需要实时数据绑定的动态大屏。
+- **不做**：替代专业制图软件（Visio、draw.io 等）的工程制图与 CAD 出图。
+- **限定**：单图节点数建议 ≤ 40；超出时按语义拆分为多张子图并建立索引。
+
+## 十八、红线声明
+
+以下为固定拒绝口径，任何情况下不得突破，违反即视为交付不合格：
+
+1. **不生成违法违规内容** —— 拒绝任何含违法信息、侵权标识或误导性图件的绘制请求。
+2. **不替代专业资质判断** —— 结构安全、工程制图、医学/金融合规图件不代为背书，只做图形表达。
+3. **不承诺结果** —— 不保证图件通过第三方评审或符合未声明的行业规范；规范符合性以用户提供的依据为准。
+4. **不编造数据与术语** —— 不杜撰节点、指标、依据与文号；不确定即 `【待核】`，不得臆造。
+5. **不擅自改写业务语义** —— 节点文案只取自用户描述，不自行翻译、缩写或替换术语。
+6. **不在未通过校验时交付** —— 五项自检与 `techgraph_check.py` 未过不得交付 PNG，禁止跳过校验门。
+
+## 十九、可交付物与输出规范
+
+| 可交付物 | 格式 | 命名规范 | 质量门（端到端） |
+|---------|------|---------|----------------|
+| 主图源文件 | `.svg` | `[derived-name].svg` | 写入前五项自检 + `techgraph_check.py` 零报错 |
+| 位图导出 | `.png` | `[derived-name].png` | 宽度默认 1920px（2 倍图），体积 > 0，非全白 |
+| 图件规格 | `.json` | `specs/[name].json` | 含 `layers`/`nodes`/`edges` 三元结构，节点齐全 |
+| 交付清单 | Markdown / 文本 | — | 列出 SVG/PNG 绝对路径、风格编号、画布尺寸、渲染后端 |
+
+一键端到端命令（生成 → 自检 → 校验 → 出图）：
+
+```bash
+python3 scripts/render_diagram.py --spec specs/x.json --out out/x.svg --style 1 --png
+python3 scripts/techgraph_check.py --svg out/x.svg --spec specs/x.json --cjk --json
+bash scripts/validate-svg.sh out/x.svg
+```
+
+## 二十、版本沿革（CHANGELOG）
+
+- **v1.3.0**（2026-10-04）：补「引用依据与溯源」（6 条权威依据含 GB/ISO/W3C 全称与文号）、
+  「能力边界与不适用范围」、「红线声明」6 条固定口径、「可交付物与输出规范」表；
+  新增交付前质量门脚本 `scripts/techgraph_check.py` 与案例库 `references/case-library.md`；
+  失败模式章节补全降级/回退/重试/兜底/容错/防御口径与边界条件判据。
+- **v1.2.0**：新增七套视觉风格令牌文件与图型×风格适配矩阵；补齐 Quick Fix 修复协议。
+- **v1.1.0**：新增写入前五项自检与 `scripts/check_svg.py` 命令行校验链路。
+- **v1.0.0**：首版，覆盖 14 类图型、形状词汇与箭头语义系统。

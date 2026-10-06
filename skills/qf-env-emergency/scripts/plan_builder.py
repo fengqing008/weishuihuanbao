@@ -5,7 +5,7 @@
 按厂站名称生成预案 Markdown 骨架，含【待填：】占位。
 用法：
     python3 plan_builder.py --plant "城区污水处理厂" --out plan.md
-    python3 plan_builder.py --plant "某污水处理厂B污水处理厂"
+    python3 plan_builder.py --plant "三层岩污水处理厂"
 """
 import argparse
 import sys

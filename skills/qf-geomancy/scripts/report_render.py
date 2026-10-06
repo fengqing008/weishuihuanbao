@@ -2,7 +2,7 @@
 """report_render.py — 堪舆文化解读报告（Markdown 底稿 + HTML 基座渲染）
 
 用法:
-  python3 report_render.py --address "某市某区XX" --out 报告.html
+  python3 report_render.py --address "西安市某区XX" --out 报告.html
   python3 report_render.py --lat 34.37 --lng 109.21 --deg 120 --out r.html
   python3 report_render.py --address "..." --offline-demo --no-base
 """
